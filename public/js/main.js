@@ -95,7 +95,7 @@ showFaceDownloaderBtn.addEventListener('click', () => {
 
 async function toggleClipboard(enable) {
     try {
-        const response = await fetch(`${SERVER_URL}/api/toggle-clipboard?enable=${enable}`, { method: 'POST' });
+        const response = await fetch(`${SERVER_URL}/api/toggle-clipboard?enable=${enable}`, { method: 'GET' });
         const result = await response.json();
         const action = enable ? '启用' : '关闭';
         if (response.ok) {

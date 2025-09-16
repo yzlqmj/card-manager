@@ -76,7 +76,7 @@ func main() {
 }
 
 func toggleClipboardHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
+	if r.Method != http.MethodGet {
 		http.Error(w, "方法不允许", http.StatusMethodNotAllowed)
 		return
 	}
