@@ -81,6 +81,7 @@ func getCardMetadata(filePath string) (CacheEntry, error) {
 		InternalName: internalName,
 		Mtime:        mtime,
 	}
+
 	setCache(filePath, metadata) // 更新缓存
 	return metadata, nil
 }
@@ -173,16 +174,34 @@ func fetchCardsData() (CardsResponse, error) {
 						}
 					}
 
+					// 检查本地化状态
+					metadata, _ := getCardMetadata(versions[0].Path)
+					localizationNeeded := false
+					if metadata.LocalizationNeeded != nil {
+						localizationNeeded = *metadata.LocalizationNeeded
+					} else {
+						// 如果缓存中没有信息，则检查并更新缓存
+						needed, err := checkLocalizationNeeded(versions[0].Path)
+						if err == nil {
+							localizationNeeded = needed
+							metadata.LocalizationNeeded = &needed
+							setCache(versions[0].Path, metadata)
+						}
+					}
+					isLocalized, _ := isLocalized(characterName)
+
 					character := Character{
-						Name:              characterName,
-						InternalName:      versions[0].InternalName,
-						FolderPath:        itemPath,
-						LatestVersionPath: versions[0].Path,
-						VersionCount:      len(versions),
-						Versions:          versions,
-						HasNote:           hasNote,
-						HasFaceFolder:     hasFaceFolder,
-						ImportInfo:        importInfo,
+						Name:               characterName,
+						InternalName:       versions[0].InternalName,
+						FolderPath:         itemPath,
+						LatestVersionPath:  versions[0].Path,
+						VersionCount:       len(versions),
+						Versions:           versions,
+						HasNote:            hasNote,
+						HasFaceFolder:      hasFaceFolder,
+						ImportInfo:         importInfo,
+						LocalizationNeeded: localizationNeeded,
+						IsLocalized:        isLocalized,
 					}
 					response.Categories[categoryName] = append(response.Categories[categoryName], character)
 				}
@@ -619,4 +638,28 @@ func clearCacheHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "message": "缓存已清除"})
+}
+
+func localizeCardHandler(w http.ResponseWriter, r *http.Request) {
+	var body struct {
+		CardPath string `json:"cardPath"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+		http.Error(w, "无效的请求体", http.StatusBadRequest)
+		return
+	}
+
+	if !strings.HasPrefix(body.CardPath, config.CharactersRootPath) {
+		http.Error(w, "路径非法", http.StatusForbidden)
+		return
+	}
+
+	output, err := runLocalization(body.CardPath)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("本地化失败: %v\nOutput: %s", err, output), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "log": output})
 }

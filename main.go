@@ -61,6 +61,7 @@ func main() {
 	http.HandleFunc("/api/get-submitted-url", getSubmittedUrlHandler)
 	http.HandleFunc("/api/clear-cache", clearCacheHandler)
 	http.HandleFunc("/api/toggle-clipboard", toggleClipboardHandler)
+	http.HandleFunc("/api/localize-card", localizeCardHandler)
 
 	// 启动服务器
 	port := strconv.Itoa(config.Port)

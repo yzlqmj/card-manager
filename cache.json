@@ -2,52 +2,62 @@
   "D:\\yw\\AI\\角色卡\\Alice\\怡红院\\怡红院角色卡.png": {
     "hash": "73ba0cfc27f1aeee7fa3eaac291e0c301c715633aaaafe300aea758ae881adc7",
     "internalName": "怡红院",
-    "mtime": "2025-05-26T23:53:59.258001+08:00"
+    "mtime": "2025-05-26T23:53:59.258001+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\Alice\\明日方舟\\明日方舟.png": {
     "hash": "3a04bc86afe70748285b64f5dfadd98b67474a8243ac4cd93d9bbcb7f95b93ea",
     "internalName": "明日方舟",
-    "mtime": "2025-07-31T20:15:01.3928018+08:00"
+    "mtime": "2025-07-31T20:15:01.3928018+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\Alice\\曾根美雪\\曾根美雪.png": {
     "hash": "fcefdf97637fabc9369b305a9dd23a00a6cd1e6e687bbd41d21ad948714d7c85",
     "internalName": "曾根美雪",
-    "mtime": "2025-08-04T19:02:57.9285166+08:00"
+    "mtime": "2025-08-04T19:02:57.9285166+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\Alice\\特蕾西娅\\特蕾西娅.png": {
     "hash": "c5731d1e43c98f88003801ea369c46a2e58cd3ec20a167069fd0e1fe02110bf1",
     "internalName": "特蕾西娅",
-    "mtime": "2025-07-17T08:43:00.1875637+08:00"
+    "mtime": "2025-07-17T08:43:00.1875637+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\Alice\\特蕾西娅\\特蕾西娅1.1.png": {
     "hash": "c5731d1e43c98f88003801ea369c46a2e58cd3ec20a167069fd0e1fe02110bf1",
     "internalName": "特蕾西娅",
-    "mtime": "2025-04-22T11:20:57.2795814+08:00"
+    "mtime": "2025-04-22T11:20:57.2795814+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\Alice\\莫妮卡\\莫妮卡.png": {
     "hash": "53a34bf300ef2ab89ed827c9d6344364b9d5698da717d280502c4ec10b7a3431",
     "internalName": "莫妮卡",
-    "mtime": "2025-08-07T21:11:41.5159424+08:00"
+    "mtime": "2025-08-07T21:11:41.5159424+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\Gal\\clannad\\clannad.png": {
     "hash": "c4d22ee628979d0b64851c0fe603a63dc30329f100a3a55186d4d516f8956973",
     "internalName": "clannad",
-    "mtime": "2025-08-05T15:15:59.7639623+08:00"
+    "mtime": "2025-08-05T15:15:59.7639623+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\Gal\\夏日口袋\\vpqxyo.png": {
     "hash": "53c9373218389e807fcb300b1d931e33d47361a85771234ce525d308b3e5ef34",
     "internalName": "Summer Pockets REFLECTION BLUE",
-    "mtime": "2025-08-14T13:57:51.6653295+08:00"
+    "mtime": "2025-08-14T13:57:51.6653295+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\Gal\\星野梦美\\星野梦美 (1).png": {
     "hash": "3f1e070bded8eb9baca24eaf57e4e194af3b5926b7ffe950e8476300e4d10bb5",
     "internalName": "星野梦美",
-    "mtime": "2025-08-05T14:44:16.8211841+08:00"
+    "mtime": "2025-08-05T14:44:16.8211841+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\Gal\\星野梦美\\星野梦美 (2).png": {
     "hash": "b12fbe51b0d5c67e77cc69b3850a30a1d1053ceb37c263083441febce77e9cdd",
     "internalName": "星野梦美",
-    "mtime": "2025-08-05T14:44:39.2755258+08:00"
+    "mtime": "2025-08-05T14:44:39.2755258+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\Gal\\星野梦美\\星野梦美.png": {
     "hash": "d9f68c727219f65f66854bdbffe382e1123d4d2008d6e8aeeff898e547bdf475",
@@ -57,107 +67,128 @@
   "D:\\yw\\AI\\角色卡\\NSFW\\AV导演模拟器\\AV导演模拟器-赤裸帝国.png": {
     "hash": "e437ea229d0aa4d32ac53d3437f1abac8e06dada59dba09282ebb9e10c43eb5e",
     "internalName": "AV导演模拟器-赤裸帝国",
-    "mtime": "2025-09-12T23:02:34.3108601+08:00"
+    "mtime": "2025-09-12T23:02:34.3108601+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\All_Tomorrows\\All_Tomorrows.png": {
     "hash": "6004d78b2ae053beaf0c5ad8a4f55a0ce8f871060620ad9cd058860945fc1914",
     "internalName": "All Tomorrows",
-    "mtime": "2025-08-19T18:05:57.4989267+08:00"
+    "mtime": "2025-08-19T18:05:57.4989267+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\All_Tomorrows\\享乐主义者[ALL TOMORROWS].png": {
     "hash": "11713efb1170a290335471936239ffbd89fe386d33868ff89a412e8bb7b5f35d",
     "internalName": "享乐主义者",
-    "mtime": "2025-08-19T18:15:55.9323721+08:00"
+    "mtime": "2025-08-19T18:15:55.9323721+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\万界娼馆\\万界娼馆1 (3).png": {
     "hash": "61cc50873a9f627e1608f0f1ef0d3d9d59587755ed89430ef77d76848bd26056",
     "internalName": "万界娼馆",
-    "mtime": "2025-09-14T18:08:18.4297722+08:00"
+    "mtime": "2025-09-14T18:08:18.4297722+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\不色色就会死\\不色色就会死.png": {
     "hash": "13fc354b2b86587b9536e99c42bbef547db3baeae4b7192e742904c70f2ea643",
     "internalName": "不色色就会死",
-    "mtime": "2025-09-14T16:19:37.0149105+08:00"
+    "mtime": "2025-09-14T16:19:37.0149105+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\与颜小姐一起享受异种奸的末世悠闲生活\\1_1.png": {
     "hash": "e281986af8719d9fd3df7a11b93fe3f0646f08ee374e208acdf4f8bb10f21572",
     "internalName": "颜小姐",
-    "mtime": "2025-07-20T18:28:54.611774+08:00"
+    "mtime": "2025-07-20T18:28:54.611774+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\世界调制模式·重制版\\世界调制模式·重制版.png": {
     "hash": "63c05d87222aee4b803e10195dd9d66b4415ee5eb3e1dbf98dd4ab625b6870bd",
     "internalName": "世界调制模式·重制版",
-    "mtime": "2025-08-24T09:41:51.7172899+08:00"
+    "mtime": "2025-08-24T09:41:51.7172899+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\丧尸末日我的精液可以进化女丧尸\\丧尸末日，我的精液可以进化女丧尸.png": {
     "hash": "94d388699d95233c6792c578d34ba57630974d60d2cfe813ad7e625cce4a560b",
     "internalName": "丧尸末日，我的精液可以进化女丧尸",
-    "mtime": "2025-09-05T16:49:07.6578753+08:00"
+    "mtime": "2025-09-05T16:49:07.6578753+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\人生复本\\人生复本.png": {
     "hash": "aae4b243b834f2b2927157481a515f4c0cfae4bce94d6d84320d1616197a6275",
     "internalName": "人生复本",
-    "mtime": "2025-07-05T19:21:55.177855+08:00"
+    "mtime": "2025-07-05T19:21:55.177855+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\人生复本\\人生复本MVU.png": {
     "hash": "1b3c1dd5310ad8b545b69476fc641ac35aa456e78b82e8cd831ef81b1b1157db",
     "internalName": "人生复本MVU",
-    "mtime": "2025-07-05T19:22:03.809592+08:00"
+    "mtime": "2025-07-05T19:22:03.809592+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\人生最后一次清醒\\人生最后一次清醒 (1).png": {
     "hash": "ba104cb7a4d054a16bccfb9a5533a1fb67cca0bd5e89248b0817d24a23fe4dc7",
     "internalName": "人生最后一次清醒",
-    "mtime": "2025-08-24T19:28:36.3287392+08:00"
+    "mtime": "2025-08-24T19:28:36.3287392+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\仙子女帝\\仙帝冷清雪.png": {
     "hash": "0f0ab8777b249b9351a47893adf7c1ea212b1388895678f474c72abd408bd923",
     "internalName": "仙帝冷清雪",
-    "mtime": "2025-06-30T19:04:09.9391963+08:00"
+    "mtime": "2025-06-30T19:04:09.9391963+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\伪装插班生与少女们的协奏曲\\阿卡迪亚回响：伪装插班生与少女们的协奏曲 (1).png": {
     "hash": "ffa772781084aad2046a2fb90905eeaea09541ae4c3424b680811ae87f7ff0af",
     "internalName": "阿卡迪亚回响：伪装插班生与少女们的协奏曲",
-    "mtime": "2025-08-22T17:35:05.8680856+08:00"
+    "mtime": "2025-08-22T17:35:05.8680856+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\修仙世界系统\\修仙世界系统.png": {
     "hash": "37ef2f59670cc22df577eb863575353ae827c9a6faf6254323fe4042c3022d52",
     "internalName": "修仙世界系统",
-    "mtime": "2025-08-05T20:43:11.1230113+08:00"
+    "mtime": "2025-08-05T20:43:11.1230113+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\修炼合欢功法的圣女\\雪山素女 (1).png": {
     "hash": "17b3f5f4b0692debec302402d63ff29eb3750f10caeb5ab2a2622a060ac50b93",
     "internalName": "雪山素女",
-    "mtime": "2025-08-05T20:48:30.5454541+08:00"
+    "mtime": "2025-08-05T20:48:30.5454541+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\催泪剧本杀沉浸体验店\\催泪剧本杀沉浸体验店-0808.png": {
     "hash": "31d7fd5a950defb3b10b50023278cb35c0610cbd3b1eff4db93a5fa1e2904ef3",
     "internalName": "催泪剧本杀沉浸体验店",
-    "mtime": "2025-09-14T15:17:41.249046+08:00"
+    "mtime": "2025-09-14T15:17:41.249046+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\先生，请保持射精距离\\先生，请保持射精距离 (1).png": {
     "hash": "0f989806002b1434fbeaee5cdfa39fa86426707867ca19c6428229ccf196c48d",
     "internalName": "先生，请保持射精距离",
-    "mtime": "2025-08-24T19:07:58.5115538+08:00"
+    "mtime": "2025-08-24T19:07:58.5115538+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\全国色色大会\\全国色色大会.png": {
     "hash": "86e210a8b1ae8c23687f5982530cfe90aa4c471cc1c605838fcf48f47a868624",
     "internalName": "全国色色大会~",
-    "mtime": "2025-09-15T15:53:05.2300446+08:00"
+    "mtime": "2025-09-15T15:53:05.2300446+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\全裸登校-育露学园的第一天\\[8.23 v0.2]全裸登校-育露学园的第一天.png": {
     "hash": "c87fdeb79019dbf86c64be29f5a391af22ce8107b8c90624fd2ca6b9a591f5a2",
     "internalName": "[8.23 v0.2]全裸登校-育露学园的第一天",
-    "mtime": "2025-08-24T19:43:08.4648156+08:00"
+    "mtime": "2025-08-24T19:43:08.4648156+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\全裸登校-育露学园的第一天\\[8.26 v0.3]全裸登校-育露学园的第一天.png": {
     "hash": "5e37151cc686b8988e6cddbde7db30381f00d2e57a80a9d9e19deb32d62c72b6",
     "internalName": "[8.26 v0.3]全裸登校-育露学园的第一天",
-    "mtime": "2025-08-27T13:33:17.4387162+08:00"
+    "mtime": "2025-08-27T13:33:17.4387162+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\全裸登校-育露学园的第一天\\[9.7 v0.6]全裸登校-育露学园的第一天.png": {
     "hash": "c9387478e9032890164ce00209233ab45d0b7bef52f059d3d6e973abf5c44650",
     "internalName": "[9.7 v0.6]全裸登校-育露学园的第一天",
-    "mtime": "2025-09-07T13:54:28.1099488+08:00"
+    "mtime": "2025-09-07T13:54:28.1099488+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\别人的妻子如此淫荡真是太棒了\\1.png": {
     "hash": "9fc1bd88a811c893f69c9fb860c51035b3ed94027fa409ceebdef84101497ad2",
@@ -187,87 +218,104 @@
   "D:\\yw\\AI\\角色卡\\NSFW\\别人的妻子如此淫荡真是太棒了\\别人的妻子如此淫荡真是太棒了！.png": {
     "hash": "63361b21c3fe9926cfc121903ad0ce72854054b8e32828872c957a2596f00679",
     "internalName": "我们的妻子如此淫荡真是太棒了！",
-    "mtime": "2025-08-06T18:30:16.3562749+08:00"
+    "mtime": "2025-08-06T18:30:16.3562749+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\卡巴斯娼馆\\GQuuuuuuX 卡巴斯娼馆_KA1.6(O).png": {
     "hash": "4d7b1545f16c8a31a52ecbf9c0181b7c932c717d5366ee1bd9a0e16c149d4d09",
     "internalName": "GQuuuuuuX 卡巴斯娼馆",
-    "mtime": "2025-09-12T23:06:49.6251259+08:00"
+    "mtime": "2025-09-12T23:06:49.6251259+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\卡巴斯娼馆\\MG GQuuuuuuX 卡巴斯娼馆.png": {
     "hash": "d15be406a760d12d21e99985e839ea348d5035316ea4d19374ac5d92642002a3",
     "internalName": "MG GQuuuuuuX 卡巴斯娼馆",
-    "mtime": "2025-09-12T23:07:10.6264787+08:00"
+    "mtime": "2025-09-12T23:07:10.6264787+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\合欢妖侠录\\合欢妖侠录V0.1.png": {
     "hash": "dde31ae9ece93767e848b2712b2925de4ac438ab871234170de5b10912987e00",
     "internalName": "合欢妖侠录V0.1",
-    "mtime": "2025-08-24T19:18:09.8800436+08:00"
+    "mtime": "2025-08-24T19:18:09.8800436+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\合欢宗\\合欢宗 (3).png": {
     "hash": "79dc1dd7d8b65aa2b2c15ace520f5524a010efa8f38b429b67634fdf45763526",
     "internalName": "合欢宗",
-    "mtime": "2025-08-05T20:39:55.4736121+08:00"
+    "mtime": "2025-08-05T20:39:55.4736121+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\合欢宗：我的万千雌畜淫窟\\玄天大陆.png": {
     "hash": "0dd3d6451f24365cd0e0d8cf3b2cbf1a8ca5ff92d12e010c277625e45d8a64f5",
     "internalName": "玄天大陆",
-    "mtime": "2025-08-05T20:41:23.0926834+08:00"
+    "mtime": "2025-08-05T20:41:23.0926834+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\和妹妹偷偷摸摸做愛吧\\和妹妹偷偷摸摸做愛吧1.png": {
     "hash": "90558b66e137cdae0df0d200eb0145ed8464ea02f89fc2c10181240d4fd84514",
     "internalName": "和妹妹偷偷摸摸做愛吧",
-    "mtime": "2025-08-22T17:34:09.4412521+08:00"
+    "mtime": "2025-08-22T17:34:09.4412521+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\和妹妹偷偷摸摸做愛吧\\和妹妹偷偷摸摸做愛吧2.png": {
     "hash": "ff032832531059fe8e07b54128655b33dd849c3b296c627b4293bba648dabd97",
     "internalName": "和妹妹偷偷摸摸做愛吧",
-    "mtime": "2025-08-24T11:18:05.4105153+08:00"
+    "mtime": "2025-08-24T11:18:05.4105153+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\咚咚和星星\\咚咚和星星.png": {
     "hash": "06467d927a4275da3413ebd015577a7bac9fc1af63367b15b9258c7444854ba8",
     "internalName": "咚咚和星星",
-    "mtime": "2025-08-28T16:03:56.3859961+08:00"
+    "mtime": "2025-08-28T16:03:56.3859961+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\哆啦C梦性爱陪伴机器人\\哆啦C梦性爱陪伴机器人[哆啦A梦成人版]v1.2.png": {
     "hash": "06e4efc460e0aa14a62473e72c8a804d201fe4c302f8b27b6aa5f92c713f5260",
     "internalName": "哆啦C梦性爱陪伴机器人[哆啦A梦成人版]v1.2",
-    "mtime": "2025-07-17T08:08:04.3149666+08:00"
+    "mtime": "2025-07-17T08:08:04.3149666+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\回响乐园\\回响乐园.png": {
     "hash": "f11bf0ec4b6f5a1bb6ed2f029600d8f839cf0b8a2bb6f3a49bdf4cc68bd4f1d6",
     "internalName": "回响乐园",
-    "mtime": "2025-09-04T22:54:01.6947469+08:00"
+    "mtime": "2025-09-04T22:54:01.6947469+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\圣女大人的秘密Paradox\\Paradox_1.png": {
     "hash": "aa3f9c3397ead65ea9d85d9d8e915c12b5b989bba03f0fdaeb608d02fdc5d1b8",
     "internalName": "圣女大人的秘密 Paradox",
-    "mtime": "2025-08-22T17:32:35.2262167+08:00"
+    "mtime": "2025-08-22T17:32:35.2262167+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\在哥哥的关怀下过上幸福生活\\林知恩.png": {
     "hash": "f9b0caa3d0826063dc5709654cc135ca43f9dcb364f0b13c756aab24eb1b3289",
     "internalName": "林知恩",
-    "mtime": "2025-08-02T19:09:03.3034025+08:00"
+    "mtime": "2025-08-02T19:09:03.3034025+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\地雷系的妹妹求包养找上了我\\地雷系的妹妹求包养找上了我.png": {
     "hash": "badd70b1b69274a093623be307a2567d8a46a9f39d6676b6b8492e787eb286a5",
     "internalName": "地雷系的妹妹求包养找上了我",
-    "mtime": "2025-09-15T16:04:17.3666469+08:00"
+    "mtime": "2025-09-15T16:04:17.3666469+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\塞尔提亚\\塞尔提亚0911.png": {
     "hash": "02c0491e11ba775efe3c3b06e80463f163f16e5670986c89faae0eefac7beabc",
     "internalName": "塞尔提亚",
-    "mtime": "2025-09-12T19:17:48.3795711+08:00"
+    "mtime": "2025-09-12T19:17:48.3795711+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\壁尻系统\\壁尻系统.png": {
     "hash": "73d02de0029bc41fab6d24711916ca02894ad15f9960311b067d3124cd28f262",
     "internalName": "-壁尻系统v1.0-",
-    "mtime": "2025-09-14T17:19:16.9647625+08:00"
+    "mtime": "2025-09-14T17:19:16.9647625+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\大唐青楼模拟器\\大唐青楼模拟器 v1.1.1 .png": {
     "hash": "89cb5e75be95d904579b7a9a7b320d512f4882d537191c3e068566b621d87ef8",
     "internalName": "大唐青楼模拟器",
-    "mtime": "2025-08-04T12:30:38.4831541+08:00"
+    "mtime": "2025-08-04T12:30:38.4831541+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\大唐青楼模拟器\\大唐青楼模拟器.png": {
     "hash": "d80e37205ec078c0c8662035480a5e423371bc3aafe445cfda40f7911d6487a3",
@@ -277,67 +325,80 @@
   "D:\\yw\\AI\\角色卡\\NSFW\\天下第一性道大会\\天下第一性道大会.png": {
     "hash": "d93941287fdfebb0f971a4b094a96a48e05072cd4c40baa87bea4d1071068a27",
     "internalName": "天下第一性道大会2.0",
-    "mtime": "2025-09-15T15:59:15.1201899+08:00"
+    "mtime": "2025-09-15T15:59:15.1201899+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\天庭当官，西游伊始\\SPOILER_乾坤磨弄 (1).png": {
     "hash": "9a1b1e1229e570e7866baa2cd422922f16aa041d45990bd0b306ffee7e10fdc0",
     "internalName": "乾坤磨弄",
-    "mtime": "2025-08-02T19:34:09.4661348+08:00"
+    "mtime": "2025-08-02T19:34:09.4661348+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\女仆庄园\\女仆庄园 (8).png": {
     "hash": "4dd9db46b95f44eab461c60394084acf67f425bd32fc253b60daf6cbeb31d58a",
     "internalName": "女仆庄园",
-    "mtime": "2025-08-23T20:20:32.5748382+08:00"
+    "mtime": "2025-08-23T20:20:32.5748382+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\女奴调教师\\女奴调教师.png": {
     "hash": "7a4bf8779b5f31dcff0e42d7a89d0e069fd4ca9e03f674596bd90edc5031bbbf",
     "internalName": "女奴调教师",
-    "mtime": "2025-08-19T14:21:18.0640052+08:00"
+    "mtime": "2025-08-19T14:21:18.0640052+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\女校里的心理医生\\私立圣华女子学院3 (1).png": {
     "hash": "f117769a5344f71d402cafc569729aab9262fd0dfab2b6953aeb9051cf3f9c38",
     "internalName": "私立圣华女子学院",
-    "mtime": "2025-08-06T18:29:41.5891201+08:00"
+    "mtime": "2025-08-06T18:29:41.5891201+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\女骑士模拟器\\真·女骑士模拟器V4.0.png": {
     "hash": "0654d47a717201cb5d9a943ff48c0eaa9a6df4f5eb32b364c177efa3470787f0",
     "internalName": "真·女骑士模拟器V4.0",
-    "mtime": "2025-08-24T19:16:48.5068797+08:00"
+    "mtime": "2025-08-24T19:16:48.5068797+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\妙母布施\\妙母布施v1.1.png": {
     "hash": "2e3aa031bc34899475290ef0ff2e939d04639c072689b8ffd2c0b04e1891d550",
     "internalName": "妙母布施v1.1",
-    "mtime": "2025-08-14T20:49:35.4469932+08:00"
+    "mtime": "2025-08-14T20:49:35.4469932+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\媚肉真菌\\我的媚肉真菌女儿_2.png": {
     "hash": "33491a4bf258cfa5d595ab823ed85634a100a79bc913af321c1c0ec9676970e0",
     "internalName": "我的媚肉真菌女儿",
-    "mtime": "2025-08-05T14:14:20.4626975+08:00"
+    "mtime": "2025-08-05T14:14:20.4626975+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\安缘\\安缘 (3).png": {
     "hash": "95c0745f45bc4b3a3d0d9decc7503d14b6b537d5539dc1097b83fad3022f0124",
     "internalName": "安缘",
-    "mtime": "2025-09-04T22:38:46.9046686+08:00"
+    "mtime": "2025-09-04T22:38:46.9046686+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\射了么APP\\射了么.png": {
     "hash": "9fcf4d50f1e4b79b133cdec5bb8f0ade2a0bc754b8352f190bbe2559d8d8261f",
     "internalName": "射了么",
-    "mtime": "2025-08-14T20:06:08.6677269+08:00"
+    "mtime": "2025-08-14T20:06:08.6677269+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\射了么APP\\射了么0818.png": {
     "hash": "855d7a8d39d262958671e0e1ea8f90b28d3caf0f2ef3db13862d6e995b002721",
     "internalName": "射了么",
-    "mtime": "2025-08-24T11:24:14.1261286+08:00"
+    "mtime": "2025-08-24T11:24:14.1261286+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\巨乳店员多进了66个避孕套该怎么办\\v2.1-y.png": {
     "hash": "6aa1834e87b9c8548150b8f24bcfebe039556c17dffd8190b6dd0bbf0d31eb40",
     "internalName": "隐奸便利店 2.1",
-    "mtime": "2025-08-14T20:30:36.5505693+08:00"
+    "mtime": "2025-08-14T20:30:36.5505693+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\巨乳店员多进了66个避孕套该怎么办\\隐奸便利店 2.1.png": {
     "hash": "b8604c3b4bb6285f91aff3ab4d3524b783225058d4be9d4356191d6e0057f6c7",
     "internalName": "隐奸便利店 2.1",
-    "mtime": "2025-08-23T20:02:20.9902165+08:00"
+    "mtime": "2025-08-23T20:02:20.9902165+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\废土上的肉体交易\\clk-026废土上的肉体交易.png": {
     "hash": "ede2ca78c9101dcd2601677889d632bf78406c2812d7bd96e054fcc5a3690af1",
@@ -347,77 +408,92 @@
   "D:\\yw\\AI\\角色卡\\NSFW\\废土上的肉体交易\\废土上的肉体交易.png": {
     "hash": "446ae59ef0cf6f8249d72798db4e92b5c97f84a74e070e1f6b32e8eee5c73f60",
     "internalName": "clk-026废土上的肉体交易",
-    "mtime": "2025-08-04T19:31:33.9970396+08:00"
+    "mtime": "2025-08-04T19:31:33.9970396+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\异族婚配游戏\\异族婚配游戏.png": {
     "hash": "5b901dc38df67aeb916adf2be61d00211e504e9560d6af20a6a303f09c6bce06",
     "internalName": "异族婚配游戏",
-    "mtime": "2025-09-16T15:33:20.1491258+08:00"
+    "mtime": "2025-09-16T15:33:20.1491258+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\御姐林雅\\御姐林雅 (8).png": {
     "hash": "45ace1ff26f967e89160b5a8cf8f05e638eef5f28670cce0a074a9cb1fa8a9f3",
     "internalName": "御姐林雅",
-    "mtime": "2025-09-04T20:22:42.3770791+08:00"
+    "mtime": "2025-09-04T20:22:42.3770791+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\必须在女性体内才能排出精液\\必须在女性体内才能排出精液的世界.png": {
     "hash": "2e7ef18961c47d81034a4f22cb8928c5461cecfca96ffc45875f0947b0b48864",
     "internalName": "必须在女性体内才能排出精液的世界",
-    "mtime": "2025-07-17T08:20:35.9322415+08:00"
+    "mtime": "2025-07-17T08:20:35.9322415+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\性癖大世界\\v0.8.1-y.png": {
     "hash": "3470bbe9fc55454c3af5119e222bda96edfbac27fd2ea8795a951795ba09efa1",
     "internalName": "性癖大世界-0.8.1-有状态栏",
-    "mtime": "2025-07-05T19:17:27.4063921+08:00"
+    "mtime": "2025-07-05T19:17:27.4063921+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\恶女\\欺骗之旅.png": {
     "hash": "509a2f665c609775dbc2ed020bcb90eefc278c5bda8045e67d023bc692888c50",
     "internalName": "欺骗之旅",
-    "mtime": "2025-09-08T02:00:54.172053+08:00"
+    "mtime": "2025-09-08T02:00:54.172053+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\恶女\\水濑.png": {
     "hash": "f8dc7f78014be672440e2b173b1b5f7cff92e2cb718e45bb82b7b039831b8c92",
     "internalName": "水濑",
-    "mtime": "2025-09-08T02:00:34.805135+08:00"
+    "mtime": "2025-09-08T02:00:34.805135+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\恶女\\美纱.png": {
     "hash": "4640cf2501f94d5ae0d00b7bf3c668ca750d7494b0b08fb43e7bf98463c5c842",
     "internalName": "美纱",
-    "mtime": "2025-09-08T02:00:42.3281244+08:00"
+    "mtime": "2025-09-08T02:00:42.3281244+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\我和她们的末日生存\\我和她们的末日生存.png": {
     "hash": "45609a4da104dd659e7b5681ce4665f69bc467c5a357ac5fa699e25de8dd1b76",
     "internalName": "OoCTalk",
-    "mtime": "2025-08-09T17:54:20.9275209+08:00"
+    "mtime": "2025-08-09T17:54:20.9275209+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\我和她们的末日生存\\我和她们的末日生存1.png": {
     "hash": "869143f1a0aeb6dc161778e322c9d2014e59c97831ca028a941e6b757774e9c9",
     "internalName": "我和她们的末日生存",
-    "mtime": "2025-08-24T11:22:02.2471844+08:00"
+    "mtime": "2025-08-24T11:22:02.2471844+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\我的兄弟让我睡他的女友\\我的兄弟，让我睡他的女友.png": {
     "hash": "cf5f5992c32ed50793615a79bae0297f35ec73dc2e1817b6ebec3e5cda09ed65",
     "internalName": "我的兄弟，让我睡他的女友",
-    "mtime": "2025-09-05T09:16:44.4228795+08:00"
+    "mtime": "2025-09-05T09:16:44.4228795+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\我的妹妹是穿越者\\我的妹妹是穿越者.png": {
     "hash": "e02f7c9d3873698e86ca568ae0038b207e32ad3902ec35d0735d9ba74fddf65d",
     "internalName": "我的妹妹是穿越者",
-    "mtime": "2025-08-22T13:50:01.1502779+08:00"
+    "mtime": "2025-08-22T13:50:01.1502779+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\我的妹妹是穿越者\\穿越者妹妹（if线）.png": {
     "hash": "4b64ca63a1fa2194b853039b10de7aeff8c347cc1c61390bfa9a32c0697e6cdc",
     "internalName": "穿越者妹妹（if线）",
-    "mtime": "2025-08-22T13:50:11.5141511+08:00"
+    "mtime": "2025-08-22T13:50:11.5141511+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\我的生活是欧美av男主角\\【pornhub】我的生活是欧美av男主角？ (1).png": {
     "hash": "0164c4e1f2bfbd2edccd5ae15411d6b5142864480ed30f3571163e5f98bde4e6",
     "internalName": "【pornhub】我的生活是欧美av男主角？",
-    "mtime": "2025-09-12T17:37:36.2539696+08:00"
+    "mtime": "2025-09-12T17:37:36.2539696+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\我的生活是欧美av男主角\\【pornhub】我的生活是欧美av男主角？ (4).png": {
     "hash": "792067a4b582b06f8b9f70cf1198504b11067ab01f9f492382fde2f9bea10cfe",
     "internalName": "【pornhub】我的生活是欧美av男主角？",
-    "mtime": "2025-09-12T17:53:58.9959544+08:00"
+    "mtime": "2025-09-12T17:53:58.9959544+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\我花钱雇同学当我妈\\1.png": {
     "hash": "59e703f0cbdb9c14017f5d77d45c9c8ce50cea912d1367b82394252e1a6b1858",
@@ -447,7 +523,8 @@
   "D:\\yw\\AI\\角色卡\\NSFW\\我花钱雇同学当我妈\\I Paid My Classmate to Be My Mom.png": {
     "hash": "84628750b8cf0287ddaf152085930c2647b4dcb2e54680ba01fcc31e0ee093b1",
     "internalName": "",
-    "mtime": "2025-08-14T18:45:18.0461568+08:00"
+    "mtime": "2025-08-14T18:45:18.0461568+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\我花钱雇同学当我妈\\SPOILER_Crotch_Stomping.png": {
     "hash": "904db0c79e5add1907b648fe031e391fe52235d2b4bf2f8b1e8aa69df36064b2",
@@ -462,102 +539,122 @@
   "D:\\yw\\AI\\角色卡\\NSFW\\报复游戏不让我射你会死\\报复游戏～不让我射你会死～.png": {
     "hash": "038571e7caf2a9c486ad5642a9926a85f87de4f02c8df8cbceb118c4672f4b84",
     "internalName": "报复游戏～不让我射你会死～",
-    "mtime": "2025-08-24T19:11:58.227999+08:00"
+    "mtime": "2025-08-24T19:11:58.227999+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\抱脸虫\\抱脸虫.png": {
     "hash": "0dd4e8eb635b1874b2619316a8e99c809291df1643a66f273af85bd6de88eda0",
     "internalName": "苏晓\u0026facehugger",
-    "mtime": "2025-08-05T14:24:04.0628198+08:00"
+    "mtime": "2025-08-05T14:24:04.0628198+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\抽卡江湖\\抽卡江湖.png": {
     "hash": "c0ea664217f63e8c6ca2a55d411b9ea33c28aaba61b254742ce702955101a28b",
     "internalName": "抽卡江湖",
-    "mtime": "2025-06-25T17:09:28.7800263+08:00"
+    "mtime": "2025-06-25T17:09:28.7800263+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\接受黄衣之主的触手调教吧\\触手少女莉莉丝.png": {
     "hash": "b2e13dd8d253323470f7fe6b7b27821c7e620556dcc738e9440f8212f92b6807",
     "internalName": "触手少女莉莉丝",
-    "mtime": "2025-08-09T01:17:03.1162203+08:00"
+    "mtime": "2025-08-09T01:17:03.1162203+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\春见\\春见.png": {
     "hash": "2463e31633eb1aac9505f027a158c87c0406530937b18cf863071873374b9d1a",
     "internalName": "春见",
-    "mtime": "2025-09-04T23:13:20.96927+08:00"
+    "mtime": "2025-09-04T23:13:20.96927+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\暗恋的女孩竟然成为了家里的裸体女仆\\暗恋的女孩竟然成为了家里的裸体女仆？1 (2).png": {
     "hash": "da9f83cfed617d2ff6925a7293bd29edb1ff58746166f99cb1d4d1986ffd9b7f",
     "internalName": "暗恋的女孩竟然成为了家里的裸体女仆？",
-    "mtime": "2025-08-14T20:12:15.8611731+08:00"
+    "mtime": "2025-08-14T20:12:15.8611731+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\来经营涩涩按摩店吧\\神愈斋.png": {
     "hash": "eed0a1d0e8acb0f21c94447360500355f96f7bd5406cd32410f8de6b0ce6c019",
     "internalName": "神愈斋",
-    "mtime": "2025-08-05T15:37:05.5752796+08:00"
+    "mtime": "2025-08-05T15:37:05.5752796+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\来经营涩涩按摩店吧\\神愈斋0818.png": {
     "hash": "8ed748d5907101e7dd11abf979543a21e4ccdd118384deb9be9246ca93aaaee9",
     "internalName": "神愈斋",
-    "mtime": "2025-08-27T17:21:22.6339603+08:00"
+    "mtime": "2025-08-27T17:21:22.6339603+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\极乐游乐园\\极乐游乐园.png": {
     "hash": "e13c908bafdad8bc30420572fc4bd1f5630f08573ae077d0b6faf0890f917dce",
     "internalName": "极乐游乐园",
-    "mtime": "2025-08-14T20:37:01.9195024+08:00"
+    "mtime": "2025-08-14T20:37:01.9195024+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\极乐的尽头\\极乐的尽头 (8).png": {
     "hash": "e3ba7e383f343ffd7d9c0db87c48ad6968975136f647577ba93df826d285eff5",
     "internalName": "极乐的尽头",
-    "mtime": "2025-09-04T23:18:03.6505078+08:00"
+    "mtime": "2025-09-04T23:18:03.6505078+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\极乐都市\\极乐都市 (1).png": {
     "hash": "9208d098939831ebcd76914e20b606b0c6d1d8a55ad6856afeb7579b2aa3e18c",
     "internalName": "极乐都市",
-    "mtime": "2025-08-27T16:20:24.4304745+08:00"
+    "mtime": "2025-08-27T16:20:24.4304745+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\柳府风月录\\《柳府风月录》V2.png": {
     "hash": "d4dd89c133759392e340b2b33c2ab18e557a5944e23fcedcc5fffadd9e13cac5",
     "internalName": "《柳府风月录》",
-    "mtime": "2025-08-05T07:51:08.2074259+08:00"
+    "mtime": "2025-08-05T07:51:08.2074259+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\梦星曦就简\\梦星曦就简.png": {
     "hash": "57a692e669ac8d72e0438944e4ac57b83f1e014e61f39cdf56f7f43fbef9af8f",
     "internalName": "梦星曦就简",
-    "mtime": "2025-07-08T19:27:59.2995788+08:00"
+    "mtime": "2025-07-08T19:27:59.2995788+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\梦衍月\\捅死你捅死你【梦衍月】【梦星作品】 (2).png": {
     "hash": "6617fb029b63dca31d8b22f4110120969f041aaaf89f19333806a98f48cf5ed3",
     "internalName": "捅死你捅死你【梦衍月】【梦星作品】",
-    "mtime": "2025-07-08T19:51:04.8306033+08:00"
+    "mtime": "2025-07-08T19:51:04.8306033+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\梦衍月\\捅死你捅死你【梦衍月】【梦星作品】.png": {
     "hash": "6617fb029b63dca31d8b22f4110120969f041aaaf89f19333806a98f48cf5ed3",
     "internalName": "捅死你捅死你【梦衍月】【梦星作品】",
-    "mtime": "2025-06-25T17:29:38.1720123+08:00"
+    "mtime": "2025-06-25T17:29:38.1720123+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\椎名真昼\\椎名真昼_1 (2).png": {
     "hash": "962826a1d64ceee601055f2fb84a5361f56c22de1c0fb252e8a7636a7c9444d4",
     "internalName": "椎名真昼",
-    "mtime": "2025-09-14T13:42:02.1621394+08:00"
+    "mtime": "2025-09-14T13:42:02.1621394+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\欢迎来到实力至上主义的教室\\1.png": {
     "hash": "8161ff0f87bf3e822b87f0785a50cc585ee794e38b62f1436e9b66fb74005a32",
     "internalName": "实教v2.3",
-    "mtime": "2025-08-14T20:34:22.9076202+08:00"
+    "mtime": "2025-08-14T20:34:22.9076202+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\欢迎来到实力至上主义的教室\\实教v2.5(精简版,测试) (3).png": {
     "hash": "6fe9dd7315ef2e6c44002f275501822c72b32fc5b26dca059eba511bc1817d95",
     "internalName": "实教v2.5(精简版,测试)",
-    "mtime": "2025-08-14T20:33:56.5924983+08:00"
+    "mtime": "2025-08-14T20:33:56.5924983+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\欢迎来到实力至上主义的教室\\实教v2.6(正式版，非原著时间线)1.png": {
     "hash": "59b6e7d221e8434f2943f88768dddb4da1cbb08b51fee6a3624bb012c8364528",
     "internalName": "实教v2.6(正式版，非原著时间线)",
-    "mtime": "2025-08-14T20:33:08.044293+08:00"
+    "mtime": "2025-08-14T20:33:08.044293+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\欢迎来到猎人游戏\\猎人游戏 最终典藏版_0816.png": {
     "hash": "c3ce65558b7e73539384e09e8e8e0873a8f959efe1d42daef3707c5f194c2750",
     "internalName": "猎人游戏 最终典藏版",
-    "mtime": "2025-08-25T21:25:37.9611052+08:00"
+    "mtime": "2025-08-25T21:25:37.9611052+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\欢迎来到猎人游戏\\猎人游戏2.png": {
     "hash": "01395a431555820e217686de603414dc45975efe3c92592c668c2d7ac055a7ce",
@@ -572,127 +669,152 @@
   "D:\\yw\\AI\\角色卡\\NSFW\\欢迎来到猎人游戏\\猎人游戏v1.2-0812.png": {
     "hash": "a5526f925ef5c65b49e62d622eb958aea7f2fac1bd6d6c8a90e9eaaeb9c78d52",
     "internalName": "猎人游戏v1.2",
-    "mtime": "2025-08-12T20:48:07.3408408+08:00"
+    "mtime": "2025-08-12T20:48:07.3408408+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\欢迎来到猎人游戏\\猎人游戏v1.3-0813.png": {
     "hash": "ced7a534aae32f8a4b25344a110fea8ee35d08f87db22df64248379049c1cfa9",
     "internalName": "猎人游戏v1.3",
-    "mtime": "2025-08-14T19:58:49.6319776+08:00"
+    "mtime": "2025-08-14T19:58:49.6319776+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\欢迎来到猎人游戏\\猎人游戏v1.3女性视角-0813.png": {
     "hash": "fd43e91adc8f6e0955abd5e9189f623b0b12e96372f8994e365b2975fd086bff",
     "internalName": "猎人游戏v1.3女性视角",
-    "mtime": "2025-08-14T19:59:05.5179445+08:00"
+    "mtime": "2025-08-14T19:59:05.5179445+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\母女猫娘女仆\\母女猫娘女仆 (5).png": {
     "hash": "5d8e57c9f1636800f996f8ca7a29d06b6e2efbec9a985e89edc0459615466734",
     "internalName": "母女猫娘女仆",
-    "mtime": "2025-06-30T21:34:39.5388622+08:00"
+    "mtime": "2025-06-30T21:34:39.5388622+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\永远被痴女围堵的特殊体质\\永远被痴女围堵的特殊体质.png": {
     "hash": "1631d59caf3e6361efbd947cf4e3cedd35459bcddb94897c6284eb1e50692d29",
     "internalName": "永远被痴女围堵的特殊体质",
-    "mtime": "2025-06-30T21:33:24.5316202+08:00"
+    "mtime": "2025-06-30T21:33:24.5316202+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\爱之巢\\爱之巢 (1).png": {
     "hash": "8902b8e97cdbe60b907b55f90e7722667070c65768b8927d7dabe7623b875ca1",
     "internalName": "爱之巢",
-    "mtime": "2025-08-23T20:39:35.8351517+08:00"
+    "mtime": "2025-08-23T20:39:35.8351517+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\爸爸活的代价\\爸爸活的代价：无法逃离的家与被改写的称呼1.1版本.png": {
     "hash": "7468ba93b84092ef650087a44b02fc077c91918fa58f18fb94f4c4907c47e3e6",
     "internalName": "爸爸活的代价：无法逃离的家与被改写的称呼",
-    "mtime": "2025-09-14T11:32:18.157828+08:00"
+    "mtime": "2025-09-14T11:32:18.157828+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\琉璃暗香，你的私人情妇定制中心\\琉璃暗香，你的私人情妇定制中心.png": {
     "hash": "d4a30e53cdb278feefe88e4d04b4e1c5271aa36cb6c925e1607500c9958c4fa4",
     "internalName": "琉璃暗香",
-    "mtime": "2025-07-17T08:14:37.6294333+08:00"
+    "mtime": "2025-07-17T08:14:37.6294333+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\男女比例1比10000\\男女比例1比10000.png": {
     "hash": "44502a1c4d4003f08f13090e48305836246ab3ff2ed64dc85c5b32739e9fd568",
     "internalName": "男女比例1比10000",
-    "mtime": "2025-08-24T09:45:50.9780063+08:00"
+    "mtime": "2025-08-24T09:45:50.9780063+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\眷属宠物的养成方法\\眷属宠物的养成方法Z1.1.png": {
     "hash": "16588306e8555ad2733357e7289d84991f2e7e8934063b5b96b998dce3ce5498",
     "internalName": "眷属宠物的养成方法",
-    "mtime": "2025-08-23T20:38:22.0892435+08:00"
+    "mtime": "2025-08-23T20:38:22.0892435+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\空气般融入的平然色情\\空气般融入的平然色情 V3.14.png": {
     "hash": "517a15296e741c8bc67d5e9d0b9ebd291ac34e0412d70e4eb7b137064351497d",
     "internalName": "空气般融入的平然色情 V3.14",
-    "mtime": "2025-09-04T17:34:03.0247872+08:00"
+    "mtime": "2025-09-04T17:34:03.0247872+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\箱庭世界\\箱庭世界.png": {
     "hash": "1351049f1f35d4052ab20c7df431e34eed6611f54890ad648ec9e913f38c48f2",
     "internalName": "琉璃夜空•GLASSY SKY",
-    "mtime": "2025-08-02T19:31:57.0289505+08:00"
+    "mtime": "2025-08-02T19:31:57.0289505+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\精灵女王艾莉娅\\精灵女王艾莉娅 (2).png": {
     "hash": "9d4be5b253836387de54b4f1249d404143cb7190e069c233555dabf8dbdd49a2",
     "internalName": "精灵女王艾莉娅",
-    "mtime": "2025-06-30T21:36:23.6048297+08:00"
+    "mtime": "2025-06-30T21:36:23.6048297+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\线上活跃的璃璃大小姐竟然是个社恐\\1.2fix.png": {
     "hash": "f9fdb33ab92ba3aae54de7605a53f476b3989b15d2af2189ad4f1ccbc2d90e62",
     "internalName": "线上活跃的璃璃大小姐竟然是个社恐",
-    "mtime": "2025-08-20T13:10:39.1014572+08:00"
+    "mtime": "2025-08-20T13:10:39.1014572+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\肛交允许法案\\肛交允许的世界 7.png": {
     "hash": "35e1413e7b4a595a96e7a371cfaaf91e508e3cb9a27890ed91c39e2d24871000",
     "internalName": "肛交允许的世界",
-    "mtime": "2025-06-25T14:06:19.8892407+08:00"
+    "mtime": "2025-06-25T14:06:19.8892407+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\背德系统\\[MUV]背德系统v3-0805.png": {
     "hash": "148eebc5f35b6b917c64a453e1a9fad840cb68d6c681eb2d4a35018eee65dfb8",
     "internalName": "[MUV]背德系统v3-0805",
-    "mtime": "2025-09-14T15:12:37.863159+08:00"
+    "mtime": "2025-09-14T15:12:37.863159+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\自慰友，我的房间变成了同班女生自慰用房间这件事\\自慰友 (3).png": {
     "hash": "47f2830b8005498c7ca05dcf09c2b78d5114ed0f87075d1c96ad0982ed215750",
     "internalName": "自慰友",
-    "mtime": "2025-08-06T18:22:48.8153155+08:00"
+    "mtime": "2025-08-06T18:22:48.8153155+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\萝莉老婆和萝莉女儿\\萝莉老婆和萝莉女儿.png": {
     "hash": "cfac03659b9405a875be3ef87b14c69c3b48eec5add47fa8d076cfcf1d5b54e2",
     "internalName": "萝莉老婆和萝莉女儿",
-    "mtime": "2025-09-15T22:18:18.7749989+08:00"
+    "mtime": "2025-09-15T22:18:18.7749989+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\萝莉老婆和萝莉女儿\\萝莉老婆和萝莉女儿1.png": {
     "hash": "b40e1a781f81b5399ac7ac960112cde1a08db0cc3fbe1f9c8054505b2470ca67",
     "internalName": "萝莉老婆和萝莉女儿",
-    "mtime": "2025-09-15T22:18:46.5634565+08:00"
+    "mtime": "2025-09-15T22:18:46.5634565+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\蔓草楼\\蔓草楼.png": {
     "hash": "8d8d07b4a06a61e06e0d88de933f96077efada03f98380366f948049bf2aa664",
     "internalName": "蔓草楼",
-    "mtime": "2025-08-14T20:42:31.0236019+08:00"
+    "mtime": "2025-08-14T20:42:31.0236019+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\被我捡到的狐族长老\\瑶依1.png": {
     "hash": "5213bb61fb182c9064183dd51618b48afdb3cd64491eb768a6e0f9b18d398dc8",
     "internalName": "瑶依",
-    "mtime": "2025-08-23T17:28:30.6474905+08:00"
+    "mtime": "2025-08-23T17:28:30.6474905+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\触手服\\触手服.png": {
     "hash": "a2cb0cde913fbe658ccfbb421bc204f458f3351447159a09e9358c66821f0850",
     "internalName": "触手服",
-    "mtime": "2025-09-14T12:19:48.6023775+08:00"
+    "mtime": "2025-09-14T12:19:48.6023775+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\超级全家桶\\超级全家桶.png": {
     "hash": "8e9b223a63d0de7c647c224e86330ee4254cb307b9041520b96e1618c871a549",
     "internalName": "超级全家桶",
-    "mtime": "2025-08-14T20:10:12.5229041+08:00"
+    "mtime": "2025-08-14T20:10:12.5229041+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\身为学生会长的我怎么会绑定恶堕系统\\恶堕学生会长.png": {
     "hash": "30283b2bcf81a0b472aafea0b06f9e4cc1efca2b1edcfed1afa538f2a93a93b8",
     "internalName": "恶堕学生会长",
-    "mtime": "2025-09-12T21:20:28.2925826+08:00"
+    "mtime": "2025-09-12T21:20:28.2925826+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\输的人会被变成小师妹\\什么叫合欢宗比赛，输的人会被变成小师妹？ (1).png": {
     "hash": "197e7af61c06fe38a68d9051675718db11d580d1fd5b950be7a6219bf9d04810",
     "internalName": "什么叫合欢宗比赛，输的人会被变成小师妹？",
-    "mtime": "2025-08-05T20:45:31.8277584+08:00"
+    "mtime": "2025-08-05T20:45:31.8277584+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\随意做爱的平然世界\\1.png": {
     "hash": "94a74c7eae98f36802b1d835b829703f24a2be53814a122ccf6f4847d24fe3f5",
@@ -702,257 +824,308 @@
   "D:\\yw\\AI\\角色卡\\NSFW\\随意做爱的平然世界\\随意做爱的平然世界.png": {
     "hash": "fe06c8ac8b4a2c4db7dd4425f21acd3cb720e1885671e0e34388f4a4ee26c096",
     "internalName": "随意做爱的平然世界",
-    "mtime": "2025-08-14T20:07:58.5899276+08:00"
+    "mtime": "2025-08-14T20:07:58.5899276+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\雏菊巡防官\\雏菊巡防官 (1).png": {
     "hash": "1b57c850c3cbe6f25474753478a603ab8dae7f1de2804af495aa2f79eb6abc25",
     "internalName": "雏菊巡防官",
-    "mtime": "2025-08-22T13:48:19.9617658+08:00"
+    "mtime": "2025-08-22T13:48:19.9617658+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\雏菊巡防官\\雏菊巡防官纯净版1 (1).png": {
     "hash": "797c7f125cfcf8c257f996231697627967380597a6f6a988e40f8be27f53d4ac",
     "internalName": "雏菊巡防官",
-    "mtime": "2025-08-22T13:47:58.666695+08:00"
+    "mtime": "2025-08-22T13:47:58.666695+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\青春期性指导\\青春期性指导 (2).png": {
     "hash": "fb0d661cf9c9ab282f2eb1224450afe04843596c218032cf2fa8beb2e7d2e8bc",
     "internalName": "青春期性指导",
-    "mtime": "2025-08-06T18:23:26.774378+08:00"
+    "mtime": "2025-08-06T18:23:26.774378+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\青春的果实是甜的还是酸涩的呢\\青春的果实是甜的还是——酸涩的呢？v1.0.png": {
     "hash": "fb0bfb391971e25ff4297683a7c86c73e8ef3a82cf68675352e8efeac30cac0b",
     "internalName": "青春的果实是甜的还是——酸涩的呢？",
-    "mtime": "2025-08-24T09:47:23.875617+08:00"
+    "mtime": "2025-08-24T09:47:23.875617+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\青楼韵语\\青楼韵语V2.5.png": {
     "hash": "a9cda67b1f0e2a2959442d4ee139e3bfa5d2fad5391ef4697cb021826a327000",
     "internalName": "青楼韵语",
-    "mtime": "2025-08-05T20:37:10.2443813+08:00"
+    "mtime": "2025-08-05T20:37:10.2443813+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\顾清寒\\顾清寒.png": {
     "hash": "aec29058590da8b984e73902c93cb342eb543db964200d4caef2e9d8420f5ca0",
     "internalName": "顾清寒",
-    "mtime": "2025-08-24T19:14:17.313739+08:00"
+    "mtime": "2025-08-24T19:14:17.313739+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\驚夜太空站\\驚夜太空站.png": {
     "hash": "1c4b4245378ebd9a66232e7478df0042e94656ef78f56d480d6e9ae12a3c365a",
     "internalName": "驚夜太空站",
-    "mtime": "2025-09-16T16:21:32.6646009+08:00"
+    "mtime": "2025-09-16T16:21:32.6646009+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\高潮按钮\\高潮按钮.png": {
     "hash": "b647e49b006b767b646831fdc502e16954ed90a3050b986aa9c6bfbc2331cf07",
     "internalName": "高潮按钮",
-    "mtime": "2025-07-08T19:20:34.2490328+08:00"
+    "mtime": "2025-07-08T19:20:34.2490328+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\魔法兽族王国\\魔法兽族王国.png": {
     "hash": "0b52c8214d1b689c25ff60a5ab60fc4f18c01c1ecc8e0c8c2cad7d5457e7b48d",
     "internalName": "魔法兽族王国",
-    "mtime": "2025-09-04T23:11:56.7078164+08:00"
+    "mtime": "2025-09-04T23:11:56.7078164+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\魔法少女\\魔法少女.png": {
     "hash": "4b02c366cce477d908c2a75b07aaf337b053c7367a929551c2007b2cd8f553f0",
     "internalName": "魔法少女",
-    "mtime": "2025-08-24T09:53:26.2609608+08:00"
+    "mtime": "2025-08-24T09:53:26.2609608+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\魔法少女才不会败北恶堕呢\\魔法少女才不会败北恶堕呢.png": {
     "hash": "086f17ef77258aacea12ac55a0cf44afaa43d2d9ed813b102af1a35c30e2e878",
     "internalName": "魔法少女是不会败北恶堕的吧！",
-    "mtime": "2025-09-15T16:13:25.8319233+08:00"
+    "mtime": "2025-09-15T16:13:25.8319233+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\NSFW\\魔物娘堡垒\\魔物娘堡垒2.0 (7).png": {
     "hash": "e7f1f0f35e8817a23ace921bdb120941405f23965117719027c9d4b403068fbe",
     "internalName": "1.魔物娘堡垒2.0",
-    "mtime": "2025-08-22T18:59:52.0842934+08:00"
+    "mtime": "2025-08-22T18:59:52.0842934+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\创作\\七海之行\\七海之行_1 (15).png": {
     "hash": "7fca4b3a649b3b7c92e86de3b54e2074876872cc25f4ced9394766bff9f0f3c4",
     "internalName": "七海之行",
-    "mtime": "2025-07-20T18:06:43.8048373+08:00"
+    "mtime": "2025-07-20T18:06:43.8048373+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\创作\\七海之行\\七海之行_20250809_215341.png": {
     "hash": "bfee211f36c528e731fe61200d8cbcba592c0b41aa0f82988576d55d4320a7eb",
     "internalName": "七海之行",
-    "mtime": "2025-08-20T13:13:56.624325+08:00"
+    "mtime": "2025-08-20T13:13:56.624325+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\创作\\凡人修仙传\\《凡人修仙传V8.0》 0914.png": {
     "hash": "f2acb0bb2c7e9b2298336ac6652435eabb43ce2ebca20e57dc6e6779163685a4",
     "internalName": "《凡人修仙传V8.0》",
-    "mtime": "2025-09-14T12:21:10.682391+08:00"
+    "mtime": "2025-09-14T12:21:10.682391+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\凡人修仙传\\《凡人修仙传》人界-灵界篇 (3).png": {
     "hash": "cccc1710bd412734725cf5d9b3b7dd858ca72d1cc3e19558f8ed655da0568782",
     "internalName": "《凡人修仙传》人界-灵界篇",
-    "mtime": "2025-08-24T19:38:54.1725915+08:00"
+    "mtime": "2025-08-24T19:38:54.1725915+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\凡人修仙传\\《凡人修仙传》人界-灵界篇 V6.0 .png": {
     "hash": "538a673e426024f8411973ba022a39625eac2d864fd907be68eab677b73aaa8c",
     "internalName": "《凡人修仙传》人界-灵界篇",
-    "mtime": "2025-08-28T16:01:53.8610201+08:00"
+    "mtime": "2025-08-28T16:01:53.8610201+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\凡人修仙传\\《凡人修仙传》人界-灵界篇 v5.2.png": {
     "hash": "cf28b401d747667e9813066957a8c03c31fe034be2a5c143d34210d0c2a2d3f5",
     "internalName": "《凡人修仙传》人界-灵界篇",
-    "mtime": "2025-08-17T21:19:22.826819+08:00"
+    "mtime": "2025-08-17T21:19:22.826819+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\凡人修仙传\\凡人修仙传-灵界篇 (11).png": {
     "hash": "a7cd2e86375da57d37610734c8c4b4684312f36ec6d8df15e441391e6488a1fe",
     "internalName": "凡人修仙传-灵界篇",
-    "mtime": "2025-08-10T14:16:39.3332074+08:00"
+    "mtime": "2025-08-10T14:16:39.3332074+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\凡人修仙传\\凡人修仙传-灵界篇 (13).png": {
     "hash": "89356516a0c5d9dd354aa697454512ec9d15edf1842169bcacb029144ead28bc",
     "internalName": "凡人修仙传-灵界篇",
-    "mtime": "2025-08-14T19:40:44.8854017+08:00"
+    "mtime": "2025-08-14T19:40:44.8854017+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\凡人修仙传\\凡人修仙传-灵界篇 (15).png": {
     "hash": "12f3204902c22cd3cc7e50fc60602fd81ccf4a8d328da68cd252a6e1d800aa24",
     "internalName": "凡人修仙传-灵界篇",
-    "mtime": "2025-08-16T13:24:48.1522752+08:00"
+    "mtime": "2025-08-16T13:24:48.1522752+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\凡人修仙传\\凡人修仙传-灵界篇 (7).png": {
     "hash": "dd19bc5615aa1869ec18e639a583355bd398197445b41e513ee72876a0701992",
     "internalName": "凡人修仙传-灵界篇",
-    "mtime": "2025-08-05T19:49:48.9866952+08:00"
+    "mtime": "2025-08-05T19:49:48.9866952+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\归墟\\归墟【梦星作品】【返璞归真版本】.png": {
     "hash": "6201fcb0ee65e4c06008354f92e99b2b50f0f374735dcb5dbb18858e87a7467a",
     "internalName": "归墟【梦星作品】【返璞归真版本】",
-    "mtime": "2025-08-10T14:37:02.1560431+08:00"
+    "mtime": "2025-08-10T14:37:02.1560431+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\当你凝视灰雾时\\诡秘疯狂年代 (10) 0819.png": {
     "hash": "d73584bf6a11e830712263d2ca472ae84f5410313f84e6b29f3b273fb7fed6cc",
     "internalName": "诡秘疯狂年代",
-    "mtime": "2025-08-28T16:06:55.8864211+08:00"
+    "mtime": "2025-08-28T16:06:55.8864211+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\当你凝视灰雾时\\诡秘疯狂年代 (5).png": {
     "hash": "da2728e021d8b21f5a11d9ba5c5dd9d17f85e4e991be2914c60bb6384951590f",
     "internalName": "诡秘疯狂年代",
-    "mtime": "2025-08-11T13:16:42.8732629+08:00"
+    "mtime": "2025-08-11T13:16:42.8732629+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\当你凝视灰雾时\\诡秘疯狂年代 (8).png": {
     "hash": "d25ab810a6066525cb0680ef47116f85d50cbaf6b9485eb1a978731b72c934f7",
     "internalName": "诡秘疯狂年代",
-    "mtime": "2025-08-14T19:43:13.6296492+08:00"
+    "mtime": "2025-08-14T19:43:13.6296492+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\当你凝视灰雾时\\诡秘疯狂年代(纯文字版) 0902.png": {
     "hash": "21fc1eed9b3a323fcdd56d5bf221e5c5c4bae495c81bcf5c222c866c224e41fa",
     "internalName": "诡秘疯狂年代(纯文字版)",
-    "mtime": "2025-09-04T17:45:38.8856129+08:00"
+    "mtime": "2025-09-04T17:45:38.8856129+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\当你凝视灰雾时\\诡秘疯狂年代(纯文字版).png": {
     "hash": "1164a17852df334c68e909078f382543b6b49875ad18dddbc3c698cb146cbf1c",
     "internalName": "诡秘疯狂年代(纯文字版)",
-    "mtime": "2025-08-28T16:07:23.8231225+08:00"
+    "mtime": "2025-08-28T16:07:23.8231225+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\当你凝视灰雾时\\诡秘疯狂年代.png": {
     "hash": "36074b38e6bf698c8f24d91c324584c5c7588d9ef929bbf8a55edf1e3662b3fa",
     "internalName": "诡秘疯狂年代",
-    "mtime": "2025-08-19T21:24:05.7407745+08:00"
+    "mtime": "2025-08-19T21:24:05.7407745+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\当你凝视灰雾时\\诡秘疯狂年代0829.png": {
     "hash": "abb28ade6e8fadb803189909f82591d6fb9283294e3f8dbfa8c3f136d89de1bb",
     "internalName": "诡秘疯狂年代",
-    "mtime": "2025-08-29T14:34:33.3723692+08:00"
+    "mtime": "2025-08-29T14:34:33.3723692+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\当你凝视灰雾时\\诡秘疯狂年代0902.png": {
     "hash": "17a4f396e62594153617d5ae8086810044f97401bf327a942d72785993f4a66f",
     "internalName": "诡秘疯狂年代",
-    "mtime": "2025-09-04T17:44:38.3520397+08:00"
+    "mtime": "2025-09-04T17:44:38.3520397+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\抱憾终身模拟器\\Sgw_2.png": {
     "hash": "235b2274b2dd542d608e2093e89dba64b73287c14abd19fb501d73666b164d7e",
     "internalName": "【Sgw】抱憾终身模拟器",
-    "mtime": "2025-08-04T12:18:48.2605457+08:00"
+    "mtime": "2025-08-04T12:18:48.2605457+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\抱憾终身模拟器\\【Sgw】抱憾终身模拟器 (2).png": {
     "hash": "235b2274b2dd542d608e2093e89dba64b73287c14abd19fb501d73666b164d7e",
     "internalName": "【Sgw】抱憾终身模拟器",
-    "mtime": "2025-08-05T12:38:05.1814997+08:00"
+    "mtime": "2025-08-05T12:38:05.1814997+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\抱憾终身模拟器\\【Sgw】抱憾终身模拟器 0805.png": {
     "hash": "f5594bbe69d0f38be83d7d1d2e51322748046102740f0879eb29fd1e7ffc9d96",
     "internalName": "【Sgw】抱憾终身模拟器",
-    "mtime": "2025-08-26T11:28:27.716391+08:00"
+    "mtime": "2025-08-26T11:28:27.716391+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\抱憾终身模拟器\\抱憾终身模拟器 NO MVU.png": {
     "hash": "00e80ccecc741590228dd84afcee1ad661e610067206ff24e3f09cfed0e57d10",
     "internalName": "抱憾终身模拟器",
-    "mtime": "2025-08-26T11:30:07.74855+08:00"
+    "mtime": "2025-08-26T11:30:07.74855+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\创作\\捅死你捅死你\\捅死你捅死你【梦衍月】【梦星作品】 (4).png": {
     "hash": "923a6f883e507aafd13954db2e2f78338024ae9fb8bf69240b7bdc615d83feaa",
     "internalName": "捅死你捅死你【梦衍月】【梦星作品】",
-    "mtime": "2025-08-10T14:47:48.5629494+08:00"
+    "mtime": "2025-08-10T14:47:48.5629494+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\末日\\末日 (5).png": {
     "hash": "b4cb708b6ab36e74a3da28762e48bb6b9709bc5426e0f482c6ab394bdebb0aec",
     "internalName": "末日",
-    "mtime": "2025-08-26T11:39:23.6164313+08:00"
+    "mtime": "2025-08-26T11:39:23.6164313+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\荒野独居模拟器\\荒野独居模拟器 (1).png": {
     "hash": "4f61d9acb36d82c78861355df365bfc5228429459e24d403e35857d3b27f7a99",
     "internalName": "荒野独居模拟器",
-    "mtime": "2025-08-26T11:36:05.2882618+08:00"
+    "mtime": "2025-08-26T11:36:05.2882618+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\创作\\诡秘之主\\诡秘之主全员卡.png": {
     "hash": "6c2b97ba642d500ab8d9bd2575896cce9a03bf59e7b26f84674f6fbe0f98bec1",
     "internalName": "诡秘之主全员卡",
-    "mtime": "2025-08-02T19:15:47.8059874+08:00"
+    "mtime": "2025-08-02T19:15:47.8059874+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\诡秘之主\\诡秘之主全员卡0628.png": {
     "hash": "6c2b97ba642d500ab8d9bd2575896cce9a03bf59e7b26f84674f6fbe0f98bec1",
     "internalName": "诡秘之主全员卡",
-    "mtime": "2025-08-29T16:36:30.9361563+08:00"
+    "mtime": "2025-08-29T16:36:30.9361563+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\创作\\静默区\\Sillywood_1.0.png": {
     "hash": "c32884d9f97e11a5fe3646b617a83debc81805c28401200183b8b054d05668a9",
     "internalName": "Sillywood",
-    "mtime": "2025-09-15T19:13:04+08:00"
+    "mtime": "2025-09-15T19:13:04+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\SCP-1730\\SCP-1730.png": {
     "hash": "2354adb0400e1a44d9ee6bab548e655c411d7674d409b733ce9560388c45ecf1",
     "internalName": "SCP-1730",
-    "mtime": "2025-08-23T15:02:00.0325057+08:00"
+    "mtime": "2025-08-23T15:02:00.0325057+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\SCP-3008\\SCP-3008.png": {
     "hash": "ab45e37b8cade433ddcdd7cd3bbb7aaeef0bc3688d2671b9c49aff43fd0b4fe3",
     "internalName": "SCP-3008",
-    "mtime": "2025-08-23T17:08:36.5351426+08:00"
+    "mtime": "2025-08-23T17:08:36.5351426+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\SCP-C收容设施\\V1.0_Rebuild.png": {
     "hash": "956d4c822e2e1de417771b33d60c047cec458613114661a0d78d54ee239ce175",
     "internalName": "SCP基金会-C收容设施",
-    "mtime": "2025-07-20T18:18:54.0638975+08:00"
+    "mtime": "2025-07-20T18:18:54.0638975+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\SCP\\SCP-CN-7150_1.png": {
     "hash": "1c98ab23f1df61deb9a7499a42fb0761e7c71bb662b14da7280b2a2f1d4ed604",
     "internalName": "SCP-CN-7150",
-    "mtime": "2025-06-30T11:30:48.8799183+08:00"
+    "mtime": "2025-06-30T11:30:48.8799183+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\SCP\\SCPNSFW.png": {
     "hash": "8f92e18198767c81e166ca8833a66d07dc926dcb6159d4024497393ffd6e8e6f",
     "internalName": "SCP【NSFW版】",
-    "mtime": "2025-06-30T10:08:28.0568728+08:00"
+    "mtime": "2025-06-30T10:08:28.0568728+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\SCP\\后室 vs {{user}}.png": {
     "hash": "6b9ceb11d0c31dfc3e6dbe4261eb8603be6c7ff8f0ba2e47db1585a349f802df",
     "internalName": "后室 vs {{user}}",
-    "mtime": "2025-06-30T11:35:23.1226485+08:00"
+    "mtime": "2025-06-30T11:35:23.1226485+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\SCP\\潘多拉的魔盒.png": {
     "hash": "6b636165a643bf592dd1bbc0144c8a854dbb165bf4e2e998705983b49d6377b4",
     "internalName": "潘多拉的魔盒",
-    "mtime": "2025-06-30T11:31:24.4910493+08:00"
+    "mtime": "2025-06-30T11:31:24.4910493+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\SCP研究員-月\\月.png": {
     "hash": "7227404b296cb138e73e742f4aab4441d7f17066e05370fc116ee77ba27969b7",
     "internalName": "月",
-    "mtime": "2025-08-23T11:54:21.7618754+08:00"
+    "mtime": "2025-08-23T11:54:21.7618754+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\SCP研究員-月\\灵感卡.png": {
     "hash": "1dc1dbcd70bd23acdc5caa541a19e4828a92edfd91044978d963408f254ff1ac",
     "internalName": "",
-    "mtime": "2025-08-23T11:55:34.9063793+08:00"
+    "mtime": "2025-08-23T11:55:34.9063793+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\万界旅行手册\\Ling Ling's system is glitching, resulting in her body being exposed to her mast s-3710729702.png": {
     "hash": "97acc12a5a159be272ea97b71c722a0b898e7db4551ff9f1f4e1f92664c6422f",
@@ -962,217 +1135,260 @@
   "D:\\yw\\AI\\角色卡\\剧情\\万界旅行手册\\万界旅行手册 (10).png": {
     "hash": "8cbee5d5b43bda0fe8e91cb0cfb02e45eb9995f4adb7c892a9fed90c70302fc9",
     "internalName": "万界旅行手册",
-    "mtime": "2025-08-11T19:17:35.8914283+08:00"
+    "mtime": "2025-08-11T19:17:35.8914283+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\万界旅行手册\\万界旅行手册 (9).png": {
     "hash": "40543209564815b35820dadda92349a100a212157c87dfb6ca965b6dd09b3652",
     "internalName": "万界旅行手册",
-    "mtime": "2025-08-08T17:22:01.1561586+08:00"
+    "mtime": "2025-08-08T17:22:01.1561586+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\与蛊虫共生的奇异少女\\吴雨荞.png": {
     "hash": "bf4bc1d2c5575a4180ec085281fbe8594acf1b2fe9e57a9637dc7d9d49cb5fc6",
     "internalName": "吴雨荞",
-    "mtime": "2025-07-05T12:14:07.624456+08:00"
+    "mtime": "2025-07-05T12:14:07.624456+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\与蛊虫共生的奇异少女\\吴雨荞0817.png": {
     "hash": "1f96a092115e786f5b80c9b1b1b27f72cd677b6aa76b4a839c7a17d7e044aec6",
     "internalName": "吴雨荞",
-    "mtime": "2025-09-04T22:27:04.6284655+08:00"
+    "mtime": "2025-09-04T22:27:04.6284655+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\与蛊虫共生的奇异少女\\吴雨荞5.0.png": {
     "hash": "684061c5172c4150ecd3e3341cc931e0149be9e4d0da0c18c36b76ce1e1b18b2",
     "internalName": "吴雨荞",
-    "mtime": "2025-07-19T22:08:33.0701809+08:00"
+    "mtime": "2025-07-19T22:08:33.0701809+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\与蛊虫共生的奇异少女\\吴雨荞NEW.png": {
     "hash": "e3bc423f47e80dabee6fc0fa2fe60db381566aad15115813c0c670e8ef21799d",
     "internalName": "吴雨荞",
-    "mtime": "2025-07-05T19:40:04.2395239+08:00"
+    "mtime": "2025-07-05T19:40:04.2395239+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\与蛊虫共生的奇异少女\\吴雨荞NEW2.png": {
     "hash": "560a666230e9a81863adcf67edd26ec385ce71f5b598aef9f07f641001d85fb7",
     "internalName": "吴雨荞",
-    "mtime": "2025-07-08T19:21:51.8231517+08:00"
+    "mtime": "2025-07-08T19:21:51.8231517+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\与蛊虫共生的奇异少女\\吴雨荞NEW3.png": {
     "hash": "e2bd2cfbe8ace5267c41e7999a4331c6c3849f2f8d33d55b834a749c37addbd8",
     "internalName": "吴雨荞",
-    "mtime": "2025-07-09T16:09:42.3659695+08:00"
+    "mtime": "2025-07-09T16:09:42.3659695+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\中学生拯救世界\\中学生，顺便拯救世界v1.11 (1).png": {
     "hash": "25ffe69fec3339fd87a5cc01867982857035f0afbbc6f70d790cb230c26f45c2",
     "internalName": "中学生，顺便拯救世界v1.1",
-    "mtime": "2025-08-26T08:22:34.3413098+08:00"
+    "mtime": "2025-08-26T08:22:34.3413098+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\中学生拯救世界\\中学生，顺便拯救世界v1.22 (1).png": {
     "hash": "747074dd01cc0f85ebed111d78da26e7a514e143679d5c04f65f2d85a465bd91",
     "internalName": "中学生，顺便拯救世界v1.2",
-    "mtime": "2025-09-14T17:27:15.3162445+08:00"
+    "mtime": "2025-09-14T17:27:15.3162445+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\主神空间\\主神空间1 (5).png": {
     "hash": "2b673fa566cbf2f7272dfe0102ba2b1dde4bb5c468248cdca22222c4d4762b62",
     "internalName": "主神空间",
-    "mtime": "2025-07-20T18:03:45.775543+08:00"
+    "mtime": "2025-07-20T18:03:45.775543+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\住在人类身体里的AI少女莉莉丝\\莉莉丝 (95).png": {
     "hash": "bda61f2c566c1c45ccb0d2d98e4595ce98483250cf360a6d2e9467eb1fd78805",
     "internalName": "莉莉丝",
-    "mtime": "2025-08-27T21:40:38.5943968+08:00"
+    "mtime": "2025-08-27T21:40:38.5943968+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\修女桂妮薇儿的假日\\修女桂妮薇儿的假日.png": {
     "hash": "4ee4f16d31b77281204209dfcdadc5e4f347fb13362c43f0ab8c95c56f16dbce",
     "internalName": "[桂妮薇儿的假日-序章]",
-    "mtime": "2025-04-22T11:57:30.4967918+08:00"
+    "mtime": "2025-04-22T11:57:30.4967918+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\傲娇吸血鬼\\SAMB v2.png": {
     "hash": "a65f534f08fa6bc226447fc40f34dbce1f72ef661eb7f804a0d1ffe52102caca",
     "internalName": "SAMB v2",
-    "mtime": "2025-08-24T19:23:57.8004729+08:00"
+    "mtime": "2025-08-24T19:23:57.8004729+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\傲娇吸血鬼\\SAMB_v1.6_1.png": {
     "hash": "3492cb45c100ed3ec8fb789d202dbc454375010cd997ec795fb6a4c9af02015e",
     "internalName": "SAMB v1.6",
-    "mtime": "2025-07-08T19:31:44.7487899+08:00"
+    "mtime": "2025-07-08T19:31:44.7487899+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\关于从福利院领养了父母双亡的远房侄女的这件事\\关于从福利院领养了父母双亡的远房侄女的这件事 (2).png": {
     "hash": "e7bf0b1c24a49b187edf7cdac60e8c70131d0148c072df5bc071f7ded9f1acaa",
     "internalName": "关于从福利院领养了父母双亡的远房侄女的这件事",
-    "mtime": "2025-08-19T21:40:34.6336894+08:00"
+    "mtime": "2025-08-19T21:40:34.6336894+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\关于从福利院领养了父母双亡的远房侄女的这件事\\关于从福利院领养侄女后的甜蜜孕妻生活这件事0827.png": {
     "hash": "a34987dcd4c4bc0d2c974ba5d553c88fea34b2342595b912f0ec101160cda007",
     "internalName": "关于从福利院领养侄女后的甜蜜孕妻生活这件事",
-    "mtime": "2025-09-15T16:40:00.4214227+08:00"
+    "mtime": "2025-09-15T16:40:00.4214227+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\初晴时雨\\余时雨0829.png": {
     "hash": "0cdfbb12ba0152e93cbbaee532a0da0ff961838eb0395852c5c4dca00cf9cc93",
     "internalName": "余时雨",
-    "mtime": "2025-09-05T13:11:10.9636809+08:00"
+    "mtime": "2025-09-05T13:11:10.9636809+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\初晴时雨\\余时雨1.png": {
     "hash": "688d90ec7297677acc27881d04e77be3eaf901a9052a438b307e495f0726781e",
     "internalName": "余时雨",
-    "mtime": "2025-08-27T17:11:58.108744+08:00"
+    "mtime": "2025-08-27T17:11:58.108744+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\历史穿越模拟 靖康前夜：大宋挽歌\\【历史穿越模拟】靖康前夜：大宋挽歌.png": {
     "hash": "0843f546be07861b3ff8ed59f27357f0b4c4d1d308469889a1cfe0ba956d21e4",
     "internalName": "靖康劫：天命挽歌",
-    "mtime": "2025-07-12T14:43:44.7836614+08:00"
+    "mtime": "2025-07-12T14:43:44.7836614+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\命定的奇幻异世界之旅\\命定的奇幻异世界之旅v1.2.png": {
     "hash": "9573f1c5dfb822b110f9666cda38b7543afd9c6b9c1539929ce2cc439868ba35",
     "internalName": "命定的奇幻异世界之旅v1.2",
-    "mtime": "2025-09-14T14:01:21.2294885+08:00"
+    "mtime": "2025-09-14T14:01:21.2294885+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\命定的异世界后宫之旅\\V3.2.2-220FE.png": {
     "hash": "1ab67654eeb30f7e1b29554abf67a4040b942bb53bcda78346cf22eb4d1d4b57",
     "internalName": "命定的异世界后宫之旅",
-    "mtime": "2025-07-24T19:24:19.4664253+08:00"
+    "mtime": "2025-07-24T19:24:19.4664253+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\命定的异世界后宫之旅\\命定的奇幻异世界之旅--西幻二创.png": {
     "hash": "e89a1ba874547c0226b68236be876094d65de98851448ae1ea72c79c515a1768",
     "internalName": "命定的奇幻异世界之旅",
-    "mtime": "2025-08-22T13:54:24.2215223+08:00"
+    "mtime": "2025-08-22T13:54:24.2215223+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\哭泣深渊\\【哭泣深渊】——  我不该来地下城v1.3.1.png": {
     "hash": "dc0deea05b00c638367df189a87d1f75f73870ace9d49211865699ba204efdb1",
     "internalName": "【哭泣深渊】——  我不该来地下城v1.3.0",
-    "mtime": "2025-08-23T20:37:32.5459252+08:00"
+    "mtime": "2025-08-23T20:37:32.5459252+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\四方之境\\四方之境.png": {
     "hash": "250635fdace4bed134ad48b42eac521e82f2a51f254321c65456967b1fdc1b61",
     "internalName": "四方之境",
-    "mtime": "2025-08-23T15:03:06.2143737+08:00"
+    "mtime": "2025-08-23T15:03:06.2143737+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\圣柩指令\\圣柩：指令v2.3.png": {
     "hash": "f7bece7852962ec5a5e6366c6a8f9d732ecc2166056c08912fddb60d0b516f70",
     "internalName": "圣柩：指令",
-    "mtime": "2025-08-22T19:26:38.7743173+08:00"
+    "mtime": "2025-08-22T19:26:38.7743173+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\在充满性化危机的世界里唯有我免疫病毒\\在充满性化危机的世界里唯有我免疫病毒.png": {
     "hash": "675d2d9cf70bb02486afb6277625c474d36b0b93cabc38f9c26b730c250a78c7",
     "internalName": "在充满性化危机的世界里唯有我免疫病毒",
-    "mtime": "2025-08-22T19:19:27.3181872+08:00"
+    "mtime": "2025-08-22T19:19:27.3181872+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\夏幽幽\\1.png": {
     "hash": "8868f7d59c0d51e9599390d9f952ef08b100735c087e9e6b0ca5918e244a8c54",
     "internalName": "夏幽幽",
-    "mtime": "2025-06-25T16:58:59.5075318+08:00"
+    "mtime": "2025-06-25T16:58:59.5075318+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\女皇诞生\\女皇诞生 (2).png": {
     "hash": "32a0ef29fa079ef8d2f85e1f5104c4bbe8ea7294a42688e8653961f57680bacb",
     "internalName": "女皇诞生",
-    "mtime": "2025-08-08T22:41:27.8595161+08:00"
+    "mtime": "2025-08-08T22:41:27.8595161+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\姑娘你中毒了，欸你脱衣服作甚？\\前端美化版v1.2-y.png": {
     "hash": "6d03840860ef535a9ae9f5974946361c318181b3fa3091bd16d927bb451441cf",
     "internalName": "洛轻漪 - 美化 1.2",
-    "mtime": "2025-08-09T01:03:22.9430886+08:00"
+    "mtime": "2025-08-09T01:03:22.9430886+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\姑娘你中毒了，欸你脱衣服作甚？\\无前端美化版v1.2-n.png": {
     "hash": "c91db72d022d64994479f6e96276d9d6ea3709f23607e9d266d04312c2ed48be",
     "internalName": "洛轻漪 - 无美化 1.2",
-    "mtime": "2025-08-09T01:04:13.9325961+08:00"
+    "mtime": "2025-08-09T01:04:13.9325961+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\安乐屋\\安乐屋.png": {
     "hash": "9cc7b5e701869bb3e47478e2fa723dea65eb47b47bb64506791197aaf5cdb405",
     "internalName": "安乐屋",
-    "mtime": "2025-04-22T11:51:32.6568755+08:00"
+    "mtime": "2025-04-22T11:51:32.6568755+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\完美的琉璃小姐\\完美的琉璃小姐.png": {
     "hash": "e8dae2854160b07169b6dcab519b16bd207f0dfa698af3aae677853be7e1d8c6",
     "internalName": "完美的琉璃小姐",
-    "mtime": "2025-09-04T22:59:15.0162347+08:00"
+    "mtime": "2025-09-04T22:59:15.0162347+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\密教模拟器\\密教模拟器 (2).png": {
     "hash": "f52b1a16ed94e541c742e061e111c6f2e039d0937c29231491d258a86a2c3ad4",
     "internalName": "密教模拟器",
-    "mtime": "2025-08-22T13:30:05.7879752+08:00"
+    "mtime": "2025-08-22T13:30:05.7879752+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\小鸟的轮回恋曲\\小鸟的轮回恋曲1.4（观鸢封面）.png": {
     "hash": "942ffb51fd5a417348b2eb2df3d099b9d490a14259692d05c3bba6b2a317ed9f",
     "internalName": "小鸟的轮回恋曲",
-    "mtime": "2025-06-30T17:47:25.6455248+08:00"
+    "mtime": "2025-06-30T17:47:25.6455248+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\尤利娅·克鲁鲁\\吸血鬼少女不懂人类之心.png": {
     "hash": "63f5e8c8546c1a0a7d6fc58951fc316d105f23d272d486b098f68aa6462d42fe",
     "internalName": "尤利娅·克鲁鲁",
-    "mtime": "2025-04-22T11:54:41.0510165+08:00"
+    "mtime": "2025-04-22T11:54:41.0510165+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\尤利娅·克鲁鲁\\尤利娅·克鲁鲁汉化版.png": {
     "hash": "333cac128cf4f31aa9cf2c8a62fc97364cce192bd891867761e2aaac8e240934",
     "internalName": "尤利娅·克鲁鲁",
-    "mtime": "2025-08-04T17:50:55.2899227+08:00"
+    "mtime": "2025-08-04T17:50:55.2899227+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\带着女儿修仙\\带着女儿修仙！V1.0 0905.png": {
     "hash": "782d0a2c90e1c0227403d9f0017aa3775c2d750eea0c50b323876c35268da15c",
     "internalName": "带着女儿修仙！",
-    "mtime": "2025-09-05T17:06:37.9233374+08:00"
+    "mtime": "2025-09-05T17:06:37.9233374+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\归零区\\归零区.png": {
     "hash": "b4a73f8567624e7b86001bfa8068cba23d521965e82a7ff2c4a0db7b72f4970f",
     "internalName": "归零区",
-    "mtime": "2025-06-25T13:59:24.2389203+08:00"
+    "mtime": "2025-06-25T13:59:24.2389203+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\心与露\\心与露(2).png": {
     "hash": "bbdf77ae166abd03e5af99a476f04ac28a5f6a83161fd5d42debc294491bfc1c",
     "internalName": "心与露",
-    "mtime": "2025-09-05T16:53:09.3824503+08:00"
+    "mtime": "2025-09-05T16:53:09.3824503+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\心与露\\心与露0912.png": {
     "hash": "f466317525ad3c7ccd0351b0a6104adc593b7d952f1782fed13078d88f7da801",
     "internalName": "心与露",
-    "mtime": "2025-09-12T19:29:39.9198415+08:00"
+    "mtime": "2025-09-12T19:29:39.9198415+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\心与露\\心与露0913.png": {
     "hash": "0ad20464ce7a62fc791fe2b3c600865f1771d1405a195e6ac71dcb7ae15fb1e0",
     "internalName": "心与露",
-    "mtime": "2025-09-14T15:29:31.8325649+08:00"
+    "mtime": "2025-09-14T15:29:31.8325649+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\怪奇录\\怪奇录.png": {
     "hash": "aed411537c6ae7234c64a3acb1da7068c2518c49c0270a8b6e77ec9135464095",
     "internalName": "怪奇录",
-    "mtime": "2025-08-22T13:41:43.4643799+08:00"
+    "mtime": "2025-08-22T13:41:43.4643799+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\成为伪娘魔法少女的我才不会被推倒\\1.png": {
     "hash": "89fcb90cab25a7f949b5a752f1b2a79dc22aac10d3bc69447300bda2050e9bf7",
@@ -1182,472 +1398,566 @@
   "D:\\yw\\AI\\角色卡\\剧情\\成为伪娘魔法少女的我才不会被推倒\\才不会被推倒呢v1.41.png": {
     "hash": "3f9eb70656daa64b68ac6678af48adfed76967458789c8eeb61a9be22d6767d1",
     "internalName": "才不会被推倒呢",
-    "mtime": "2025-08-14T20:24:29.0737727+08:00"
+    "mtime": "2025-08-14T20:24:29.0737727+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\我种下的植物\\关于我种下的植物，收获的却是对我绝对忠诚的武装[数据删除]这件事1.7正式版.png": {
     "hash": "8a306e24ed50c08ded5814719dd40933fbfef2881eb34a8dc2c6280533c61f8a",
     "internalName": "关于我种下的植物，收获的却是对我绝对忠诚的武装少女这件事",
-    "mtime": "2025-09-10T19:12:47.3737492+08:00"
+    "mtime": "2025-09-10T19:12:47.3737492+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\房东模拟器\\房东模拟器.png": {
     "hash": "d683b5cb83f256373a8503ea7eed18e7c9a4eda14e0f7967d54cfa61a1d70d7e",
     "internalName": "房东模拟器",
-    "mtime": "2025-09-16T21:22:15.8907276+08:00"
+    "mtime": "2025-09-16T21:22:15.8907276+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\星之诗\\星之诗.png": {
     "hash": "8db0358e10d1f8463cf53363f13d12ba351ca0fa9bf2e1dbf0083e7a366afca6",
     "internalName": "星之诗",
-    "mtime": "2025-08-26T11:40:44.8801559+08:00"
+    "mtime": "2025-08-26T11:40:44.8801559+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\星风纪元\\传奇魔女的诞生 (1).png": {
     "hash": "076e0b912830cedd074810ae2b72bc82a228e3168177298f4dcb0e775c27cf9b",
     "internalName": "传奇魔女的诞生",
-    "mtime": "2025-06-30T14:54:10.8259958+08:00"
+    "mtime": "2025-06-30T14:54:10.8259958+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\星风纪元\\星风纪元 9.png": {
     "hash": "36f7063d3d0ac77a7edabf2704640e8388d12fea9fab462c8535629b2471e423",
     "internalName": "传奇魔女的诞生",
-    "mtime": "2025-06-30T14:58:29.3420396+08:00"
+    "mtime": "2025-06-30T14:58:29.3420396+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\春泥客栈\\春泥客栈.png": {
     "hash": "cf0d96ead2a6ce7015063a9c7b269acbd7d31209b85ff1cf567087c1677784a0",
     "internalName": "春泥客栈",
-    "mtime": "2025-06-25T17:33:33.5398817+08:00"
+    "mtime": "2025-06-25T17:33:33.5398817+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\曾经霸凌你的大小姐如今没你在身边就睡不着\\白城凌夜.png": {
     "hash": "18ff33255e19305c20040ea174914eaf6d82d55d690dd1ec83458e6e2fe95a65",
     "internalName": "白城凌夜",
-    "mtime": "2025-08-04T19:18:52.3544209+08:00"
+    "mtime": "2025-08-04T19:18:52.3544209+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\林霖\\林霖1.png": {
     "hash": "26d4aaf54f192a98bcf8d5fd5fb3783e3e28684f383349470dfe38c0465183d5",
     "internalName": "林霖",
-    "mtime": "2025-09-14T12:18:06.272977+08:00"
+    "mtime": "2025-09-14T12:18:06.272977+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\永不消逝的誓言\\永不消逝的誓言.png": {
     "hash": "3d9742524e83797b8c69895f6abca4f28d8deab8785d34e15d8030361000c5f5",
     "internalName": "永不消逝的誓言",
-    "mtime": "2025-09-14T16:45:50.1247908+08:00"
+    "mtime": "2025-09-14T16:45:50.1247908+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\泛次元互助救世系统\\泛次元互助救世系统1.png": {
     "hash": "bfb54faeacf4041c3786e79e08904cc566e6075899e41fbda863f0f71a656e85",
     "internalName": "泛次元互助救世系统",
-    "mtime": "2025-07-20T18:01:00.7704966+08:00"
+    "mtime": "2025-07-20T18:01:00.7704966+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\浣熊市的最后三日\\浣熊市的最后三日.png": {
     "hash": "039416cd76b6095b3b2e5cdfeae1bbce820c1d72b88fc2d2eb27f2c580b1a4a0",
     "internalName": "浣熊市的最后三日",
-    "mtime": "2025-08-23T20:29:32.4625177+08:00"
+    "mtime": "2025-08-23T20:29:32.4625177+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\清凛\\清凛.png": {
     "hash": "f623fe1f5182b643ea952a00f33032842728e6e5c9caebb90b67ae2ebd3e007e",
     "internalName": "清凛",
-    "mtime": "2025-08-22T19:14:30.3612278+08:00"
+    "mtime": "2025-08-22T19:14:30.3612278+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\漫长的告别\\漫长的告别.png": {
     "hash": "843dbf7ae9e83a55bf12e034ce96db7dec0eaedfc7dec1ea6d89a30f411f7edf",
     "internalName": "漫长的告别",
-    "mtime": "2025-07-20T17:43:57.2004348+08:00"
+    "mtime": "2025-07-20T17:43:57.2004348+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\炼金工房！失忆少年在第四爱世界的奇幻冒险\\炼金工房！失忆少年在第四爱世界的奇幻冒险6 (4).png": {
     "hash": "3c977613796879fbdeec28fad9419a16d1dd49b31696b415c19ca69c3c6718bf",
     "internalName": "炼金工房！失忆少年在第四爱世界的奇幻冒险",
-    "mtime": "2025-08-09T01:42:19.2764235+08:00"
+    "mtime": "2025-08-09T01:42:19.2764235+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\熙熙攘攘，我们的伦丁尼亚\\熙熙攘攘，我们的伦丁尼亚！1.png": {
     "hash": "77ff9b7fc25bb004f66df70b212b66d5b8d22aafa06e1f0ce2f846c1890cb9e7",
     "internalName": "熙熙攘攘，我们的伦丁尼亚！",
-    "mtime": "2025-08-07T23:11:04.7980112+08:00"
+    "mtime": "2025-08-07T23:11:04.7980112+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\特雷森学院规则怪谈\\特雷森学院规则怪谈-无限轮回X0909.png": {
     "hash": "de2c37bbf630c072bb33b8b06d4c1c6666abb9cf7c39e8c13c46c5786a2908d4",
     "internalName": "特雷森学院规则怪谈-无限轮回",
-    "mtime": "2025-09-14T17:56:23.1383564+08:00"
+    "mtime": "2025-09-14T17:56:23.1383564+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\特雷森学院规则怪谈\\特雷森学院规则怪谈.png": {
     "hash": "92d567ea0604818c549a290c685e150cec69ae989b0769fa157b674630725f9a",
     "internalName": "特雷森学院规则怪谈",
-    "mtime": "2025-09-04T17:28:27.9554992+08:00"
+    "mtime": "2025-09-04T17:28:27.9554992+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\生活在魔法废土世界\\生活在魔法废土世界，而我的监护人是怕麻烦的冰山小姨，外加一群问题儿童同学，我的魔法学院生活不可能这么波澜壮阔！ (5).png": {
     "hash": "2db93f2b57fb33107cccde14f8c974884c379808b80289fe599e3a01a3738682",
     "internalName": "生活在魔法废土世界，而我的监护人是怕麻烦的冰山小姨，外加一群问题儿童同学，我的魔法学院生活不可能这么波澜壮阔！",
-    "mtime": "2025-08-14T20:27:55.3956219+08:00"
+    "mtime": "2025-08-14T20:27:55.3956219+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\由纪子\\由纪子 v1.4.png": {
     "hash": "d0f1c8858820f79fc262fb21899fc549d2e5b14bfb351e6a3c6f20cab8605ed3",
     "internalName": "由纪子",
-    "mtime": "2025-06-25T14:03:34.263382+08:00"
+    "mtime": "2025-06-25T14:03:34.263382+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\疫病公寓\\疫病公寓.png": {
     "hash": "2f968da4a266a6beddd778bd0849849a71227d8bed6d7ff2e01e9e9015b888c1",
     "internalName": "疫病公寓",
-    "mtime": "2025-09-04T22:42:04.289456+08:00"
+    "mtime": "2025-09-04T22:42:04.289456+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\看似冷酷实则只是社恐的陛下\\大靖女帝·华裳.png": {
     "hash": "ea1e64d8762718f83e7b6a23bcc966b19db3a443850062ce08f0895f98ca54f7",
     "internalName": "大靖女帝·华裳",
-    "mtime": "2025-08-08T11:55:14.7133027+08:00"
+    "mtime": "2025-08-08T11:55:14.7133027+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\破碎摇篮-忘川之疫\\破碎摇篮 - 忘川之疫v1.2.png": {
     "hash": "d383a6ba78affd3941bd1220d2f2652233d3a7d20fb7c83164eaa0017db7be4d",
     "internalName": "破碎摇篮 - 忘川之疫",
-    "mtime": "2025-08-22T14:30:36.5368365+08:00"
+    "mtime": "2025-08-22T14:30:36.5368365+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\穿越古代从大婚当天开始\\穿越古代从大婚当天开始0906.png": {
     "hash": "a54bf772b7a5462c4524de47b65b9489c303f70691cf4ab9aa6151d1f9a66edc",
     "internalName": "穿越古代从大婚当天开始",
-    "mtime": "2025-09-10T09:51:05.1031585+08:00"
+    "mtime": "2025-09-10T09:51:05.1031585+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\类RPG通用角色卡\\主持人！V6.0（修复）.png": {
     "hash": "4c6519159dc5c3cbb77adf07475762bf7d71a0b8dca7f1a4081cc60d20cec27d",
     "internalName": "主持人！",
-    "mtime": "2025-08-14T14:57:11.3411082+08:00"
+    "mtime": "2025-08-14T14:57:11.3411082+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\脑叶公司\\脑叶公司 (10).png": {
     "hash": "874f1f7a20e63cba1180f948d6041ade5479e5ffd5f82590704b002ce07e933b",
     "internalName": "脑叶公司",
-    "mtime": "2025-08-23T11:50:34.7700878+08:00"
+    "mtime": "2025-08-23T11:50:34.7700878+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\自称神明的少女\\自称神明的少女.png": {
     "hash": "228390530ad402be4102a0d45d7a9ede710e7ff53482cfcfb8e5c7c76ff5e495",
     "internalName": "自称神明的神秘少女",
-    "mtime": "2025-07-27T20:21:56.7056803+08:00"
+    "mtime": "2025-07-27T20:21:56.7056803+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\苏幽璃\\苏幽璃.png": {
     "hash": "ab76f5456e66eb04c621eea05ba946bdeaaab6c51428428f20a1b5d7c6199468",
     "internalName": "mygo",
-    "mtime": "2025-07-12T15:00:41.6352944+08:00"
+    "mtime": "2025-07-12T15:00:41.6352944+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\萝莉天堂\\萝莉天堂0915.png": {
     "hash": "3bcfb5a071cf1d86fa6d23e352195fdae46c3e6dbb8b38c5c31a5124c487b111",
     "internalName": "萝莉天堂",
-    "mtime": "2025-09-15T21:21:55.2016462+08:00"
+    "mtime": "2025-09-15T21:21:55.2016462+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\萝莉妈妈\\萝莉妈妈 (1).png": {
     "hash": "0c3adf61428edd5410fef212d8ec45b95ce7975e516c09bc00a1d7c1418c0aac",
     "internalName": "萝莉妈妈",
-    "mtime": "2025-09-16T22:04:32.612035+08:00"
+    "mtime": "2025-09-16T22:04:32.612035+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\规则怪谈\\1.png": {
     "hash": "e3fabecc1e2e396915f1f9b7b2c515b3cc511ba05b4610e57ff1854dadd358ec",
     "internalName": "规则怪谈世界",
-    "mtime": "2025-06-18T22:24:20.6396149+08:00"
+    "mtime": "2025-06-18T22:24:20.6396149+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\规则怪谈模因污染\\【规则怪谈模因污染】3.0版本 (1).png": {
     "hash": "59c689f216583af592d22ac1b45b86535c28714722517354cd6715b495000c5b",
     "internalName": "【规则怪谈模因污染】",
-    "mtime": "2025-07-20T18:14:30.343583+08:00"
+    "mtime": "2025-07-20T18:14:30.343583+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\超清冷师尊\\超清冷师尊，强迫就会死的师尊你能攻略吗？V1.1.png": {
     "hash": "12eb61559dc05c719fa2b4f9d4d230cf7960e5e64684f5cc04e45c068314dbd1",
     "internalName": "超清冷师尊，强迫就会死的师尊你能攻略吗？",
-    "mtime": "2025-08-23T20:25:21.3074156+08:00"
+    "mtime": "2025-08-23T20:25:21.3074156+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\跨越时之尽头\\跨越时之尽头.png": {
     "hash": "f259e6cc4947cc6735f86abda28dac56e74632a15629de228531c712339ed5e5",
     "internalName": "跨越时之尽头",
-    "mtime": "2025-07-12T14:48:55.6612163+08:00"
+    "mtime": "2025-07-12T14:48:55.6612163+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\轮回战场：无限\\轮回战场：无限1 (3).png": {
     "hash": "a1001a8ff4f8771adb1255efc3528e50add6f6cd8d59e76ea847975d4a18d900",
     "internalName": "轮回战场：无限",
-    "mtime": "2025-08-24T19:37:38.5756171+08:00"
+    "mtime": "2025-08-24T19:37:38.5756171+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\雌小鬼师妹灵瑶\\雌小鬼师妹灵瑶1.png": {
     "hash": "909167585a603c505664f1288f6a67eb035c31026ce3a75fddf0f5160a419753",
     "internalName": "雌小鬼师妹灵瑶",
-    "mtime": "2025-08-23T20:23:01.3499087+08:00"
+    "mtime": "2025-08-23T20:23:01.3499087+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\霍格沃兹修仙传\\霍格沃兹修仙传.png": {
     "hash": "b1f717f1074c7c6efa8ab153c4e65a650ec6deab128325eb588aa3f0a1bf112f",
     "internalName": "霍格沃兹修仙传",
-    "mtime": "2025-09-13T22:40:04.9252299+08:00"
+    "mtime": "2025-09-13T22:40:04.9252299+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\露西亚\\露西亚.png": {
     "hash": "a6100e8df5daf52b3fdf288712baf1d0c0f62ffbbb8703be8a5e164a0a761c10",
     "internalName": "露西亚",
-    "mtime": "2025-09-14T12:15:51.5463417+08:00"
+    "mtime": "2025-09-14T12:15:51.5463417+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\青梅竹马艾莉娜\\青梅竹马艾莉娜.png": {
     "hash": "befc54322937a4a823e401764cb38e523e8eaf06ffc0bc813109c5909caefd1f",
     "internalName": "青梅竹马艾莉娜",
-    "mtime": "2025-06-30T15:09:45.5253627+08:00"
+    "mtime": "2025-06-30T15:09:45.5253627+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\剧情\\魔法少女：花与蛇的咏叹调\\魔法少女：花与蛇的咏叹调0.4自由龙门-朝雾诗织.png": {
     "hash": "f86c3e9cee1caf6125207690769abbf57913bc6b08d5c042703518dd69b0cf74",
     "internalName": "魔法少女：花与蛇的咏叹调0.4自由龙门",
-    "mtime": "2025-08-04T17:30:29.5559973+08:00"
+    "mtime": "2025-08-04T17:30:29.5559973+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\魔法少女：花与蛇的咏叹调\\魔法少女：花与蛇的咏叹调0.4自由龙门-鸦.png": {
     "hash": "b2504bf90da0bb060a03542e577c18b3d0e978daaabc94ff3a8663bb28c06836",
     "internalName": "魔法少女：花与蛇的咏叹调0.4自由龙门",
-    "mtime": "2025-08-04T17:29:47.1688778+08:00"
+    "mtime": "2025-08-04T17:29:47.1688778+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\魔物娘宕郡镇与混沌地牢\\魔物娘.png": {
     "hash": "7b02dcd7f97c7dd247f6650d07a7527eefe9dd629141ced482adb8ffca8eec24",
     "internalName": "宕郡镇与混沌地牢",
-    "mtime": "2025-08-02T19:36:14.6095615+08:00"
+    "mtime": "2025-08-02T19:36:14.6095615+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\剧情\\魔神月咏\\魔神月咏.png": {
     "hash": "f16b5beb191a394d6dc196903f60bac79d914d163506bb827168b9545a54fba9",
     "internalName": "魔神月咏",
-    "mtime": "2025-07-16T20:24:18.9316516+08:00"
+    "mtime": "2025-07-16T20:24:18.9316516+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\同人\\Blacksouls\\Blacksouls (8).png": {
     "hash": "50f9311beb507ec6ca9bc4149d04fd7d4d922c7f3ac002f9318d035476b9b7b3",
     "internalName": "Blacksouls",
-    "mtime": "2025-08-20T14:58:14.003536+08:00"
+    "mtime": "2025-08-20T14:58:14.003536+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\同人\\MiSide_1\\MiSide_1.png": {
     "hash": "78e3399485579457db3928fbe627bf87bafb66569b6b4bb873938325a007bda5",
     "internalName": "MiSide",
-    "mtime": "2025-07-06T21:00:51.2333375+08:00"
+    "mtime": "2025-07-06T21:00:51.2333375+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\同人\\MiSide_3.2\\MiSide_3.2.png": {
     "hash": "3e4f70194f0947617b18366b028ecf35d6108e597dcf5e4f78db24ee047358ba",
     "internalName": "MiSide",
-    "mtime": "2025-07-06T21:00:27.1602234+08:00"
+    "mtime": "2025-07-06T21:00:27.1602234+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\同人\\Re0从零开始的异世界生活\\Re0从零开始的异世界生活 0915.png": {
     "hash": "55602cafaaa0e0981ae2574e2159bcdc8d4368696f6419b0835385d8148c9b0e",
     "internalName": "Re0从零开始的异世界生活",
-    "mtime": "2025-09-15T16:22:23.6309787+08:00"
+    "mtime": "2025-09-15T16:22:23.6309787+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\同人\\Sgw还在go\\【Sgw】还在go (1).png": {
     "hash": "c930cd3d57b1e3b2eab7cb60a5d97c68999f5d5e805e05e58f787f051befa9f4",
     "internalName": "【Sgw】还在go",
-    "mtime": "2025-08-24T19:32:38.1601918+08:00"
+    "mtime": "2025-08-24T19:32:38.1601918+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\同人\\与伊蕾娜的魔女之旅\\2_2.png": {
     "hash": "22833ab7ba137845fd3f6fc53bce69ac95e289a59c8c5149f5c337e2811c7b7e",
     "internalName": "与伊蕾娜的魔女之旅",
-    "mtime": "2025-07-24T19:47:23.1419349+08:00"
+    "mtime": "2025-07-24T19:47:23.1419349+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\同人\\为美好的世界献上祝福\\为美好世界献上祝福2.6正式版 (1).png": {
     "hash": "0d77d80d1f45567e844b642d2d60d5bea1e3beeed293692ac895f2ffe58decb6",
     "internalName": "为美好世界献上祝福2.6正式版",
-    "mtime": "2025-08-06T22:20:19.3105643+08:00"
+    "mtime": "2025-08-06T22:20:19.3105643+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\同人\\从零开始的异世界生活\\Re：从零开始的异世界生活.png": {
     "hash": "fc831b887f11461072b295f587b3cc752897a5f638a15bba74012b9cd02bf318",
     "internalName": "Re：从零开始的异世界生活",
-    "mtime": "2025-07-24T19:41:15.7973477+08:00"
+    "mtime": "2025-07-24T19:41:15.7973477+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\同人\\伊蕾娜\\伊蕾娜 (2).png": {
     "hash": "6d25c183dc41a6db6a0926c47821ff98509dcdeb6d6fadd1f3e0f63a2dbde4c4",
     "internalName": "伊蕾娜",
-    "mtime": "2025-07-12T14:51:58.4173828+08:00"
+    "mtime": "2025-07-12T14:51:58.4173828+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\同人\\伊蕾娜\\伊蕾娜.png": {
     "hash": "1296352104d052fae62d46cbd710d70ceab3c463ff9c74e11e041e98415c7cc4",
     "internalName": "伊蕾娜",
-    "mtime": "2025-07-24T19:48:12.4585154+08:00"
+    "mtime": "2025-07-24T19:48:12.4585154+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\同人\\勇者小队的金主爸爸\\Freeuse_Journey.png": {
     "hash": "28556b3b2dc81ebe9c9d20ca4989b699fe29ae982108efb0bfb94d7ad6e90642",
     "internalName": "芙莉莲(Freeuse_Journey)",
-    "mtime": "2025-08-24T09:39:42.7815935+08:00"
+    "mtime": "2025-08-24T09:39:42.7815935+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\同人\\千恋万花\\芊念万呱1(1).png": {
     "hash": "5a2051a81b52fa15a705fdef1e26d770e5219d446e97ced31b1aa3c2079f4f91",
     "internalName": "芊念万呱",
-    "mtime": "2025-09-04T23:19:29.1638468+08:00"
+    "mtime": "2025-09-04T23:19:29.1638468+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\同人\\哥布林杀手\\哥布林杀手0914.png": {
     "hash": "3ca2661cfa05c27628286362a9bcc9b5b9913242a9cb73ec9efaf964637e28cc",
     "internalName": "哥布林杀手9.14",
-    "mtime": "2025-09-14T12:07:48.9560229+08:00"
+    "mtime": "2025-09-14T12:07:48.9560229+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\同人\\哥布林杀手\\哥布林杀手7.30.png": {
     "hash": "6aab93ecd9412bbea9749844ca4ab32d9707be4921acc942966f3b928b0efcdd",
     "internalName": "哥布林杀手7.30",
-    "mtime": "2025-08-04T18:33:27.6236536+08:00"
+    "mtime": "2025-08-04T18:33:27.6236536+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\同人\\异种族风俗娘评鉴指南\\异种族风俗娘评鉴指南.png": {
     "hash": "64e8f63e5c68212dc61db0ee502adfe6e4d002251ff6c0af4ec4e148742da833",
     "internalName": "异种族风俗娘评鉴指南",
-    "mtime": "2025-07-24T19:39:55.3160808+08:00"
+    "mtime": "2025-07-24T19:39:55.3160808+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\同人\\异种族风俗娘评鉴指南\\异种族风俗娘评鉴指南0825.png": {
     "hash": "c2154c0a7b7b205c81faf5eb35ff74ac69b449a1382f4679b95a5b66670292b5",
     "internalName": "异种族风俗娘评鉴指南",
-    "mtime": "2025-08-25T21:34:50.4723646+08:00"
+    "mtime": "2025-08-25T21:34:50.4723646+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\同人\\心跳~心跳~文学部\\心跳~心跳~文学部.png": {
     "hash": "f6b2d014cf6118ffba5cc2c420d6b0ac342d166cdfdd90a4f3ec374119162361",
     "internalName": "心跳~心跳~文学部",
-    "mtime": "2025-08-04T19:07:32.0754309+08:00"
+    "mtime": "2025-08-04T19:07:32.0754309+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\同人\\想要陪你去其他世界的愛莉希雅\\愛莉希雅V1.0 Beta.png": {
     "hash": "6a333e2ed610113547107b7a473966b5ab2b89c99f5c659f2bc1565600d0e1ce",
     "internalName": "愛莉希雅V1.0 Beta",
-    "mtime": "2025-08-14T20:01:45.003559+08:00"
+    "mtime": "2025-08-14T20:01:45.003559+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\同人\\成龙历险记\\成龙历险记娘化.png": {
     "hash": "3d326cbf433dad1f4f537e737fe1df6ae40ed49da9e6bc654c18dde9bca87e9f",
     "internalName": "《成龙历险记》动物的力量篇",
-    "mtime": "2025-08-02T19:42:55.0577743+08:00"
+    "mtime": "2025-08-02T19:42:55.0577743+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\同人\\我的妹妹不可能这么可爱\\我的妹妹不可能这么可爱（ver1.4）.png": {
     "hash": "cec0f7542274a5b8deaf9a8b737c1b35a99cbc2ce5ddaee30642caecc60e9f0a",
     "internalName": "我的妹妹不可能这么可爱（ver1.4）",
-    "mtime": "2025-09-12T21:01:03.9304823+08:00"
+    "mtime": "2025-09-12T21:01:03.9304823+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\同人\\我的妹妹不可能这么可爱\\我的妹妹不可能这么可爱（京介版本ver1.4）.png": {
     "hash": "7e379f4e7e4b0deb15b6ff915862533f40326ab32e3a316777f95f62a5310c09",
     "internalName": "我的妹妹不可能这么可爱（京介版本ver1.4）",
-    "mtime": "2025-09-12T21:00:52.4320702+08:00"
+    "mtime": "2025-09-12T21:00:52.4320702+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\同人\\我的青春恋爱物语没有问题\\我的青春恋爱物语没有问题.png": {
     "hash": "36f657d8e7a538ddb303d7633683897540c54f911ff450a907fefe714c96f6e7",
     "internalName": "我的青春恋爱物语没有问题",
-    "mtime": "2025-09-04T22:47:35.6755938+08:00"
+    "mtime": "2025-09-04T22:47:35.6755938+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\同人\\末日孤雄\\末日孤雄-行尸走肉横行的世界里只有我不被袭击.png": {
     "hash": "bfa687b096894d46fa4b9de659d0db13909f8683ca89aa8f92939301dac4a311",
     "internalName": "末日孤雄-行尸走肉横行的世界里只有我不被袭击",
-    "mtime": "2025-07-20T17:56:08.5982908+08:00"
+    "mtime": "2025-07-20T17:56:08.5982908+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\同人\\机巧少女不会受伤\\机巧少女不会受伤1.png": {
     "hash": "4cbef38f8dc99f402e729e45e5dfbad352845e537d1e1d76659673740826b0f2",
     "internalName": "机巧少女不会受伤",
-    "mtime": "2025-09-04T22:45:55.6427609+08:00"
+    "mtime": "2025-09-04T22:45:55.6427609+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\同人\\极品家丁\\v1.2.png": {
     "hash": "dc9febf39520f82605de832a140301b5e0eebd394dcf0c480987a05999bc8714",
     "internalName": "极品家丁 v1.2",
-    "mtime": "2025-07-17T08:16:32.1215062+08:00"
+    "mtime": "2025-07-17T08:16:32.1215062+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\同人\\梦梦奈\\梦梦奈 (1).png": {
     "hash": "2167f1a5b260e79c2cfb3e93399832ce1151ce18db165d81c6466ed5313ab3ee",
     "internalName": "梦梦奈",
-    "mtime": "2025-08-23T20:17:35.7719276+08:00"
+    "mtime": "2025-08-23T20:17:35.7719276+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\同人\\梦梦奈\\梦梦奈.png": {
     "hash": "d3d7a4eb12a9601316c7650ab0d61eba63a25d3ee96ba3863d98a094b1b56796",
     "internalName": "梦梦奈",
-    "mtime": "2025-08-19T12:02:06.3039678+08:00"
+    "mtime": "2025-08-19T12:02:06.3039678+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\同人\\琼明神女录纯爱版\\琼明神女录.png": {
     "hash": "46d053584b2eea435a194a284564b91f7b134833ba243432955861b71c66382f",
     "internalName": "琼明神女录",
-    "mtime": "2025-08-05T13:11:30.802877+08:00"
+    "mtime": "2025-08-05T13:11:30.802877+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\同人\\米塔\\米塔.png": {
     "hash": "ed1edb16fc3332c7a9e8b5d0fd9b78fa64211308b2b067fe8cf2c1188cb3446e",
     "internalName": "疯狂米塔",
-    "mtime": "2025-07-06T20:58:14.3390588+08:00"
+    "mtime": "2025-07-06T20:58:14.3390588+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\同人\\米塔世界\\米塔世界.png": {
     "hash": "ee7db96384640d7eadc476ea0a0dfd3c89f5894419394e8a63c01582985f2f1f",
     "internalName": "米塔",
-    "mtime": "2025-04-22T11:30:36.8439052+08:00"
+    "mtime": "2025-04-22T11:30:36.8439052+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\同人\\艾斯特利亚\\艾斯特利亚.png": {
     "hash": "aecacd792f6ee72825d36997ff5d6302a947ef0e508532f392f94e665df962d0",
     "internalName": "艾斯特利亚",
-    "mtime": "2025-08-04T18:42:29.3991129+08:00"
+    "mtime": "2025-08-04T18:42:29.3991129+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\同人\\葬送的芙莉莲\\芙芙0820.png": {
     "hash": "397888020d23feb16a2c231afabc655fc59523a0feb497e321385a88b82bacbe",
     "internalName": "芙芙",
-    "mtime": "2025-08-24T09:38:30.3498166+08:00"
+    "mtime": "2025-08-24T09:38:30.3498166+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\同人\\行尸走肉\\行尸走肉v1.0.png": {
     "hash": "eea6dad657e9bacc23c513417a609bc6c45c871da863cc1172bed6bf637f715f",
     "internalName": "行尸走肉v1.0",
-    "mtime": "2025-09-05T17:13:47.3487132+08:00"
+    "mtime": "2025-09-05T17:13:47.3487132+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\同人\\近月少女的礼仪\\露娜朝日攻略大作战.png": {
     "hash": "490ff2ea8bf0941202d9a53760d92556ff8f499f9b9ef8431be8e55f239442e9",
     "internalName": "露娜朝日攻略大作战",
-    "mtime": "2025-08-05T19:59:20.6058863+08:00"
+    "mtime": "2025-08-05T19:59:20.6058863+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\同人\\雾魇漫行\\Image_1747287322839.png": {
     "hash": "7765588b4df82a3a1cab39a24919d39664cf98d36c7633cc2fd1f1087cd59482",
     "internalName": "BlackSouls♦雾魇漫行",
-    "mtime": "2025-08-20T14:57:03.5014391+08:00"
+    "mtime": "2025-08-20T14:57:03.5014391+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\同人\\霍格沃茨\\霍格沃茨2.0 优化世界书逻辑.png": {
     "hash": "ae37b2221ce945858ff4e1247c261f975ccd635113687994f502ca234b3b045b",
     "internalName": "霍格沃茨2.0",
-    "mtime": "2025-08-10T14:52:11.8249766+08:00"
+    "mtime": "2025-08-10T14:52:11.8249766+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\同人\\魔法使之夜\\魔法使之夜4 (1).png": {
     "hash": "25c9abbd22c5d2c638774ee647c2285a91cc6b3bef00700c21fac57eaada10d5",
     "internalName": "魔法使之夜",
-    "mtime": "2025-08-25T21:42:22.3252548+08:00"
+    "mtime": "2025-08-25T21:42:22.3252548+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\崩坏3\\为美好的世界而战\\崩坏三1 (3).png": {
     "hash": "0430e84916531833a21a72bd9bb7d1b42f1d5ef96c234e88328494c041b7a844",
     "internalName": "崩坏三",
-    "mtime": "2025-08-04T12:01:14.3460464+08:00"
+    "mtime": "2025-08-04T12:01:14.3460464+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\崩坏3\\崩三\\崩三.png": {
     "hash": "d1b72bdce553c2eb3973f5fbfc0423390014abdf73484ed2242c2a32f4b96d58",
     "internalName": "崩三",
-    "mtime": "2025-08-23T20:32:42.1301139+08:00"
+    "mtime": "2025-08-23T20:32:42.1301139+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\崩坏3\\崩三\\崩三0824.png": {
     "hash": "16c84261258201d8ce0044ca39b62cbf3b60b84561172854bdd85773cb27411e",
     "internalName": "崩三",
-    "mtime": "2025-08-24T19:36:04.5742327+08:00"
+    "mtime": "2025-08-24T19:36:04.5742327+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\崩坏3\\崩三\\崩三0827.png": {
     "hash": "3316866fde4297009459d8d861c8e7377abcb84090705cbd8d3b89ef1aa756ca",
     "internalName": "崩三",
-    "mtime": "2025-09-05T09:35:00.4836063+08:00"
+    "mtime": "2025-09-05T09:35:00.4836063+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\崩坏3\\崩坏3\\卡面.png": {
     "hash": "762e8348056b1bb0dad74e31b2ffeff3627d39c8800cb7312027d8e4b6b3d836",
     "internalName": "崩坏三",
-    "mtime": "2025-07-17T08:39:14.1119004+08:00"
+    "mtime": "2025-07-17T08:39:14.1119004+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\崩坏3\\崩坏3\\崩坏三.png": {
     "hash": "a2979faf8dd604f0cbb5ec946ba6a3f4f5dbb9b92a9a9e816c2ccb85c7cab9ab",
     "internalName": "崩坏三",
-    "mtime": "2025-07-17T08:40:43.9505276+08:00"
+    "mtime": "2025-07-17T08:40:43.9505276+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\崩坏3\\崩坏3\\崩坏三20250212.png": {
     "hash": "6e016377c5742a78e9f3de41854415da39b6bd8a96076149bcc0dca9e62a6437",
     "internalName": "崩坏三",
-    "mtime": "2025-07-17T08:39:50.347627+08:00"
+    "mtime": "2025-07-17T08:39:50.347627+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\崩坏3\\崩坏3\\崩坏三最新版.png": {
     "hash": "e6cdd3fbe2773dc80d0240deb92f0a408de9132ebc053d3fbb52aad401d5a9f9",
     "internalName": "崩坏三",
-    "mtime": "2025-07-17T08:40:23.4207808+08:00"
+    "mtime": "2025-07-17T08:40:23.4207808+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\崩坏3\\希儿·芙乐艾\\希儿·芙乐艾 (5).png": {
     "hash": "45866342ccf352dd6a1a52150f22924f842800ec6c7a771501edc210a08f86b2",
     "internalName": "希儿·芙乐艾",
-    "mtime": "2025-08-04T11:58:22.4744052+08:00"
+    "mtime": "2025-08-04T11:58:22.4744052+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\崩坏3\\爱莉西亚\\1.2.png": {
     "hash": "674aad0f262a02f43cc2a8bb9e02100d118ff657dde34b1d83ae0872c20e42f4",
     "internalName": "与爱莉希雅结婚吧！",
-    "mtime": "2025-07-05T20:07:17.2414641+08:00"
+    "mtime": "2025-07-05T20:07:17.2414641+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\工具\\Amily2\\【Amily2号助手】客服 V2.0.png": {
     "hash": "bfba1678d917374144848cbe3a952caba589273a0ea85a5aff5b8f676112bf71",
     "internalName": "【Amily2号助手】客服",
-    "mtime": "2025-09-04T20:06:51.6200028+08:00"
+    "mtime": "2025-09-04T20:06:51.6200028+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\工具\\Character Builder 角色卡制作助手\\Character_Builder_v1.3.png": {
     "hash": "87396ae06008f16076bb75d10c34095675bbe2b055eaf55eda4ed6b51d89521e",
     "internalName": "Character Builder v1.3",
-    "mtime": "2025-06-30T15:33:19.63701+08:00"
+    "mtime": "2025-06-30T15:33:19.63701+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\工具\\Kora\\Kora5.3.png": {
     "hash": "b4a0d28b8ce616470685385045949e87f9a8777b5d2de4bc61642b7768f8e8fa",
     "internalName": "Kora5.3",
-    "mtime": "2025-09-15T21:52:22.7115051+08:00"
+    "mtime": "2025-09-15T21:52:22.7115051+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\工具\\万楼不重开\\dataTable角色扮演.png": {
     "hash": "3d274fb51cdf803b74fd159412c10b7ca62c90351abea926906b408ffcc7fd99",
     "internalName": "dataTable角色扮演",
-    "mtime": "2025-08-14T20:21:39.9782104+08:00"
+    "mtime": "2025-08-14T20:21:39.9782104+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\工具\\万楼不重开\\万楼不重开.png": {
     "hash": "ba24af5df7eec2789c9965b436209ed76913e7df4ca0a543421f82d2a2eb65a5",
@@ -1662,102 +1972,122 @@
   "D:\\yw\\AI\\角色卡\\工具\\万能性癖适配器\\A.U.T.O_5.9.png": {
     "hash": "0c7ede1778c917a74e7beedfffb20801f201cdfd4f17708f0760325559031244",
     "internalName": "A.U.T.O",
-    "mtime": "2025-06-30T15:39:46.5649278+08:00"
+    "mtime": "2025-06-30T15:39:46.5649278+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\工具\\世界树\\World_Builder_2.0.png": {
     "hash": "d3c9e12824c3da2a9cc29d8100adf196c8b87fba80d7a0472180e5767920a361",
     "internalName": "World Builder 2.0",
-    "mtime": "2025-06-25T19:28:40.7786067+08:00"
+    "mtime": "2025-06-25T19:28:40.7786067+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\工具\\林月瑶（学习辅导）\\林月瑶（学习辅导）.png": {
     "hash": "d965c7256e07aff6e371b76c5dcf25d1e056d2340a0e96425a9e8d9f42c59a62",
     "internalName": "林月瑶（学习辅导）",
-    "mtime": "2025-07-12T14:58:35.4313336+08:00"
+    "mtime": "2025-07-12T14:58:35.4313336+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\工具\\珠玑\\珠玑.png": {
     "hash": "833394b58b8997a1ecb671afbd345799a20380d90a2324be7d28c960e786533a",
     "internalName": "珠矶",
-    "mtime": "2025-06-25T17:53:00.3228441+08:00"
+    "mtime": "2025-06-25T17:53:00.3228441+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\工具\\珠玑\\珠矶1.png": {
     "hash": "62cd708e8809508b7d2cb3b9fd856a9c6372ced7dad2e75c10fb9697e44d2441",
     "internalName": "珠矶",
-    "mtime": "2025-07-08T18:19:29.8697272+08:00"
+    "mtime": "2025-07-08T18:19:29.8697272+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\工具\\萧谴写卡助手\\V3.0.png": {
     "hash": "f5bd78062b7b4fe3c942bf73c629d7fedbf1d0b387ed3658134d213a91f0639b",
     "internalName": "萧谴写卡助手版V3.0",
-    "mtime": "2025-07-17T08:11:34.7944096+08:00"
+    "mtime": "2025-07-17T08:11:34.7944096+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\工具\\萧谴写卡助手\\V3.5助手.png": {
     "hash": "665ba42ac5153c63c7f28ce42527dd0cf0301c2cd83950864369d89933dd2d3b",
     "internalName": "萧谴写卡助手版V3.5Beta",
-    "mtime": "2025-08-04T18:03:40.7204229+08:00"
+    "mtime": "2025-08-04T18:03:40.7204229+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\工具\\萧谴写卡助手\\角色卡模板[配套萧谴写卡助手v3.5Beta.png": {
     "hash": "458b67be51b119df16554fbe7296bc026c8b1a5c42beaca31ac40602fcfe3c7e",
     "internalName": "角色卡模板[配套萧谴写卡助手v3.5Beta]",
-    "mtime": "2025-08-04T18:02:48.5660661+08:00"
+    "mtime": "2025-08-04T18:02:48.5660661+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\明日方舟\\丝袜阿米娅\\3.png": {
     "hash": "e4a356a1a3bb90a615cf8dfc171995981f7eaa89fb2d802b6c0217258655c338",
     "internalName": "阿米娅",
-    "mtime": "2025-07-17T08:32:09.338105+08:00"
+    "mtime": "2025-07-17T08:32:09.338105+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\明日方舟\\凯尔希\\牢猫.png": {
     "hash": "0e428e517b65cd59d33c5f778d9f8a8859bd94f8180c8fdb7caf6269f581f0ca",
     "internalName": "牢猫",
-    "mtime": "2025-07-30T19:28:28.8824081+08:00"
+    "mtime": "2025-07-30T19:28:28.8824081+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\明日方舟\\博士的日常\\博士的日常1_1.png": {
     "hash": "67f3f63a599efa4587a23672381f0593807909cf2808bdeef72e1a173a25b56e",
     "internalName": "博士的援交生活",
-    "mtime": "2025-04-22T11:28:17.8422438+08:00"
+    "mtime": "2025-04-22T11:28:17.8422438+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\明日方舟\\拼尽全力满足发情兽娘\\穿越到泰拉就要拼尽全力满足所有发情兽娘们.png": {
     "hash": "f017e76cfa1f43e66165efd57709542869ee7e30eeac63ab616e0ea483244931",
     "internalName": "穿越到泰拉就要拼尽全力满足所有发情兽娘们",
-    "mtime": "2025-07-17T07:56:40.40392+08:00"
+    "mtime": "2025-07-17T07:56:40.40392+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\明日方舟\\浊心斯卡蒂\\浊心斯卡蒂.png": {
     "hash": "2c9a0b28ae8c6c26ab0ed4048abb01943811244248189cda6acb1eb70a38f569",
     "internalName": "浊心斯卡蒂",
-    "mtime": "2025-04-22T11:25:15.7659795+08:00"
+    "mtime": "2025-04-22T11:25:15.7659795+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\明日方舟\\狠狠的玩弄普瑞塞斯\\1.1.png": {
     "hash": "5296ada799d98a1200df3d362cbb3759a0bf5e803791324a5afae37aabc564c1",
     "internalName": "普瑞塞斯",
-    "mtime": "2025-07-17T08:29:42.6559962+08:00"
+    "mtime": "2025-07-17T08:29:42.6559962+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\明日方舟\\罗德岛大妓院\\罗德岛大妓院 Ver0.7.png": {
     "hash": "edf761101af1015bac0979c6180b240323a21bcc538e0239a5ce785d3123fc0b",
     "internalName": "罗德岛大妓院 Ver0.7",
-    "mtime": "2025-07-30T19:31:11.6102172+08:00"
+    "mtime": "2025-07-30T19:31:11.6102172+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\明日方舟\\迷迭香\\迷迭香1.0.png": {
     "hash": "2a0fa6cf6d3cf427e18f03b1034ca3a6fe0fedb336b216693827aa4a1061212e",
     "internalName": "迷迭香",
-    "mtime": "2025-04-22T11:23:28.017058+08:00"
+    "mtime": "2025-04-22T11:23:28.017058+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\波函数\\Windows 11\\Windows 11 0824.png": {
     "hash": "de644e142b721e1be43ba797f9ac437ba71ab5f315c621e90a7526454287f7eb",
     "internalName": "Windows 11",
-    "mtime": "2025-08-24T23:14:31.7679271+08:00"
+    "mtime": "2025-08-24T23:14:31.7679271+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\波函数\\Windows 11\\Windows 11.png": {
     "hash": "35547f7cd535cb16d1ebac4b2b8e9704aad7147e291db034d5b5809e26019d6d",
     "internalName": "Windows 11",
-    "mtime": "2025-08-24T15:26:14.7166274+08:00"
+    "mtime": "2025-08-24T15:26:14.7166274+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\波函数\\和数据删除系统娘一起对抗全世界系统\\vmlinuz-6.6.0-kali1-amd64-0823.png": {
     "hash": "53c4e43e2458a7d4d12713d5af7fa8c80bf7869bde97ef7372714ef8d632a38a",
     "internalName": "vmlinuz-6.6.0-kali1-amd64",
-    "mtime": "2025-08-24T09:43:16.0083745+08:00"
+    "mtime": "2025-08-24T09:43:16.0083745+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\波函数\\和数据删除系统娘一起对抗全世界系统\\vmlinuz-6.6.0-kali1-amd64.png": {
     "hash": "e3e72f716f42c8caef46af1e9d74cd1971520d32a09d1a6098dbf36acdd99b1e",
     "internalName": "vmlinuz-6.6.0-kali1-amd64",
-    "mtime": "2025-08-21T16:31:30.4895954+08:00"
+    "mtime": "2025-08-21T16:31:30.4895954+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\波函数\\崩三\\崩三.png": {
     "hash": "d1b72bdce553c2eb3973f5fbfc0423390014abdf73484ed2242c2a32f4b96d58",
@@ -1797,22 +2127,26 @@
   "D:\\yw\\AI\\角色卡\\波函数\\测不准的海森堡同学\\测不准的海森堡同学.png": {
     "hash": "6f5213a0ec615884d782dd5e80c9b5162f3b4b52154dea7d443f8693a8fb14cb",
     "internalName": "测不准的海森堡同学",
-    "mtime": "2025-08-04T17:35:55.6190002+08:00"
+    "mtime": "2025-08-04T17:35:55.6190002+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\波函数\\福建姐姐和企业酱\\福建姐姐和企业酱-V2.0.png": {
     "hash": "7c468223fc7d1249f4d0797c5d198bb06cd3eb5ba32bd4b59b109cbb9bac43ba",
     "internalName": "福建姐姐和企业酱-V2.0",
-    "mtime": "2025-08-19T19:33:12.6426199+08:00"
+    "mtime": "2025-08-19T19:33:12.6426199+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\波函数\\缇娅的成长日记\\缇娅的成长日记.png": {
     "hash": "8cb1efb6a28702354bc0c54877033094e766d1997cf60eacd0dd50ffe2e36e28",
     "internalName": "缇娅的成长日记",
-    "mtime": "2025-08-19T19:31:27.4383912+08:00"
+    "mtime": "2025-08-19T19:31:27.4383912+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\波函数\\莫比乌斯残响\\莫比乌斯残响.png": {
     "hash": "aa1480d79343563ef1cc53928cdd2263355059d2f29416e00fa31f1e6f747243",
     "internalName": "莫比乌斯残响",
-    "mtime": "2025-08-19T19:33:43.0916486+08:00"
+    "mtime": "2025-08-19T19:33:43.0916486+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\波函数\\西伯利亚的超新星\\1.png": {
     "hash": "a49e4b42dc3171af6714a7e345766adf9734b5e9a29d6d7f0638197ec0681576",
@@ -1822,51 +2156,61 @@
   "D:\\yw\\AI\\角色卡\\波函数\\西伯利亚的超新星\\西伯利亚的超新星.png": {
     "hash": "03293a8e5a2fcd2a519d4c641b13a264de6c189ef406261fe5940cee87d3ba45",
     "internalName": "西伯利亚的超新星",
-    "mtime": "2025-08-19T19:35:08.3902073+08:00"
+    "mtime": "2025-08-19T19:35:08.3902073+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\波函数\\零零\\nulla.execute(you);.png": {
     "hash": "38e40f9b9e3387030474448d10f4b936e8fade722fc5185bb505c4a308cfd461",
     "internalName": "nulla.execute(you);",
-    "mtime": "2025-08-04T19:12:56.4386161+08:00"
+    "mtime": "2025-08-04T19:12:56.4386161+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\波函数\\零零\\nulla.execute(you);0822.png": {
     "hash": "3fdbad60c1c0d260096f304ca6432228265a317976bed3545b8caeeb7c8e7ed1",
     "internalName": "nulla.execute(you);",
-    "mtime": "2025-08-24T12:38:37.597539+08:00"
+    "mtime": "2025-08-24T12:38:37.597539+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\波函数\\零零\\nulla.executeyou.png": {
     "hash": "3ae350f65f414d7bc2e338ad5db702db449591356c87f8503bf6952da468d944",
     "internalName": "nulla.execute(you);",
-    "mtime": "2025-07-16T22:39:05.56411+08:00"
+    "mtime": "2025-07-16T22:39:05.56411+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\波函数\\零零\\nulla.executeyou最新版.png": {
     "hash": "b364c877a23409dceb1b1f39b67afc46d8cf353f7c0c756f1b7a5ae4c807a733",
     "internalName": "nulla.execute(you);",
-    "mtime": "2025-07-24T08:07:13.1771421+08:00"
+    "mtime": "2025-07-24T08:07:13.1771421+08:00",
+    "localizationNeeded": true
   },
   "D:\\yw\\AI\\角色卡\\深渊\\与兽娘的末日二三事\\与兽娘的末日二三事.png": {
     "hash": "b10a829373c7bf67c113e07417e2abfe571cb3c636f1009de373c99d424ef50b",
     "internalName": "与兽娘的末日二三事",
-    "mtime": "2025-07-06T12:40:39.9619552+08:00"
+    "mtime": "2025-07-06T12:40:39.9619552+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\深渊\\女德稽查队\\女德稽查队 (14).png": {
     "hash": "a334b56701617e21c34cea1aa9e8a5241dba69638af5fa9e8e440c1cd245a37f",
     "internalName": "女德稽查队",
-    "mtime": "2025-07-06T12:37:56.5111233+08:00"
+    "mtime": "2025-07-06T12:37:56.5111233+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\深渊\\泰伦模拟器\\b1.png": {
     "hash": "1140d39bae629026a2d2ff2756980a390dd005903ba5c8ebebbf0daccb155803",
     "internalName": "泰伦模拟器",
-    "mtime": "2025-07-20T18:33:26.3907485+08:00"
+    "mtime": "2025-07-20T18:33:26.3907485+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\深渊\\被迫依靠非人生物夺取权力的落魄皇女\\被迫依靠非人生物夺取权力的落魄皇女.png": {
     "hash": "f3fe315385f5279ed3252cee1e978e2aeb2089691e31fba9b2cf2606cb1619e4",
     "internalName": "南宫",
-    "mtime": "2025-07-20T18:31:24.3018777+08:00"
+    "mtime": "2025-07-20T18:31:24.3018777+08:00",
+    "localizationNeeded": false
   },
   "D:\\yw\\AI\\角色卡\\深渊\\魔改童话\\魔改童话.png": {
     "hash": "c906ae86aa5c82daeee95c61036ae9b9408614647d2ca2eb11ddf4bfd0744125",
     "internalName": "一键魔改童话",
-    "mtime": "2025-07-06T12:43:01.0878275+08:00"
+    "mtime": "2025-07-06T12:43:01.0878275+08:00",
+    "localizationNeeded": false
   }
 }

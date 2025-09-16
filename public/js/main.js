@@ -138,8 +138,13 @@ document.addEventListener('DOMContentLoaded', () => {
     applyTheme(localStorage.getItem('theme') || 'light');
     
     const showUnimportedOnlyCheckbox = document.getElementById('show-unimported-only');
+    const showNotLocalizedOnlyCheckbox = document.getElementById('show-not-localized-only');
+
     const savedUnimportedFilter = localStorage.getItem('showUnimportedOnly') === 'true';
+    const savedNotLocalizedFilter = localStorage.getItem('showNotLocalizedOnly') === 'true';
+
     showUnimportedOnlyCheckbox.checked = savedUnimportedFilter;
+    showNotLocalizedOnlyCheckbox.checked = savedNotLocalizedFilter;
     
     fetchCards();
 
@@ -147,6 +152,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const isChecked = e.target.checked;
         localStorage.setItem('showUnimportedOnly', isChecked);
         applyFilters({ showUnimportedOnly: isChecked });
+    });
+
+    showNotLocalizedOnlyCheckbox.addEventListener('change', (e) => {
+        const isChecked = e.target.checked;
+        localStorage.setItem('showNotLocalizedOnly', isChecked);
+        applyFilters({ showNotLocalizedOnly: isChecked });
     });
 });
 function openModal(modalId) { document.getElementById(modalId).style.display = 'block'; }
@@ -198,7 +209,8 @@ function renderAll(data, filters = {}) {
 
 let currentFilters = {
     category: null,
-    showUnimportedOnly: false
+    showUnimportedOnly: false,
+    showNotLocalizedOnly: false
 };
 
 function applyFilters(newFilter) {
@@ -206,6 +218,9 @@ function applyFilters(newFilter) {
     // 如果 newFilter 中没有提供 showUnimportedOnly，则保持 currentFilters 中已有的值不变
     if (newFilter && newFilter.showUnimportedOnly !== undefined) {
         currentFilters.showUnimportedOnly = newFilter.showUnimportedOnly;
+    }
+    if (newFilter && newFilter.showNotLocalizedOnly !== undefined) {
+        currentFilters.showNotLocalizedOnly = newFilter.showNotLocalizedOnly;
     }
     renderAll(fullDataset, currentFilters);
 }
@@ -263,7 +278,10 @@ function renderCategorizedCards(categories, filters = {}) {
         const grid = categorySection.querySelector('.card-grid');
         let filteredCards = cards;
         if (filters.showUnimportedOnly) {
-            filteredCards = cards.filter(card => !card.importInfo.isImported);
+            filteredCards = filteredCards.filter(card => !card.importInfo.isImported);
+        }
+        if (filters.showNotLocalizedOnly) {
+            filteredCards = filteredCards.filter(card => card.localizationNeeded && !card.isLocalized);
         }
 
         if (filteredCards.length === 0) {
@@ -288,6 +306,16 @@ function createCardElement(name, path, importInfo, detailsText, key, isClickable
         const { isImported, isLatestImported, importedVersionPath } = importInfo;
         detailsHTML += isImported ? (isLatestImported ? '<span class="tag imported-ok">✓ 已导入最新版</span>' : `<span class="tag imported-warn" title="导入的版本: ${importedVersionPath}">⚠️ 已导入 (非最新)</span>`) : '<span class="tag not-imported">✗ 未导入</span>';
     }
+
+    const cardData = allCardsData[key];
+    if (cardData && cardData.localizationNeeded) {
+        detailsHTML += cardData.isLocalized
+            ? '<span class="tag localized-ok">✓ 已完成本地化</span>'
+            : '<span class="tag not-localized">⚠️ 未完成本地化</span>';
+    } else if (cardData) {
+        detailsHTML += '<span class="tag">不需要本地化</span>';
+    }
+
     cardElement.innerHTML = `<img src="${imageUrl}" alt="${name}" loading="lazy"><div class="card-info"><p class="card-name">${name}</p>${detailsHTML}</div>`;
     return cardElement;
 }
@@ -392,6 +420,18 @@ function showDetails(folderPath) {
     openFolderBtn.textContent = '打开角色文件夹';
     openFolderBtn.onclick = () => handleOpenFolder(card.folderPath);
     actionsContainer.appendChild(openFolderBtn);
+
+    const localizeBtn = document.createElement('button');
+    localizeBtn.id = 'details-localize-btn';
+    localizeBtn.textContent = '角色卡本地化';
+    if (card.localizationNeeded && !card.isLocalized) {
+        localizeBtn.className = 'styled-btn primary';
+        localizeBtn.onclick = () => handleLocalization(card.latestVersionPath);
+    } else {
+        localizeBtn.className = 'styled-btn disabled';
+        localizeBtn.disabled = true;
+    }
+    actionsContainer.appendChild(localizeBtn);
 
     document.getElementById('show-note-modal-btn').onclick = () => showNoteModal(card.folderPath, card.internalName);
 
@@ -736,6 +776,35 @@ async function downloadFaceImage(url, characterFolderPath) {
     } catch (error) {
         logToFaceDownloader(`下载请求失败: ${error.message}`);
         showToast('下载请求失败', 'error');
+    }
+}
+
+async function handleLocalization(cardPath) {
+    logMessage('开始本地化...');
+    openModal('localization-log-modal');
+    const logContent = document.getElementById('localization-log-content');
+    logContent.textContent = '正在调用本地化程序...';
+
+    try {
+        const response = await fetch(`${SERVER_URL}/api/localize-card`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ cardPath })
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            logContent.textContent = `本地化失败: ${result.details || '未知错误'}`;
+            logMessage('本地化失败', 'error', result.details);
+        } else {
+            logContent.textContent = result.log;
+            logMessage('本地化成功！', 'success');
+            fetchCards(); // 重新加载卡片以更新状态
+        }
+    } catch (error) {
+        logContent.textContent = `本地化请求失败: ${error.message}`;
+        logMessage('本地化请求失败', 'error', error.message);
     }
 }
 

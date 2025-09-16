@@ -33,6 +33,8 @@ header h1 { margin: 0; font-size: 1.6em; }
 .card-details { font-size: 0.9em; color: var(--dark-gray, #7f8c8d); margin-top: auto; }
 .tag { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 0.8em; font-weight: 500; margin-top: 12px; }
 .tag.imported-ok { background-color: #eafaf1; color: #239d58; } .tag.imported-warn { background-color: #fef5e7; color: #d78216; } .tag.not-imported { background-color: #fdedec; color: #c84031; }
+.tag.localized-ok { background-color: #eafaf1; color: #239d58; }
+.tag.not-localized { background-color: #fef5e7; color: #d78216; }
 .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); animation: fadeIn 0.3s; }
 .modal-content { background-color: var(--modal-bg); margin: 8% auto; width: 90%; max-width: 800px; border-radius: var(--radius); box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: flex; flex-direction: column; animation: slideIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
 .modal-header { padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }

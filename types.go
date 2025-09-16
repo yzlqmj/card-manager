@@ -10,15 +10,17 @@ type CardVersion struct {
 
 // Character 代表一个角色
 type Character struct {
-	Name              string        `json:"name"`
-	InternalName      string        `json:"internalName"`
-	FolderPath        string        `json:"folderPath"`
-	LatestVersionPath string        `json:"latestVersionPath"`
-	VersionCount      int           `json:"versionCount"`
-	Versions          []CardVersion `json:"versions"`
-	ImportInfo        ImportInfo    `json:"importInfo"`
-	HasNote           bool          `json:"hasNote"`
-	HasFaceFolder     bool          `json:"hasFaceFolder"`
+	Name               string        `json:"name"`
+	InternalName       string        `json:"internalName"`
+	FolderPath         string        `json:"folderPath"`
+	LatestVersionPath  string        `json:"latestVersionPath"`
+	VersionCount       int           `json:"versionCount"`
+	Versions           []CardVersion `json:"versions"`
+	ImportInfo         ImportInfo    `json:"importInfo"`
+	HasNote            bool          `json:"hasNote"`
+	HasFaceFolder      bool          `json:"hasFaceFolder"`
+	LocalizationNeeded bool          `json:"localizationNeeded"`
+	IsLocalized        bool          `json:"isLocalized"`
 }
 
 // ImportInfo 包含卡片的导入状态

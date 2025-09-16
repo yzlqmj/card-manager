@@ -10,6 +10,7 @@ import (
 type Config struct {
 	CharactersRootPath   string `json:"charactersRootPath"`
 	TavernCharactersPath string `json:"tavernCharactersPath"`
+	TavernPublicPath     string `json:"tavernPublicPath"`
 	Port                 int    `json:"port"`
 	Proxy                string `json:"proxy"`
 }

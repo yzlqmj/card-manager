@@ -1,0 +1,265 @@
+/* 
+ * VSCode 'Default Dark Modern' Theme-like Stylesheet for PySide6
+ */
+
+/* --- General --- */
+QWidget {
+    background-color: #1f1f1f; /* Slightly lighter than pure black */
+    color: #cccccc; /* Off-white text */
+    font-family: "Microsoft YaHei UI", "Segoe UI", Arial, sans-serif;
+    font-size: 9pt;
+    border: none; /* Remove unexpected borders */
+}
+
+QMainWindow {
+    background-color: #1f1f1f;
+}
+
+/* --- QTabWidget & QTabBar --- */
+QTabWidget::pane {
+    border-top: 1px solid #2c2c2c;
+    background-color: #1f1f1f;
+}
+
+QTabBar::tab {
+    background-color: #2d2d2d;
+    color: #cccccc;
+    padding: 8px 15px;
+    margin-right: 1px;
+    border: 1px solid transparent; /* Transparent border for spacing */
+    border-bottom: none;
+}
+
+QTabBar::tab:selected {
+    background-color: #1f1f1f;
+    color: #ffffff;
+    border-top: 1px solid #007acc; /* Blue top line for selected tab */
+}
+
+QTabBar::tab:!selected:hover {
+    background-color: #3c3c3c;
+}
+
+/* --- QGroupBox --- */
+QGroupBox {
+    background-color: #252525;
+    border: 1px solid #333333;
+    border-radius: 4px;
+    margin-top: 6px;
+    padding: 12px;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 0 5px;
+    left: 10px;
+    color: #cccccc;
+}
+
+/* --- QTextEdit, QLineEdit --- */
+QTextEdit, QLineEdit {
+    background-color: #2a2a2a;
+    color: #cccccc;
+    border: 1px solid #333333;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+QTextEdit:focus, QLineEdit:focus {
+    border: 1px solid #007acc;
+    background-color: #2f2f2f;
+}
+
+QTextEdit QWidget {
+    background-color: #2a2a2a;
+}
+
+/* --- QPushButton --- */
+QPushButton {
+    background-color: #3a3d41;
+    color: #ffffff;
+    border: 1px solid #4a4a4a;
+    padding: 6px 15px;
+    border-radius: 3px;
+    min-height: 18px;
+}
+
+QPushButton:hover {
+    background-color: #4a4d51;
+}
+
+QPushButton:pressed {
+    background-color: #007acc;
+    border-color: #007acc;
+}
+
+QPushButton:disabled {
+    background-color: #2d2d2d;
+    color: #8c8c8c;
+    border-color: #3a3a3a;
+}
+
+/* --- QComboBox --- */
+QComboBox {
+    background-color: #2a2a2a;
+    border: 1px solid #333333;
+    border-radius: 3px;
+    padding: 4px 8px;
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 20px;
+    border-left-width: 1px;
+    border-left-color: #333333;
+    border-left-style: solid;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #2a2a2a;
+    border: 1px solid #333333;
+    selection-background-color: #007acc;
+    color: #cccccc;
+    padding: 2px;
+}
+
+/* --- QSlider --- */
+QSlider::groove:horizontal {
+    border: 1px solid #333333;
+    height: 4px;
+    background: #2a2a2a;
+    margin: 2px 0;
+    border-radius: 2px;
+}
+
+QSlider::handle:horizontal {
+    background: #cccccc;
+    border: 1px solid #cccccc;
+    width: 14px;
+    margin: -5px 0;
+    border-radius: 7px;
+}
+
+QSlider::handle:horizontal:hover {
+    background: #ffffff;
+    border: 1px solid #ffffff;
+}
+
+/* --- QCheckBox --- */
+QCheckBox {
+    spacing: 8px;
+}
+
+QCheckBox::indicator {
+    width: 14px;
+    height: 14px;
+    background-color: #2a2a2a;
+    border: 1px solid #333333;
+}
+
+QCheckBox::indicator:checked {
+    background-color: #007acc;
+    border-color: #007acc;
+}
+
+/* --- QStatusBar --- */
+QStatusBar {
+    background-color: #252525;
+    color: #cccccc;
+    border-top: 1px solid #333333;
+}
+
+/* --- QSplitter --- */
+QSplitter::handle {
+    background-color: #333333;
+}
+
+QSplitter::handle:horizontal {
+    width: 4px; /* Make it easier to grab */
+}
+
+QSplitter::handle:vertical {
+    height: 4px;
+}
+
+QSplitter::handle:hover {
+    background-color: #007acc;
+}
+
+/* --- QListWidget --- */
+QListWidget {
+    background-color: #252525;
+    border: 1px solid #333333;
+}
+
+QListWidget::item {
+    padding: 5px;
+}
+
+QListWidget::item:selected {
+    background-color: #007acc;
+    color: #ffffff;
+}
+
+/* --- QMenuBar & QMenu --- */
+QMenuBar {
+    background-color: #1f1f1f;
+    color: #cccccc;
+    padding: 2px;
+    border-bottom: 1px solid #333333;
+}
+
+QMenuBar::item {
+    background-color: transparent;
+    padding: 4px 8px;
+    margin: 2px;
+    border-radius: 3px;
+}
+
+QMenuBar::item:selected {
+    background-color: #3c3c3c;
+}
+
+QMenuBar::item:pressed {
+    background-color: #007acc;
+}
+
+QMenu {
+    background-color: #2a2a2a;
+    border: 1px solid #444444; /* Slightly more visible border */
+    padding: 5px;
+    border-radius: 3px;
+}
+
+QMenu::item {
+    padding: 6px 20px 6px 25px; /* top, right, bottom, left */
+    border-radius: 3px;
+}
+
+QMenu::item:selected {
+    background-color: #007acc;
+    color: #ffffff;
+}
+
+QMenu::separator {
+    height: 1px;
+    background: #3c3c3c;
+    margin: 5px 0;
+}
+/* --- Customizations --- */
+QGroupBox#transparentGroup {
+    background-color: transparent;
+    border: none;
+    margin-top: 6px;
+    padding: 0px;
+}
+
+/* --- QTextEdit Override for Log --- */
+/* This override is no longer needed as colors are handled in Python */
+/*
+QTextEdit {
+    color: #e0e0e0;
+}
+*/

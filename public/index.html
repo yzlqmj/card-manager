@@ -22,9 +22,14 @@
     <div id="category-filter-container" class="category-filters">
         <div class="filter-buttons"></div>
         <div class="filter-toggle">
-            <label for="show-unimported-only" class="toggle-switch-label">只显示未导入</label>
+            <label for="show-unimported-only" class="toggle-switch-label">未导入</label>
             <label class="switch">
                 <input type="checkbox" id="show-unimported-only">
+                <span class="slider round"></span>
+            </label>
+            <label for="show-not-localized-only" class="toggle-switch-label" style="margin-left: 20px;">本地化</label>
+            <label class="switch">
+                <input type="checkbox" id="show-not-localized-only">
                 <span class="slider round"></span>
             </label>
         </div>
@@ -136,6 +141,18 @@
     </div>
 
     <div id="toast-container"></div>
+
+    <div id="localization-log-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>本地化日志</h2>
+                <span class="close-btn" onclick="closeModal('localization-log-modal')">×</span>
+            </div>
+            <div class="modal-body">
+                <pre id="localization-log-content" style="white-space: pre-wrap; word-wrap: break-word; max-height: 60vh; overflow-y: auto; background-color: var(--bg-color); padding: 15px; border-radius: var(--radius);"></pre>
+            </div>
+        </div>
+    </div>
 
 <script src="/js/showdown.min.js"></script>
 <script src="/js/main.js"></script>

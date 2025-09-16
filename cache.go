@@ -8,9 +8,10 @@ import (
 
 // CacheEntry 存储单个文件的缓存元数据
 type CacheEntry struct {
-	Hash         string `json:"hash"`
-	InternalName string `json:"internalName"`
-	Mtime        string `json:"mtime"`
+	Hash               string `json:"hash"`
+	InternalName       string `json:"internalName"`
+	Mtime              string `json:"mtime"`
+	LocalizationNeeded *bool  `json:"localizationNeeded,omitempty"`
 }
 
 var (
