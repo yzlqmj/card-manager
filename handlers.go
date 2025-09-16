@@ -188,7 +188,11 @@ func fetchCardsData() (CardsResponse, error) {
 							setCache(versions[0].Path, metadata)
 						}
 					}
-					isLocalized, _ := isLocalized(characterName)
+					nameToCheck := versions[0].InternalName
+					if nameToCheck == "" {
+						nameToCheck = characterName
+					}
+					isLocalized, _ := isLocalized(nameToCheck)
 
 					character := Character{
 						Name:               characterName,

@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 	"strings"
 )
 
@@ -40,27 +41,32 @@ func checkLocalizationNeeded(cardPath string) (bool, error) {
 // isLocalized 检查角色卡是否已经被本地化。
 // 通过检查在 SillyTavern 的 public/niko 目录下是否存在与角色名同名的文件夹来判断。
 func isLocalized(characterName string) (bool, error) {
-	// 从配置中获取 SillyTavern 的 public 目录
-	// 注意：cli 的 config.json 中的 base_path 是 public 目录，我们需要的是 niko 目录
-	// 我们假设 niko 目录就在 public 目录下
 	if config.TavernPublicPath == "" {
 		return false, fmt.Errorf("SillyTavern public path not configured")
 	}
-	nikoPath := filepath.Join(config.TavernPublicPath, "niko", characterName)
 
-	// 检查与角色名同名的文件夹是否存在
+	// 检查原始名称
+	nikoPath := filepath.Join(config.TavernPublicPath, "niko", characterName)
 	info, err := os.Stat(nikoPath)
+	if err == nil && info.IsDir() {
+		return true, nil
+	}
+
+	// 使用正则表达式移除所有非字母数字字符
+	// 只移除特定的标点符号
+	reg := regexp.MustCompile(`[.();]`)
+	sanitizedName := reg.ReplaceAllString(characterName, "")
+	nikoPathSanitized := filepath.Join(config.TavernPublicPath, "niko", sanitizedName)
+	info, err = os.Stat(nikoPathSanitized)
+	if err == nil && info.IsDir() {
+		return true, nil
+	}
+
 	if os.IsNotExist(err) {
-		// 文件夹不存在，说明未本地化
 		return false, nil
 	}
-	if err != nil {
-		// 其他类型的错误
-		return false, err
-	}
 
-	// 文件夹存在且是一个目录，说明已本地化
-	return info.IsDir(), nil
+	return false, err
 }
 
 // runLocalization 调用 cli.exe 来执行本地化操作。
