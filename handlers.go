@@ -213,12 +213,16 @@ func getCardsHandler(w http.ResponseWriter, r *http.Request) {
 // scanChangesHandler 执行全量扫描并返回新数据
 func scanChangesHandler(w http.ResponseWriter, r *http.Request) {
 	defer saveCache()
-	// 重新扫描Tavern哈希
-	if err := scanTavernHashes(); err != nil {
-		http.Error(w, "扫描 Tavern 目录失败", http.StatusInternalServerError)
-		return
+
+	// 只有当缓存为空时，才执行完整的Tavern哈希扫描
+	if isCacheEmpty() {
+		if err := scanTavernHashes(); err != nil {
+			http.Error(w, "扫描 Tavern 目录失败", http.StatusInternalServerError)
+			return
+		}
 	}
-	// 重新获取卡片数据
+
+	// 重新获取卡片数据（这将利用现有缓存）
 	response, err := fetchCardsData()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

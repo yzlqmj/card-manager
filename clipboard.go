@@ -27,26 +27,25 @@ func getClipboardContent() (string, error) {
 	return strings.TrimSpace(out.String()), nil
 }
 
-func toggleClipboardListener(enable bool) {
-	if enable {
-		if isListenerRunning.CompareAndSwap(false, true) {
-			fmt.Println("Starting clipboard listener...")
-			go runClipboardListener()
-		}
-	} else {
-		if isListenerRunning.CompareAndSwap(true, false) {
-			fmt.Println("Stopping clipboard listener...")
-			close(stopListenerChannel)
-			stopListenerChannel = make(chan struct{}) // Recreate channel for next start
-		}
+func startClipboardListener() {
+	if isListenerRunning.CompareAndSwap(false, true) {
+		fmt.Println("Starting clipboard listener...")
+		stopListenerChannel = make(chan struct{})
+		go runClipboardListener()
+		fmt.Println("Clipboard listener started. Watching for Discord attachment links...")
+	}
+}
+
+func stopClipboardListener() {
+	if isListenerRunning.CompareAndSwap(true, false) {
+		fmt.Println("Stopping clipboard listener...")
+		close(stopListenerChannel)
 	}
 }
 
 func runClipboardListener() {
 	var lastContent string
-	fmt.Println("Clipboard listener started. Watching for Discord attachment links...")
-
-	ticker := time.NewTicker(2 * time.Second)
+	ticker := time.NewTicker(200 * time.Millisecond) // Poll every 200ms
 	defer ticker.Stop()
 
 	for {
@@ -54,7 +53,6 @@ func runClipboardListener() {
 		case <-ticker.C:
 			content, err := getClipboardContent()
 			if err != nil {
-				// Ignore errors, just try again
 				continue
 			}
 
@@ -62,7 +60,7 @@ func runClipboardListener() {
 				lastContent = content
 				matches := urlRegex.FindStringSubmatch(content)
 				if len(matches) > 1 {
-					fmt.Println("Found Discord link, adding to queue:", matches[1])
+					//fmt.Println("Found Discord link, adding to queue:", matches[1])
 					queueMutex.Lock()
 					submittedUrlQueue = append(submittedUrlQueue, matches[1])
 					queueMutex.Unlock()

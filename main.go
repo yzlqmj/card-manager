@@ -88,7 +88,11 @@ func toggleClipboardHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	toggleClipboardListener(enable)
+	if enable {
+		startClipboardListener()
+	} else {
+		stopClipboardListener()
+	}
 
 	status := "stopped"
 	if enable {

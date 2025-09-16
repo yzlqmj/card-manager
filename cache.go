@@ -72,3 +72,10 @@ func clearCache() error {
 	cache = make(map[string]CacheEntry)
 	return os.Remove(cachePath)
 }
+
+// isCacheEmpty 检查缓存是否为空
+func isCacheEmpty() bool {
+	cacheMutex.RLock()
+	defer cacheMutex.RUnlock()
+	return len(cache) == 0
+}
