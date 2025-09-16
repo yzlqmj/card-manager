@@ -82,6 +82,12 @@ func getCardMetadata(filePath string) (CacheEntry, error) {
 		Mtime:        mtime,
 	}
 
+	// 获取旧缓存以保留某些字段
+	oldMetadata, _ := getCache(filePath)
+	if oldMetadata.LocalizationNeeded != nil {
+		metadata.LocalizationNeeded = oldMetadata.LocalizationNeeded
+	}
+
 	setCache(filePath, metadata) // 更新缓存
 	return metadata, nil
 }
@@ -92,6 +98,8 @@ func fetchCardsData() (CardsResponse, error) {
 		Categories: make(map[string][]Character),
 		StrayCards: make([]StrayCard, 0),
 	}
+	var wg sync.WaitGroup
+	var mu sync.Mutex
 
 	rootDirents, err := os.ReadDir(config.CharactersRootPath)
 	if err != nil {
@@ -105,7 +113,9 @@ func fetchCardsData() (CardsResponse, error) {
 
 		categoryName := dirent.Name()
 		categoryPath := filepath.Join(config.CharactersRootPath, categoryName)
+		mu.Lock()
 		response.Categories[categoryName] = make([]Character, 0)
+		mu.Unlock()
 
 		itemDirents, err := os.ReadDir(categoryPath)
 		if err != nil {
@@ -115,110 +125,137 @@ func fetchCardsData() (CardsResponse, error) {
 		for _, item := range itemDirents {
 			itemPath := filepath.Join(categoryPath, item.Name())
 			if item.IsDir() {
-				characterName := item.Name()
-				versions := make([]CardVersion, 0)
-				hasNote := false
-				hasFaceFolder := false
-
-				versionFiles, err := os.ReadDir(itemPath)
-				if err != nil {
-					continue
-				}
-
-				faceDirPath := filepath.Join(itemPath, "卡面")
-				if _, err := os.Stat(faceDirPath); err == nil {
-					hasFaceFolder = true
-				}
-
-				for _, verFile := range versionFiles {
-					if !verFile.IsDir() && strings.HasSuffix(strings.ToLower(verFile.Name()), ".png") {
-						verPath := filepath.Join(itemPath, verFile.Name())
-						metadata, _ := getCardMetadata(verPath) // 忽略错误，尽力而为
-						versions = append(versions, CardVersion{
-							Path:         verPath,
-							FileName:     verFile.Name(),
-							Mtime:        metadata.Mtime,
-							InternalName: metadata.InternalName,
-						})
-					} else if !verFile.IsDir() && strings.ToLower(verFile.Name()) == "note.md" {
-						hasNote = true
+				wg.Add(1)
+				go func(itemPath, categoryName string) {
+					defer wg.Done()
+					character := processCharacterDirectory(itemPath)
+					if character != nil {
+						mu.Lock()
+						response.Categories[categoryName] = append(response.Categories[categoryName], *character)
+						mu.Unlock()
 					}
-				}
-
-				if len(versions) > 0 {
-					sort.Slice(versions, func(i, j int) bool {
-						t1, _ := time.Parse(time.RFC3339Nano, versions[i].Mtime)
-						t2, _ := time.Parse(time.RFC3339Nano, versions[j].Mtime)
-						return t1.After(t2)
-					})
-
-					importInfo := ImportInfo{}
-					for i, version := range versions {
-						metadata, found := getCache(version.Path)
-						if !found {
-							continue // 如果没有缓存，无法判断导入状态
-						}
-						isImported := false
-						if metadata.Hash != "" && importedHashes[metadata.Hash] {
-							isImported = true
-						}
-						if !isImported && version.InternalName != "" && importedInternalNames[version.InternalName] {
-							isImported = true
-						}
-
-						if isImported {
-							importInfo.IsImported = true
-							importInfo.ImportedVersionPath = version.Path
-							importInfo.IsLatestImported = i == 0
-							break
-						}
-					}
-
-					// 检查本地化状态
-					metadata, _ := getCardMetadata(versions[0].Path)
-					localizationNeeded := false
-					if metadata.LocalizationNeeded != nil {
-						localizationNeeded = *metadata.LocalizationNeeded
-					} else {
-						// 如果缓存中没有信息，则检查并更新缓存
-						needed, err := checkLocalizationNeeded(versions[0].Path)
-						if err == nil {
-							localizationNeeded = needed
-							metadata.LocalizationNeeded = &needed
-							setCache(versions[0].Path, metadata)
-						}
-					}
-					nameToCheck := versions[0].InternalName
-					if nameToCheck == "" {
-						nameToCheck = characterName
-					}
-					isLocalized, _ := isLocalized(nameToCheck)
-
-					character := Character{
-						Name:               characterName,
-						InternalName:       versions[0].InternalName,
-						FolderPath:         itemPath,
-						LatestVersionPath:  versions[0].Path,
-						VersionCount:       len(versions),
-						Versions:           versions,
-						HasNote:            hasNote,
-						HasFaceFolder:      hasFaceFolder,
-						ImportInfo:         importInfo,
-						LocalizationNeeded: localizationNeeded,
-						IsLocalized:        isLocalized,
-					}
-					response.Categories[categoryName] = append(response.Categories[categoryName], character)
-				}
-
+				}(itemPath, categoryName)
 			} else if strings.HasSuffix(strings.ToLower(item.Name()), ".png") {
+				mu.Lock()
 				response.StrayCards = append(response.StrayCards, StrayCard{
 					FileName: item.Name(),
 					Path:     itemPath,
 				})
+				mu.Unlock()
 			}
 		}
 	}
+
+	wg.Wait()
 	return response, nil
+}
+
+// processCharacterDirectory 处理单个角色目录并返回 Character 指针
+func processCharacterDirectory(itemPath string) *Character {
+	characterName := filepath.Base(itemPath)
+	versions := make([]CardVersion, 0)
+	hasNote := false
+	hasFaceFolder := false
+
+	versionFiles, err := os.ReadDir(itemPath)
+	if err != nil {
+		return nil
+	}
+
+	faceDirPath := filepath.Join(itemPath, "卡面")
+	if _, err := os.Stat(faceDirPath); err == nil {
+		hasFaceFolder = true
+	}
+
+	for _, verFile := range versionFiles {
+		if !verFile.IsDir() && strings.HasSuffix(strings.ToLower(verFile.Name()), ".png") {
+			verPath := filepath.Join(itemPath, verFile.Name())
+			metadata, _ := getCardMetadata(verPath) // 忽略错误，尽力而为
+			versions = append(versions, CardVersion{
+				Path:         verPath,
+				FileName:     verFile.Name(),
+				Mtime:        metadata.Mtime,
+				InternalName: metadata.InternalName,
+			})
+		} else if !verFile.IsDir() && strings.ToLower(verFile.Name()) == "note.md" {
+			hasNote = true
+		}
+	}
+
+	if len(versions) == 0 {
+		return nil
+	}
+
+	sort.Slice(versions, func(i, j int) bool {
+		t1, _ := time.Parse(time.RFC3339Nano, versions[i].Mtime)
+		t2, _ := time.Parse(time.RFC3339Nano, versions[j].Mtime)
+		return t1.After(t2)
+	})
+
+	importInfo := ImportInfo{}
+	TavernScanMutex.Lock()
+	for i, version := range versions {
+		metadata, found := getCache(version.Path)
+		if !found {
+			continue // 如果没有缓存，无法判断导入状态
+		}
+		isImported := false
+		if metadata.Hash != "" && importedHashes[metadata.Hash] {
+			isImported = true
+		}
+		if !isImported && version.InternalName != "" && importedInternalNames[version.InternalName] {
+			isImported = true
+		}
+
+		if isImported {
+			importInfo.IsImported = true
+			importInfo.ImportedVersionPath = version.Path
+			importInfo.IsLatestImported = i == 0
+			break
+		}
+	}
+	TavernScanMutex.Unlock()
+
+	// 检查本地化状态
+	metadata, _ := getCardMetadata(versions[0].Path)
+	var localizationNeeded *bool
+	if metadata.LocalizationNeeded != nil {
+		localizationNeeded = metadata.LocalizationNeeded
+	} else {
+		// 异步检查本地化需求
+		go func(cardPath string) {
+			needed, err := checkLocalizationNeeded(cardPath)
+			if err == nil {
+				cachedData, found := getCache(cardPath)
+				if !found {
+					cachedData = CacheEntry{}
+				}
+				cachedData.LocalizationNeeded = &needed
+				setCache(cardPath, cachedData)
+				saveCache() // 异步保存缓存
+			}
+		}(versions[0].Path)
+	}
+
+	nameToCheck := versions[0].InternalName
+	if nameToCheck == "" {
+		nameToCheck = characterName
+	}
+	isLocalized, _ := isLocalized(nameToCheck)
+
+	return &Character{
+		Name:               characterName,
+		InternalName:       versions[0].InternalName,
+		FolderPath:         itemPath,
+		LatestVersionPath:  versions[0].Path,
+		VersionCount:       len(versions),
+		Versions:           versions,
+		HasNote:            hasNote,
+		HasFaceFolder:      hasFaceFolder,
+		ImportInfo:         importInfo,
+		LocalizationNeeded: localizationNeeded,
+		IsLocalized:        isLocalized,
+	}
 }
 
 // getCardsHandler 仅从缓存和文件系统获取数据，不执行全量扫描
@@ -233,19 +270,14 @@ func getCardsHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(response)
 }
 
-// scanChangesHandler 执行全量扫描并返回新数据
+// scanChangesHandler 异步触发扫描并立即返回当前数据
 func scanChangesHandler(w http.ResponseWriter, r *http.Request) {
 	defer saveCache()
 
-	// 只有当缓存为空时，才执行完整的Tavern哈希扫描
-	if isCacheEmpty() {
-		if err := scanTavernHashes(); err != nil {
-			http.Error(w, "扫描 Tavern 目录失败", http.StatusInternalServerError)
-			return
-		}
-	}
+	// 异步执行完整的Tavern哈希扫描，不阻塞主流程
+	go scanTavernHashes()
 
-	// 重新获取卡片数据（这将利用现有缓存）
+	// 立即获取并返回当前可用的卡片数据
 	response, err := fetchCardsData()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

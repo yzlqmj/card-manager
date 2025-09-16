@@ -19,7 +19,7 @@ type Character struct {
 	ImportInfo         ImportInfo    `json:"importInfo"`
 	HasNote            bool          `json:"hasNote"`
 	HasFaceFolder      bool          `json:"hasFaceFolder"`
-	LocalizationNeeded bool          `json:"localizationNeeded"`
+	LocalizationNeeded *bool         `json:"localizationNeeded,omitempty"`
 	IsLocalized        bool          `json:"isLocalized"`
 }
 

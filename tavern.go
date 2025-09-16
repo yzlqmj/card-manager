@@ -9,23 +9,40 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"sync"
 )
 
 var (
 	importedHashes        = make(map[string]bool)
 	importedInternalNames = make(map[string]bool)
+	TavernScanMutex       sync.Mutex
+	isScanningTavern      bool
 )
 
 // scanTavernHashes 扫描 tavern 目录并填充 importedHashes 和 importedInternalNames
 func scanTavernHashes() error {
-	importedHashes = make(map[string]bool)
-	importedInternalNames = make(map[string]bool)
+	TavernScanMutex.Lock()
+	if isScanningTavern {
+		TavernScanMutex.Unlock()
+		return nil // 如果已经在扫描，则直接返回
+	}
+	isScanningTavern = true
+	TavernScanMutex.Unlock()
+
+	defer func() {
+		TavernScanMutex.Lock()
+		isScanningTavern = false
+		TavernScanMutex.Unlock()
+	}()
+
+	localHashes := make(map[string]bool)
+	localInternalNames := make(map[string]bool)
 
 	if config.TavernCharactersPath == "" {
 		return nil
 	}
 
-	return filepath.Walk(config.TavernCharactersPath, func(path string, info os.FileInfo, err error) error {
+	err := filepath.Walk(config.TavernCharactersPath, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
@@ -41,7 +58,7 @@ func scanTavernHashes() error {
 			if _, err := io.Copy(hash, file); err != nil {
 				return nil // 忽略无法计算哈希的文件
 			}
-			importedHashes[hex.EncodeToString(hash.Sum(nil))] = true
+			localHashes[hex.EncodeToString(hash.Sum(nil))] = true
 
 			// 提取内部名称
 			charaData, err := getInternalCharNameFromPNG(path)
@@ -51,9 +68,9 @@ func scanTavernHashes() error {
 					var charDataJSON map[string]interface{}
 					if json.Unmarshal(decoded, &charDataJSON) == nil {
 						if name, ok := charDataJSON["name"].(string); ok && name != "" {
-							importedInternalNames[name] = true
+							localInternalNames[name] = true
 						} else if name, ok := charDataJSON["char_name"].(string); ok && name != "" {
-							importedInternalNames[name] = true
+							localInternalNames[name] = true
 						}
 					}
 				}
@@ -61,4 +78,12 @@ func scanTavernHashes() error {
 		}
 		return nil
 	})
+
+	// 一次性更新全局 map
+	TavernScanMutex.Lock()
+	importedHashes = localHashes
+	importedInternalNames = localInternalNames
+	TavernScanMutex.Unlock()
+
+	return err
 }
