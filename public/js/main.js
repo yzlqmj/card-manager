@@ -313,7 +313,7 @@ function createCardElement(name, path, importInfo, detailsText, key, isClickable
             ? '<span class="tag localized-ok">✓ 已完成本地化</span>'
             : '<span class="tag not-localized">⚠️ 未完成本地化</span>';
     } else if (cardData) {
-        detailsHTML += '<span class="tag">不需要本地化</span>';
+        detailsHTML += '<span class="tag localized-ok">✓ 不需要本地化</span>';
     }
 
     cardElement.innerHTML = `<img src="${imageUrl}" alt="${name}" loading="lazy"><div class="card-info"><p class="card-name">${name}</p>${detailsHTML}</div>`;
@@ -433,7 +433,12 @@ function showDetails(folderPath) {
     }
     actionsContainer.appendChild(localizeBtn);
 
-    document.getElementById('show-note-modal-btn').onclick = () => showNoteModal(card.folderPath, card.internalName);
+    const noteBtn = document.createElement('button');
+    noteBtn.id = 'details-note-btn';
+    noteBtn.className = 'styled-btn';
+    noteBtn.textContent = '查看/编辑备注';
+    noteBtn.onclick = () => showNoteModal(card.folderPath, card.internalName);
+    actionsContainer.appendChild(noteBtn);
 
     // --- Show Modal ---
     openModal('details-modal');
