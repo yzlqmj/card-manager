@@ -14,7 +14,6 @@ import (
 	"path/filepath"
 	"runtime"
 	"sort"
-	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -273,8 +272,7 @@ func openFolderHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "message": "文件夹打开命令已发送"})
+	w.WriteHeader(http.StatusNoContent)
 }
 
 func downloadCardHandler(w http.ResponseWriter, r *http.Request) {
@@ -283,6 +281,7 @@ func downloadCardHandler(w http.ResponseWriter, r *http.Request) {
 		Category      string `json:"category"`
 		CharacterName string `json:"characterName"`
 		FileName      string `json:"fileName"`
+		IsFace        bool   `json:"isFace"` // 新增字段
 	}
 	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
 		http.Error(w, "无效的请求体", http.StatusBadRequest)
@@ -299,23 +298,60 @@ func downloadCardHandler(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := client.Get(body.URL)
 	if err != nil {
-		http.Error(w, "下载失败", http.StatusInternalServerError)
+		http.Error(w, fmt.Sprintf("下载失败: %v", err), http.StatusInternalServerError)
 		return
 	}
 	defer resp.Body.Close()
 
-	finalFileName := body.FileName
-	if !strings.HasSuffix(strings.ToLower(finalFileName), ".png") {
-		finalFileName += ".png"
-	}
+	var targetFolderPath string
+	var finalFileName string
+	var successMessage string
 
 	characterFolderPath := filepath.Join(config.CharactersRootPath, body.Category, body.CharacterName)
-	if err := os.MkdirAll(characterFolderPath, os.ModePerm); err != nil {
+
+	if body.IsFace {
+		// --- 卡面下载逻辑 ---
+		targetFolderPath = filepath.Join(characterFolderPath, "卡面")
+		successMessage = "卡面已保存"
+
+		// 从URL中提取原始文件名
+		parsedURL, err := url.Parse(body.URL)
+		if err != nil {
+			http.Error(w, "无效的URL", http.StatusBadRequest)
+			return
+		}
+		originalFileName := filepath.Base(parsedURL.Path)
+		finalFileName = originalFileName
+
+	} else {
+		// --- 角色卡下载逻辑 ---
+		targetFolderPath = characterFolderPath
+		successMessage = "角色卡下载成功"
+		finalFileName = body.FileName
+		if !strings.HasSuffix(strings.ToLower(finalFileName), ".png") {
+			finalFileName += ".png"
+		}
+	}
+
+	if err := os.MkdirAll(targetFolderPath, os.ModePerm); err != nil {
 		http.Error(w, "创建目录失败", http.StatusInternalServerError)
 		return
 	}
 
-	filePath := filepath.Join(characterFolderPath, finalFileName)
+	filePath := filepath.Join(targetFolderPath, finalFileName)
+
+	// 处理文件名冲突
+	counter := 1
+	baseName := strings.TrimSuffix(finalFileName, filepath.Ext(finalFileName))
+	extension := filepath.Ext(finalFileName)
+	for {
+		if _, err := os.Stat(filePath); os.IsNotExist(err) {
+			break
+		}
+		filePath = filepath.Join(targetFolderPath, fmt.Sprintf("%s_%d%s", baseName, counter, extension))
+		counter++
+	}
+
 	file, err := os.Create(filePath)
 	if err != nil {
 		http.Error(w, "创建文件失败", http.StatusInternalServerError)
@@ -329,7 +365,7 @@ func downloadCardHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "message": "角色卡下载成功"})
+	json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "message": fmt.Sprintf("%s: %s", successMessage, filepath.Base(filePath))})
 }
 
 func deleteVersionHandler(w http.ResponseWriter, r *http.Request) {
@@ -535,71 +571,6 @@ func getFacesHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "faces": imageFiles})
-}
-
-func downloadFaceHandler(w http.ResponseWriter, r *http.Request) {
-	var body struct {
-		URL                 string `json:"url"`
-		CharacterFolderPath string `json:"characterFolderPath"`
-	}
-	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
-		http.Error(w, "无效的请求体", http.StatusBadRequest)
-		return
-	}
-	if !strings.HasPrefix(body.CharacterFolderPath, config.CharactersRootPath) {
-		http.Error(w, "非法的角色文件夹路径", http.StatusForbidden)
-		return
-	}
-
-	faceDir := filepath.Join(body.CharacterFolderPath, "卡面")
-	if err := os.MkdirAll(faceDir, os.ModePerm); err != nil {
-		http.Error(w, "创建目录失败", http.StatusInternalServerError)
-		return
-	}
-
-	client := &http.Client{}
-	if config.Proxy != "" {
-		proxyURL, err := url.Parse(config.Proxy)
-		if err == nil {
-			client.Transport = &http.Transport{Proxy: http.ProxyURL(proxyURL)}
-		}
-	}
-
-	resp, err := client.Get(body.URL)
-	if err != nil {
-		http.Error(w, "下载失败", http.StatusInternalServerError)
-		return
-	}
-	defer resp.Body.Close()
-
-	fileName := filepath.Base(body.URL)
-	filePath := filepath.Join(faceDir, fileName)
-
-	counter := 1
-	for {
-		if _, err := os.Stat(filePath); os.IsNotExist(err) {
-			break
-		}
-		extension := filepath.Ext(fileName)
-		baseName := strings.TrimSuffix(fileName, extension)
-		filePath = filepath.Join(faceDir, baseName+"_"+strconv.Itoa(counter)+extension)
-		counter++
-	}
-
-	file, err := os.Create(filePath)
-	if err != nil {
-		http.Error(w, "创建文件失败", http.StatusInternalServerError)
-		return
-	}
-	defer file.Close()
-
-	if _, err := io.Copy(file, resp.Body); err != nil {
-		http.Error(w, "保存文件失败", http.StatusInternalServerError)
-		return
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "message": "卡面已保存"})
 }
 
 func submitUrlHandler(w http.ResponseWriter, r *http.Request) {

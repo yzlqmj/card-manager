@@ -6,10 +6,15 @@ import (
 	"os/exec"
 	"regexp"
 	"strings"
+	"sync/atomic"
 	"time"
 )
 
-var urlRegex = regexp.MustCompile(`(https?://cdn\.discordapp\.com/attachments/[^\s]+)`)
+var (
+	urlRegex            = regexp.MustCompile(`(https?://cdn\.discordapp\.com/attachments/[^\s]+)`)
+	isListenerRunning   atomic.Bool
+	stopListenerChannel = make(chan struct{})
+)
 
 func getClipboardContent() (string, error) {
 	cmd := exec.Command("powershell", "-Command", "Get-Clipboard")
@@ -22,16 +27,34 @@ func getClipboardContent() (string, error) {
 	return strings.TrimSpace(out.String()), nil
 }
 
-func startClipboardListener() {
+func toggleClipboardListener(enable bool) {
+	if enable {
+		if isListenerRunning.CompareAndSwap(false, true) {
+			fmt.Println("Starting clipboard listener...")
+			go runClipboardListener()
+		}
+	} else {
+		if isListenerRunning.CompareAndSwap(true, false) {
+			fmt.Println("Stopping clipboard listener...")
+			close(stopListenerChannel)
+			stopListenerChannel = make(chan struct{}) // Recreate channel for next start
+		}
+	}
+}
+
+func runClipboardListener() {
 	var lastContent string
 	fmt.Println("Clipboard listener started. Watching for Discord attachment links...")
 
-	go func() {
-		for {
+	ticker := time.NewTicker(2 * time.Second)
+	defer ticker.Stop()
+
+	for {
+		select {
+		case <-ticker.C:
 			content, err := getClipboardContent()
 			if err != nil {
 				// Ignore errors, just try again
-				time.Sleep(2 * time.Second)
 				continue
 			}
 
@@ -45,8 +68,9 @@ func startClipboardListener() {
 					queueMutex.Unlock()
 				}
 			}
-
-			time.Sleep(2 * time.Second)
+		case <-stopListenerChannel:
+			fmt.Println("Clipboard listener stopped.")
+			return
 		}
-	}()
+	}
 }

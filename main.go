@@ -24,8 +24,10 @@ func main() {
 		fmt.Printf("警告: 无法加载缓存文件: %v\n", err)
 	}
 
-	// 启动剪贴板监听器
-	startClipboardListener()
+	// 首次启动时扫描Tavern哈希，以确保初始加载时导入状态正确
+	if err := scanTavernHashes(); err != nil {
+		fmt.Printf("警告: 启动时扫描Tavern目录失败: %v\n", err)
+	}
 
 	// 使用 embed.FS 提供静态文件服务
 	staticFS, err := fs.Sub(publicFiles, "public")
@@ -37,7 +39,7 @@ func main() {
 
 	// API 路由
 	http.HandleFunc("/api/cards", getCardsHandler)
-	http.HandleFunc("/api/scan-changes", scanChangesHandler) // 新的扫描端点
+	http.HandleFunc("/api/scan-changes", scanChangesHandler) // 恢复旧的扫描端点
 	http.HandleFunc("/api/image", getImageHandler)
 	http.HandleFunc("/api/open-folder", openFolderHandler)
 	http.HandleFunc("/api/download-card", downloadCardHandler)
@@ -55,10 +57,10 @@ func main() {
 		}
 	})
 	http.HandleFunc("/api/faces", getFacesHandler)
-	http.HandleFunc("/api/download-face", downloadFaceHandler)
 	http.HandleFunc("/api/submit-url", submitUrlHandler)
 	http.HandleFunc("/api/get-submitted-url", getSubmittedUrlHandler)
 	http.HandleFunc("/api/clear-cache", clearCacheHandler)
+	http.HandleFunc("/api/toggle-clipboard", toggleClipboardHandler)
 
 	// 启动服务器
 	port := strconv.Itoa(config.Port)
@@ -71,4 +73,28 @@ func main() {
 		fmt.Printf("启动服务器失败: %v\n", err)
 		os.Exit(1)
 	}
+}
+
+func toggleClipboardHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "方法不允许", http.StatusMethodNotAllowed)
+		return
+	}
+
+	enableStr := r.URL.Query().Get("enable")
+	enable, err := strconv.ParseBool(enableStr)
+	if err != nil {
+		http.Error(w, "无效的 'enable' 参数", http.StatusBadRequest)
+		return
+	}
+
+	toggleClipboardListener(enable)
+
+	status := "stopped"
+	if enable {
+		status = "started"
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	fmt.Fprintf(w, `{"status": "Clipboard listener %s"}`, status)
 }

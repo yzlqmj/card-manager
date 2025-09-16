@@ -93,39 +93,27 @@ showFaceDownloaderBtn.addEventListener('click', () => {
     openModal('face-downloader-modal');
 });
 
-startListenClipboardBtn.addEventListener('click', async () => {
+async function toggleClipboard(enable) {
     try {
-        const response = await fetch(`${SERVER_URL}/api/start-clipboard-listener`, { method: 'POST' });
+        const response = await fetch(`${SERVER_URL}/api/toggle-clipboard?enable=${enable}`, { method: 'POST' });
         const result = await response.json();
-        if (result.success) {
-            showToast('剪贴板监听器已成功启动！', 'success');
-            logToFaceDownloader('剪贴板监听器已启动。');
+        const action = enable ? '启用' : '关闭';
+        if (response.ok) {
+            showToast(`剪贴板监听已${action}`, 'success');
+            logToFaceDownloader(`剪贴板监听已${action}。`);
         } else {
-            showToast('启动监听器失败', 'error', result.message);
-            logToFaceDownloader(`启动监听器失败: ${result.message}`);
+            showToast(`${action}监听失败`, 'error', result.message);
+            logToFaceDownloader(`${action}监听失败: ${result.message}`);
         }
     } catch (error) {
-        showToast('启动监听器请求失败', 'error', error.message);
-        logToFaceDownloader(`启动监听器请求失败: ${error.message}`);
+        const action = enable ? '启用' : '关闭';
+        showToast(`${action}监听请求失败`, 'error', error.message);
+        logToFaceDownloader(`${action}监听请求失败: ${error.message}`);
     }
-});
+}
 
-stopListenClipboardBtn.addEventListener('click', async () => {
-    try {
-        const response = await fetch(`${SERVER_URL}/api/stop-clipboard-listener`, { method: 'POST' });
-        const result = await response.json();
-        if (result.success) {
-            showToast('剪贴板监听器已成功停止！', 'success');
-            logToFaceDownloader('剪贴板监听器已停止。');
-        } else {
-            showToast('停止监听器失败', 'error', result.message);
-            logToFaceDownloader(`停止监听器失败: ${result.message}`);
-        }
-    } catch (error) {
-        showToast('停止监听器请求失败', 'error', error.message);
-        logToFaceDownloader(`停止监听器请求失败: ${error.message}`);
-    }
-});
+startListenClipboardBtn.addEventListener('click', () => toggleClipboard(true));
+stopListenClipboardBtn.addEventListener('click', () => toggleClipboard(false));
 
 showLogBtn.addEventListener('click', () => {
     const logContent = document.getElementById('log-content');
@@ -493,22 +481,20 @@ function showNoteModal(folderPath, characterName) {
     openModal('note-modal');
 }
 
-async function handleOpenFolder(folderPath) {
-   try {
-       const response = await fetch(`${SERVER_URL}/api/open-folder`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ folderPath }) });
-       if (!response.ok) {
-           // 如果HTTP状态码表示失败，才尝试解析错误信息
-           const result = await response.json();
-           logMessage('无法打开文件夹', 'error', result.message || '未知错误');
-       } else {
-           // 如果HTTP状态码是成功的 (2xx), 我们就直接认为操作成功
-           // 不再尝试解析 response.json()，因为这个操作会因窗口切换而失败
-           logMessage('打开文件夹指令已发送', 'success');
-       }
-   } catch (error) {
-       // 这个 catch 块现在只会在网络完全不通等情况下触发
-       logMessage('打开文件夹请求失败', 'error', error.message);
-   }
+function handleOpenFolder(folderPath) {
+    // 发送请求，但不等待其完成 (fire and forget)
+    fetch(`${SERVER_URL}/api/open-folder`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ folderPath })
+    }).catch(error => {
+        // 在后台静默处理错误，以防万一（例如服务器关闭），避免在控制台出现未捕获的异常。
+        // 用户不会看到这个错误。
+        console.error('Background open-folder request failed:', error);
+    });
+
+    // 立即显示成功消息，因为我们假设此操作总是成功的。
+    logMessage('打开文件夹指令已发送', 'success');
 }
 
 async function handleDeleteVersion(filePath) {
@@ -655,68 +641,93 @@ function updateCharacterDatalist(cards) {
 let submittedUrlPoller = null;
 
 function startUrlPolling() {
-    if (submittedUrlPoller) return; // 防止重复启动
-    logMessage('开始轮询已提交的URL...', 'info');
+    if (submittedUrlPoller) return; // Prevent multiple pollers
+    logToFaceDownloader('开始从队列获取URL...');
     submittedUrlPoller = setInterval(async () => {
+        // 检查是否选择了角色文件夹
+        const selectedCharName = faceCharInput.value;
+        const options = Array.from(faceCharDatalist.options);
+        const selectedOption = options.find(opt => opt.value === selectedCharName);
+        const selectedCharFolder = selectedOption ? selectedOption.dataset.folderPath : null;
+
+        if (!selectedCharFolder) {
+            // 如果没有选择角色，则不执行任何操作，也不记录日志，避免刷屏
+            return;
+        }
+
         try {
             const response = await fetch(`${SERVER_URL}/api/get-submitted-url`);
+            if (!response.ok) return; // 如果服务器返回错误，则静默失败
+
             const result = await response.json();
             if (result.success && result.url) {
-                logToFaceDownloader(`从监听器接收到链接: ${result.url}`);
-                
-                const selectedCharName = faceCharInput.value;
-                const options = Array.from(faceCharDatalist.options);
-                const selectedOption = options.find(opt => opt.value === selectedCharName);
-                const selectedCharFolder = selectedOption ? selectedOption.dataset.folderPath : null;
-
-                if (!selectedCharFolder) {
-                    logToFaceDownloader('请先选择一个角色文件夹！下载已暂停。');
-                    showToast('请先选择角色文件夹再下载！', 'error');
-                } else {
-                    await downloadFaceImage(result.url, selectedCharFolder);
-                }
+                logToFaceDownloader(`从队列中获取链接: ${result.url}`);
+                await downloadFaceImage(result.url, selectedCharFolder);
             }
         } catch (error) {
-            // 忽略错误，轮询将继续
+            // 忽略网络错误，轮询将继续
         }
-    }, 2500); // 每2.5秒轮询一次
+    }, 2500); // Poll every 2.5 seconds
 }
+
 
 function stopUrlPolling() {
     if (submittedUrlPoller) {
         clearInterval(submittedUrlPoller);
         submittedUrlPoller = null;
-        logMessage('已停止轮询URL。', 'info');
+        logToFaceDownloader('已停止从队列获取URL。');
     }
 }
 
 // 当打开或关闭卡面下载模态框时，启动或停止轮询
 const faceDownloaderModal = document.getElementById('face-downloader-modal');
 const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
+    for (const mutation of mutations) {
         if (mutation.attributeName === 'style') {
             const displayStyle = faceDownloaderModal.style.display;
             if (displayStyle === 'block') {
                 startUrlPolling();
             } else {
                 stopUrlPolling();
+                toggleClipboard(false); // 关闭模态框时自动停止监听
             }
         }
-    });
+    }
 });
 observer.observe(faceDownloaderModal, { attributes: true });
 
+
 async function downloadFaceImage(url, characterFolderPath) {
-    logToFaceDownloader(`正在下载: ${url}`);
+    logToFaceDownloader(`正在下载卡面: ${url}`);
+    
+    // 从 characterFolderPath 中提取 category 和 characterName
+    // 格式通常是 "Tavern/characters/分类/角色名"
+    const pathParts = characterFolderPath.replace(/\\/g, '/').split('/');
+    if (pathParts.length < 2) {
+        logToFaceDownloader(`下载失败: 角色路径格式不正确 "${characterFolderPath}"`);
+        showToast('下载失败: 角色路径格式不正确', 'error');
+        return;
+    }
+    const characterName = pathParts.pop();
+    const category = pathParts.pop();
+
     try {
-        const response = await fetch(`${SERVER_URL}/api/download-face`, {
+        // 复用角色卡下载的API
+        const response = await fetch(`${SERVER_URL}/api/download-card`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ url, characterFolderPath })
+            body: JSON.stringify({
+                url: url,
+                category: category,
+                characterName: characterName,
+                fileName: '', // 文件名留空，让后端自动生成
+                isFace: true // 添加一个标志，告诉后端这是卡面下载
+            })
         });
+        
         const result = await response.json();
-        if (result.success) {
-            logToFaceDownloader(`下载成功: ${result.filePath}`);
+        if (response.ok) {
+            logToFaceDownloader(`下载成功: ${result.message}`);
             showToast('卡面下载成功!', 'success');
         } else {
             logToFaceDownloader(`下载失败: ${result.message}`);
