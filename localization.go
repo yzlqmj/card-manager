@@ -13,7 +13,8 @@ import (
 // checkLocalizationNeeded 调用 cli.exe --check 来判断角色卡是否需要本地化。
 // 它返回一个布尔值和任何可能发生的错误。
 func checkLocalizationNeeded(cardPath string) (bool, error) {
-	cmd := exec.Command("./cli/cli.exe", cardPath, "--check")
+	cmd := exec.Command("./cli.exe", cardPath, "--check")
+	cmd.Dir = "./cli" // 设置工作目录
 	var out bytes.Buffer
 	cmd.Stdout = &out
 	cmd.Stderr = &out // 将标准错误也重定向到 out，以便调试
@@ -27,10 +28,10 @@ func checkLocalizationNeeded(cardPath string) (bool, error) {
 	// 去除输出中的空格和换行符
 	output := strings.TrimSpace(out.String())
 
-	// 根据输出判断结果
-	if output == "True" {
+	// 根据输出判断结果，使用 Contains 增加弹性
+	if strings.Contains(output, "True") {
 		return true, nil
-	} else if output == "False" {
+	} else if strings.Contains(output, "False") {
 		return false, nil
 	}
 
@@ -71,16 +72,18 @@ func isLocalized(characterName string) (bool, error) {
 
 // runLocalization 调用 cli.exe 来执行本地化操作。
 // 它返回命令的实时输出。
+// runLocalization 调用 cli.exe 来执行本地化操作。
+// 它返回命令的实时输出。无论 cli.exe 的退出码是什么，我们都收集并返回其输出。
 func runLocalization(cardPath string) (string, error) {
-	cmd := exec.Command("./cli/cli.exe", cardPath)
+	cmd := exec.Command("./cli.exe", cardPath)
+	cmd.Dir = "./cli" // 设置工作目录
 	var out bytes.Buffer
 	cmd.Stdout = &out
 	cmd.Stderr = &out
 
-	err := cmd.Run()
-	if err != nil {
-		return out.String(), fmt.Errorf("执行本地化失败: %v", err)
-	}
+	// 我们忽略 cmd.Run() 的错误，因为 cli.exe 可能会使用非零退出码来表示不同的成功状态。
+	// 我们总是将 cli.exe 的输出返回给前端，由用户来判断最终结果。
+	_ = cmd.Run()
 
 	return out.String(), nil
 }

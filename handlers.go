@@ -691,11 +691,14 @@ func localizeCardHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	output, err := runLocalization(body.CardPath)
+	// 清理 cli.exe 的输出，替换无效的 UTF-8 序列
+	cleanOutput := strings.ToValidUTF8(output, "")
+
 	if err != nil {
-		http.Error(w, fmt.Sprintf("本地化失败: %v\nOutput: %s", err, output), http.StatusInternalServerError)
+		http.Error(w, fmt.Sprintf("本地化失败: %v\nOutput: %s", err, cleanOutput), http.StatusInternalServerError)
 		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "log": output})
+	json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "log": cleanOutput})
 }
