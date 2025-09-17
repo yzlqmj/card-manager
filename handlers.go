@@ -270,8 +270,8 @@ func getCardsHandler(w http.ResponseWriter, r *http.Request) {
 func scanChangesHandler(w http.ResponseWriter, r *http.Request) {
 	defer saveCache()
 
-	// 异步执行完整的Tavern哈希扫描，不阻塞主流程
-	go scanTavernHashes()
+	// 同步执行完整的Tavern哈希扫描，确保在获取数据前完成
+	scanTavernHashes()
 
 	// 立即获取并返回当前可用的卡片数据
 	response, err := fetchCardsData()
