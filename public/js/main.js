@@ -698,11 +698,30 @@ function handleOrganize(strayPath) {
 function updateCharacterDatalist(cards) {
     const datalist = document.getElementById('character-list');
     datalist.innerHTML = '';
-    const characterNames = new Set(cards.map(card => card.name));
-    characterNames.forEach(name => {
-        const option = document.createElement('option');
-        option.value = name;
-        datalist.appendChild(option);
+    const characterNames = new Set();
+    cards.forEach(card => {
+        if (!characterNames.has(card.name)) {
+            characterNames.add(card.name);
+            const option = document.createElement('option');
+            option.value = card.name;
+            datalist.appendChild(option);
+        }
+    });
+
+    // 当角色名称变化时，自动选择分类
+    const characterNameInput = document.getElementById('character-name');
+    characterNameInput.addEventListener('change', () => {
+        const selectedName = characterNameInput.value;
+        const card = cards.find(c => c.name === selectedName);
+        if (card) {
+            const folderPath = card.folderPath;
+            const categoryMatch = folderPath.match(/.*[\\\/]([^\\\/]+)[\\\/][^\\\/]+$/);
+            if (categoryMatch && categoryMatch[1]) {
+                const category = categoryMatch[1];
+                document.getElementById('category-select').value = category;
+                document.getElementById('new-category').value = ''; // 清空新分类输入
+            }
+        }
     });
 }
 
