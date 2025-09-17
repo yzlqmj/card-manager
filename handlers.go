@@ -82,11 +82,8 @@ func getCardMetadata(filePath string) (CacheEntry, error) {
 		Mtime:        mtime,
 	}
 
-	// 获取旧缓存以保留某些字段
-	oldMetadata, _ := getCache(filePath)
-	if oldMetadata.LocalizationNeeded != nil {
-		metadata.LocalizationNeeded = oldMetadata.LocalizationNeeded
-	}
+	// 文件已更新，不应保留旧的本地化状态，强制重新检查。
+	// 因此，我们不从旧缓存中复制 LocalizationNeeded 字段。
 
 	setCache(filePath, metadata) // 更新缓存
 	return metadata, nil
@@ -220,21 +217,20 @@ func processCharacterDirectory(itemPath string) *Character {
 	metadata, _ := getCardMetadata(versions[0].Path)
 	var localizationNeeded *bool
 	if metadata.LocalizationNeeded != nil {
+		// 缓存命中
 		localizationNeeded = metadata.LocalizationNeeded
 	} else {
-		// 异步检查本地化需求
-		go func(cardPath string) {
-			needed, err := checkLocalizationNeeded(cardPath)
-			if err == nil {
-				cachedData, found := getCache(cardPath)
-				if !found {
-					cachedData = CacheEntry{}
-				}
-				cachedData.LocalizationNeeded = &needed
-				setCache(cardPath, cachedData)
-				saveCache() // 异步保存缓存
-			}
-		}(versions[0].Path)
+		// 缓存未命中，同步检查本地化需求
+		needed, err := checkLocalizationNeeded(versions[0].Path)
+		if err == nil {
+			// 更新缓存
+			cachedData, _ := getCache(versions[0].Path) // 重新获取以防万一
+			cachedData.LocalizationNeeded = &needed
+			setCache(versions[0].Path, cachedData)
+			// 将检查结果用于当前响应
+			localizationNeeded = &needed
+		}
+		// 如果检查出错，localizationNeeded 将保持为 nil，前端会显示未知状态
 	}
 
 	nameToCheck := versions[0].InternalName
