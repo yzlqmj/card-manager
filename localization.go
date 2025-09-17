@@ -55,7 +55,7 @@ func isLocalized(characterName string) (bool, error) {
 
 	// 使用正则表达式移除所有非字母数字字符
 	// 只移除特定的标点符号
-	reg := regexp.MustCompile(`[.();【】《》？！，、——：:]`)
+	reg := regexp.MustCompile(`[.();【】《》？！，、——：:\[\]]`)
 	sanitizedName := reg.ReplaceAllString(characterName, "")
 	nikoPathSanitized := filepath.Join(config.TavernPublicPath, "niko", sanitizedName)
 	info, err = os.Stat(nikoPathSanitized)
