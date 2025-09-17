@@ -702,3 +702,32 @@ func localizeCardHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "log": cleanOutput})
 }
+
+func getStatsHandler(w http.ResponseWriter, r *http.Request) {
+	cardsData, err := fetchCardsData()
+	if err != nil {
+		http.Error(w, "无法获取卡片数据", http.StatusInternalServerError)
+		return
+	}
+
+	stats := StatsResponse{}
+	for _, category := range cardsData.Categories {
+		for _, character := range category {
+			stats.TotalCharacters++
+			if character.LocalizationNeeded != nil && *character.LocalizationNeeded {
+				stats.NeedsLocalization++
+				if !character.IsLocalized {
+					stats.NotLocalized++
+				}
+			}
+			if !character.ImportInfo.IsImported {
+				stats.NotImported++
+			} else if !character.ImportInfo.IsLatestImported {
+				stats.NotLatestImported++
+			}
+		}
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(stats)
+}

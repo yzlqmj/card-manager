@@ -3,6 +3,7 @@ const clearBtn = document.getElementById('clear-btn'); // 清除缓存按钮
 const downloadBtn = document.getElementById('download-btn'); // 下载按钮
 const showDownloaderBtn = document.getElementById('show-downloader-btn'); // 显示下载器按钮
 const showLogBtn = document.getElementById('show-log-btn'); // 显示日志按钮
+const showStatsBtn = document.getElementById('show-stats-btn'); // 显示统计信息按钮
 const themeToggleBtn = document.getElementById('theme-toggle-btn'); // 主题切换按钮
 const showFaceDownloaderBtn = document.getElementById('show-face-downloader-btn');
 const container = document.getElementById('card-container'); // 卡片容器
@@ -119,6 +120,28 @@ showLogBtn.addEventListener('click', () => {
     const logContent = document.getElementById('log-content');
     logContent.textContent = logHistory.join('\n\n');
     openModal('log-modal');
+});
+
+showStatsBtn.addEventListener('click', async () => {
+    try {
+        const response = await fetch(`${SERVER_URL}/api/stats`);
+        const stats = await response.json();
+        if (!response.ok) {
+            throw new Error('无法获取统计信息');
+        }
+
+        const statsContent = document.getElementById('stats-content');
+        statsContent.innerHTML = `
+            <p><strong>总角色卡数量:</strong> ${stats.totalCharacters}</p>
+            <p><strong>需要本地化的数量:</strong> ${stats.needsLocalization}</p>
+            <p><strong>尚未本地化的数量:</strong> ${stats.notLocalized}</p>
+            <p><strong>未导入的数量:</strong> ${stats.notImported}</p>
+            <p><strong>未导入最新版的数量:</strong> ${stats.notLatestImported}</p>
+        `;
+        openModal('stats-modal');
+    } catch (error) {
+        logMessage('获取统计信息失败', 'error', error.message);
+    }
 });
 downloadBtn.addEventListener('click', handleDownload);
 
@@ -409,7 +432,7 @@ function showDetails(folderPath) {
         viewFacesBtn.className = 'styled-btn'; // 蓝色可点击
         viewFacesBtn.onclick = () => showFaceViewer(card.folderPath);
     } else {
-        viewFacesBtn.className = 'styled-btn disabled'; // 灰色不可点击
+        viewFacesBtn.className = 'styled-btn';
         viewFacesBtn.disabled = true;
     }
     actionsContainer.appendChild(viewFacesBtn);
@@ -428,7 +451,7 @@ function showDetails(folderPath) {
         localizeBtn.className = 'styled-btn primary';
         localizeBtn.onclick = () => handleLocalization(card.latestVersionPath);
     } else {
-        localizeBtn.className = 'styled-btn disabled';
+        localizeBtn.className = 'styled-btn primary';
         localizeBtn.disabled = true;
     }
     actionsContainer.appendChild(localizeBtn);

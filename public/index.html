@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>酒馆角色卡管理器 v5.0</title>
+    <title>酒馆角色卡管理器 v6.0</title>
     <link rel="icon" href="ico.ico">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <header>
-        <h1>酒馆角色卡管理器 v5.0</h1>
+        <h1>酒馆角色卡管理器 v6.0</h1>
         <div class="controls">
             <button id="theme-toggle-btn">🌙</button>
             <button id="scan-btn">扫描变更</button>
             <button id="show-downloader-btn">下载新卡</button>
             <button id="show-face-downloader-btn">下载卡面</button>
             <button id="clear-btn">清除列表</button>
+            <button id="show-stats-btn">统计信息</button>
             <button id="show-log-btn">显示日志</button>
         </div>
     </header>
@@ -149,6 +150,18 @@
             </div>
             <div class="modal-body">
                 <pre id="localization-log-content" style="white-space: pre-wrap; word-wrap: break-word; max-height: 60vh; overflow-y: auto; background-color: var(--bg-color); padding: 15px; border-radius: var(--radius);"></pre>
+            </div>
+        </div>
+    </div>
+
+    <div id="stats-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>统计信息</h2>
+                <span class="close-btn" onclick="closeModal('stats-modal')">×</span>
+            </div>
+            <div class="modal-body">
+                <div id="stats-content"></div>
             </div>
         </div>
     </div>

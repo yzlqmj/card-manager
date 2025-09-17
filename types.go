@@ -41,3 +41,12 @@ type CardsResponse struct {
 	Categories map[string][]Character `json:"categories"`
 	StrayCards []StrayCard            `json:"strayCards"`
 }
+
+// StatsResponse 是 /api/stats 端点的响应结构
+type StatsResponse struct {
+	TotalCharacters   int `json:"totalCharacters"`
+	NeedsLocalization int `json:"needsLocalization"`
+	NotLocalized      int `json:"notLocalized"`
+	NotImported       int `json:"notImported"`
+	NotLatestImported int `json:"notLatestImported"`
+}
