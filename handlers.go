@@ -219,23 +219,7 @@ func processCharacterDirectory(itemPath string) *Character {
 	if metadata.LocalizationNeeded != nil {
 		// 缓存命中
 		localizationNeeded = metadata.LocalizationNeeded
-	} else {
-		// 缓存未命中，同步检查本地化需求
-		needed, err := checkLocalizationNeeded(versions[0].Path)
-		if err == nil {
-			// 只有当确实需要本地化时，才将状态写入缓存
-			// 如果不需要，则不写，以便下次文件更新时能重新检查
-			if needed {
-				// 更新缓存
-				cachedData, _ := getCache(versions[0].Path) // 重新获取以防万一
-				cachedData.LocalizationNeeded = &needed
-				setCache(versions[0].Path, cachedData)
-			}
-			// 将本次检查结果用于当前响应
-			localizationNeeded = &needed
-		}
-		// 如果检查出错，localizationNeeded 将保持为 nil，前端会显示未知状态
-	}
+	} // 如果缓存未命中，localizationNeeded 将保持为 nil
 
 	nameToCheck := versions[0].InternalName
 	if nameToCheck == "" {
@@ -690,13 +674,56 @@ func localizeCardHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	output, err := runLocalization(body.CardPath)
-	// 清理 cli.exe 的输出，替换无效的 UTF-8 序列
+	cardPath := body.CardPath
+	metadata, found := getCache(cardPath)
+	needsCheck := !found || metadata.LocalizationNeeded == nil
+
+	if needsCheck {
+		// 状态未知，先检查
+		needed, err := checkLocalizationNeeded(cardPath)
+		if err != nil {
+			http.Error(w, fmt.Sprintf("本地化检查失败: %v", err), http.StatusInternalServerError)
+			return
+		}
+
+		// 更新缓存
+		if !found { // 如果之前完全没有缓存
+			metadata, _ = getCardMetadata(cardPath) // 重新获取元数据
+		}
+		metadata.LocalizationNeeded = &needed
+		setCache(cardPath, metadata)
+
+		if !needed {
+			w.Header().Set("Content-Type", "application/json")
+			json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "log": "检查完成：此卡无需本地化。"})
+			return
+		}
+	} else if !*metadata.LocalizationNeeded {
+		// 缓存表明无需本地化
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "log": "根据缓存，此卡无需本地化。"})
+		return
+	}
+
+	// 执行本地化
+	output, err := runLocalization(cardPath)
 	cleanOutput := strings.ToValidUTF8(output, "")
 
 	if err != nil {
 		http.Error(w, fmt.Sprintf("本地化失败: %v\nOutput: %s", err, cleanOutput), http.StatusInternalServerError)
 		return
+	}
+
+	// 本地化成功后，更新 isLocalized 状态
+	nameToCheck := metadata.InternalName
+	if nameToCheck == "" {
+		nameToCheck = strings.TrimSuffix(filepath.Base(cardPath), filepath.Ext(cardPath))
+	}
+	isLocalized, _ := isLocalized(nameToCheck)
+	if isLocalized {
+		// 注意：这里没有直接的方法来更新 Character 对象的状态，
+		// 因为它是在 fetchCardsData 中动态构建的。
+		// 但下次 fetchCardsData 时会获取到正确的 isLocalized 状态。
 	}
 
 	w.Header().Set("Content-Type", "application/json")
