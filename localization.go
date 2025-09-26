@@ -1,46 +1,28 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
 	"os"
 	"path/filepath"
 	"regexp"
-	"strings"
 
 	"card-manager/localizer"
 )
 
 // checkLocalizationNeeded 调用 localizer.Run 来判断角色卡是否需要本地化。
 func checkLocalizationNeeded(cardPath string) (bool, error) {
-	var out bytes.Buffer
-	// 模拟 cli.exe 的输出捕获
-	oldStdout := os.Stdout
-	r, w, _ := os.Pipe()
-	os.Stdout = w
-
 	opts := localizer.Options{
 		CardPath:    cardPath,
 		IsCheckMode: true,
 	}
-	err := localizer.Run(opts)
-
-	w.Close()
-	os.Stdout = oldStdout
-	out.ReadFrom(r)
-
+	// 直接调用新的 Run 函数
+	needed, logOutput, err := localizer.Run(opts)
 	if err != nil {
-		return false, fmt.Errorf("执行本地化检查失败: %v, output: %s", err, out.String())
+		// 即使有错，也记录日志
+		return false, fmt.Errorf("执行本地化检查失败: %v, output: %s", err, logOutput)
 	}
-
-	output := strings.TrimSpace(out.String())
-	if strings.Contains(output, "True") {
-		return true, nil
-	} else if strings.Contains(output, "False") {
-		return false, nil
-	}
-
-	return false, fmt.Errorf("未知的本地化检查输出: %s", output)
+	// 忽略日志输出，只返回结果
+	return needed, nil
 }
 
 // isLocalized 检查角色卡是否已经被本地化。
@@ -74,27 +56,17 @@ func isLocalized(characterName string) (bool, error) {
 
 // runLocalization 调用 localizer.Run 来执行本地化操作。
 func runLocalization(cardPath string) (string, error) {
-	var out bytes.Buffer
-	oldStdout := os.Stdout
-	r, w, _ := os.Pipe()
-	os.Stdout = w
-
 	opts := localizer.Options{
 		CardPath: cardPath,
 		BasePath: config.TavernPublicPath,
 		Proxy:    config.Proxy,
 	}
-	err := localizer.Run(opts)
-
-	w.Close()
-	os.Stdout = oldStdout
-	out.ReadFrom(r)
-
-	output := out.String()
+	// 直接调用新的 Run 函数
+	_, logOutput, err := localizer.Run(opts)
 	if err != nil {
 		// 即使有错误，也返回输出，以便前端显示
-		return output, err
+		return logOutput, err
 	}
 
-	return output, nil
+	return logOutput, nil
 }

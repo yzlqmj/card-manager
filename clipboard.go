@@ -2,7 +2,7 @@ package main
 
 import (
 	"bytes"
-	"fmt"
+	"log/slog"
 	"os/exec"
 	"regexp"
 	"strings"
@@ -29,16 +29,16 @@ func getClipboardContent() (string, error) {
 
 func startClipboardListener() {
 	if isListenerRunning.CompareAndSwap(false, true) {
-		fmt.Println("Starting clipboard listener...")
+		slog.Info("正在启动剪贴板监听器...")
 		stopListenerChannel = make(chan struct{})
 		go runClipboardListener()
-		fmt.Println("Clipboard listener started. Watching for Discord attachment links...")
+		slog.Info("剪贴板监听器已启动，正在监听 Discord 附件链接...")
 	}
 }
 
 func stopClipboardListener() {
 	if isListenerRunning.CompareAndSwap(true, false) {
-		fmt.Println("Stopping clipboard listener...")
+		slog.Info("正在停止剪贴板监听器...")
 		close(stopListenerChannel)
 	}
 }
@@ -67,7 +67,7 @@ func runClipboardListener() {
 				}
 			}
 		case <-stopListenerChannel:
-			fmt.Println("Clipboard listener stopped.")
+			slog.Info("剪贴板监听器已停止。")
 			return
 		}
 	}

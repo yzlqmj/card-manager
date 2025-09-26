@@ -19,7 +19,7 @@ const maxWorkers = 8
 
 var (
 	// General URL pattern, excludes newlines
-	urlPattern = regexp.MustCompile(`https?://[^\s'"\` + "`" + ` <>(),\n\r]+`)
+	urlPattern = regexp.MustCompile(`https?://(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}(?:[/?#][^\s'"\` + "`" + `<>()]*)?`)
 	// CSS url() pattern
 	cssUrlPattern = regexp.MustCompile(`url\((?:['"]?)(https?://.*?)(?:['"]?)\)`)
 	// JS string pattern

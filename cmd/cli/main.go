@@ -27,8 +27,22 @@ func main() {
 		IsCheckMode: *checkFlag,
 	}
 
-	if err := localizer.Run(opts); err != nil {
-		fmt.Fprintln(os.Stderr, err)
+	needed, logOutput, err := localizer.Run(opts)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "发生错误:", err)
+		fmt.Fprintln(os.Stderr, "--- 日志 ---")
+		fmt.Fprintln(os.Stderr, logOutput)
 		os.Exit(1)
+	}
+
+	// 打印日志
+	fmt.Println(logOutput)
+
+	// 在检查模式下，根据需要退出
+	if opts.IsCheckMode {
+		if needed {
+			// 可以选择用特定的退出码表示需要本地化
+			// os.Exit(10)
+		}
 	}
 }

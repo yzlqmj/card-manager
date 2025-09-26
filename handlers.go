@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log/slog"
 	"net/http"
 	"net/url"
 	"os"
@@ -24,7 +25,7 @@ var (
 	queueMutex        sync.Mutex
 )
 
-// getFileHash 计算文件的 SHA256 哈希
+// getFileHash calculates the SHA256 hash of a file.
 func getFileHash(filePath string) (string, error) {
 	file, err := os.Open(filePath)
 	if err != nil {
@@ -39,24 +40,21 @@ func getFileHash(filePath string) (string, error) {
 	return hex.EncodeToString(hash.Sum(nil)), nil
 }
 
-// getCardMetadata 高效获取卡片元数据，利用缓存
+// getCardMetadata efficiently retrieves card metadata, utilizing a cache.
 func getCardMetadata(filePath string) (CacheEntry, error) {
 	stats, err := os.Stat(filePath)
 	if err != nil {
 		return CacheEntry{}, err
 	}
-	mtime := stats.ModTime().Format(time.RFC3339Nano) // 使用更高精度的时间戳
+	mtime := stats.ModTime().Format(time.RFC3339Nano)
 
-	// 检查缓存
 	cachedData, found := getCache(filePath)
 	if found && cachedData.Mtime == mtime {
 		return cachedData, nil
 	}
 
-	// 缓存未命中或文件已更新，重新解析
 	hash, err := getFileHash(filePath)
 	if err != nil {
-		// 如果无法计算哈希，仍然尝试返回部分数据
 		return CacheEntry{Mtime: mtime}, err
 	}
 
@@ -82,14 +80,11 @@ func getCardMetadata(filePath string) (CacheEntry, error) {
 		Mtime:        mtime,
 	}
 
-	// 文件已更新，不应保留旧的本地化状态，强制重新检查。
-	// 因此，我们不从旧缓存中复制 LocalizationNeeded 字段。
-
-	setCache(filePath, metadata) // 更新缓存
+	setCache(filePath, metadata)
 	return metadata, nil
 }
 
-// fetchCardsData 是获取卡片数据的核心逻辑
+// fetchCardsData is the core logic for fetching card data.
 func fetchCardsData() (CardsResponse, error) {
 	response := CardsResponse{
 		Categories: make(map[string][]Character),
@@ -100,6 +95,7 @@ func fetchCardsData() (CardsResponse, error) {
 
 	rootDirents, err := os.ReadDir(config.CharactersRootPath)
 	if err != nil {
+		slog.Error("无法读取角色根目录", "path", config.CharactersRootPath, "error", err)
 		return response, fmt.Errorf("无法读取角色根目录: %w", err)
 	}
 
@@ -116,6 +112,7 @@ func fetchCardsData() (CardsResponse, error) {
 
 		itemDirents, err := os.ReadDir(categoryPath)
 		if err != nil {
+			slog.Warn("无法读取分类目录", "path", categoryPath, "error", err)
 			continue
 		}
 
@@ -147,7 +144,7 @@ func fetchCardsData() (CardsResponse, error) {
 	return response, nil
 }
 
-// processCharacterDirectory 处理单个角色目录并返回 Character 指针
+// processCharacterDirectory processes a single character directory.
 func processCharacterDirectory(itemPath string) *Character {
 	characterName := filepath.Base(itemPath)
 	versions := make([]CardVersion, 0)
@@ -156,6 +153,7 @@ func processCharacterDirectory(itemPath string) *Character {
 
 	versionFiles, err := os.ReadDir(itemPath)
 	if err != nil {
+		slog.Warn("无法读取角色版本目录", "path", itemPath, "error", err)
 		return nil
 	}
 
@@ -167,7 +165,7 @@ func processCharacterDirectory(itemPath string) *Character {
 	for _, verFile := range versionFiles {
 		if !verFile.IsDir() && strings.HasSuffix(strings.ToLower(verFile.Name()), ".png") {
 			verPath := filepath.Join(itemPath, verFile.Name())
-			metadata, _ := getCardMetadata(verPath) // 忽略错误，尽力而为
+			metadata, _ := getCardMetadata(verPath)
 			versions = append(versions, CardVersion{
 				Path:         verPath,
 				FileName:     verFile.Name(),
@@ -194,7 +192,7 @@ func processCharacterDirectory(itemPath string) *Character {
 	for i, version := range versions {
 		metadata, found := getCache(version.Path)
 		if !found {
-			continue // 如果没有缓存，无法判断导入状态
+			continue
 		}
 		isImported := false
 		if metadata.Hash != "" && importedHashes[metadata.Hash] {
@@ -213,28 +211,22 @@ func processCharacterDirectory(itemPath string) *Character {
 	}
 	TavernScanMutex.Unlock()
 
-	// 检查本地化状态
 	metadata, _ := getCardMetadata(versions[0].Path)
 	var localizationNeeded *bool
 	if metadata.LocalizationNeeded != nil {
-		// 缓存命中
 		localizationNeeded = metadata.LocalizationNeeded
 	} else {
-		// 缓存未命中，同步检查本地化需求
 		needed, err := checkLocalizationNeeded(versions[0].Path)
-		if err == nil {
-			// 只有当确实需要本地化时，才将状态写入缓存
-			// 如果不需要，则不写，以便下次文件更新时能重新检查
+		if err != nil {
+			slog.Warn("自动本地化检查失败", "card", versions[0].Path, "error", err)
+		} else {
 			if needed {
-				// 更新缓存
-				cachedData, _ := getCache(versions[0].Path) // 重新获取以防万一
+				cachedData, _ := getCache(versions[0].Path)
 				cachedData.LocalizationNeeded = &needed
 				setCache(versions[0].Path, cachedData)
 			}
-			// 将本次检查结果用于当前响应
 			localizationNeeded = &needed
 		}
-		// 如果检查出错，localizationNeeded 将保持为 nil，前端会显示未知状态
 	}
 
 	nameToCheck := versions[0].InternalName
@@ -258,50 +250,46 @@ func processCharacterDirectory(itemPath string) *Character {
 	}
 }
 
-// getCardsHandler 仅从缓存和文件系统获取数据，不执行全量扫描
+// getCardsHandler handles the request to get all cards.
 func getCardsHandler(w http.ResponseWriter, r *http.Request) {
 	defer saveCache()
 	response, err := fetchCardsData()
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, "获取卡片数据失败", http.StatusInternalServerError)
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(response)
 }
 
-// scanChangesHandler 异步触发扫描并立即返回当前数据
+// scanChangesHandler handles the request to scan for changes.
 func scanChangesHandler(w http.ResponseWriter, r *http.Request) {
 	defer saveCache()
-
-	// 同步执行完整的Tavern哈希扫描，确保在获取数据前完成
 	scanTavernHashes()
-
-	// 立即获取并返回当前可用的卡片数据
 	response, err := fetchCardsData()
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, "扫描变更时获取卡片数据失败", http.StatusInternalServerError)
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(response)
 }
 
+// getImageHandler serves image files.
 func getImageHandler(w http.ResponseWriter, r *http.Request) {
 	imagePath := r.URL.Query().Get("path")
 	if imagePath == "" {
 		http.Error(w, "缺少路径参数", http.StatusBadRequest)
 		return
 	}
-
 	if !strings.HasPrefix(imagePath, config.CharactersRootPath) {
 		http.Error(w, "路径非法", http.StatusForbidden)
 		return
 	}
-
 	http.ServeFile(w, r, imagePath)
 }
 
+// openFolderHandler opens a folder in the system's file explorer.
 func openFolderHandler(w http.ResponseWriter, r *http.Request) {
 	var body struct {
 		FolderPath string `json:"folderPath"`
@@ -310,12 +298,10 @@ func openFolderHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "无效的请求体", http.StatusBadRequest)
 		return
 	}
-
 	if !strings.HasPrefix(body.FolderPath, config.CharactersRootPath) {
 		http.Error(w, "路径非法", http.StatusForbidden)
 		return
 	}
-
 	var cmd *exec.Cmd
 	switch runtime.GOOS {
 	case "windows":
@@ -325,22 +311,22 @@ func openFolderHandler(w http.ResponseWriter, r *http.Request) {
 	default:
 		cmd = exec.Command("xdg-open", body.FolderPath)
 	}
-
 	if err := cmd.Run(); err != nil {
+		slog.Error("无法打开文件夹", "path", body.FolderPath, "error", err)
 		http.Error(w, "无法打开文件夹", http.StatusInternalServerError)
 		return
 	}
-
 	w.WriteHeader(http.StatusNoContent)
 }
 
+// downloadCardHandler handles downloading a card or a face image.
 func downloadCardHandler(w http.ResponseWriter, r *http.Request) {
 	var body struct {
 		URL           string `json:"url"`
 		Category      string `json:"category"`
 		CharacterName string `json:"characterName"`
 		FileName      string `json:"fileName"`
-		IsFace        bool   `json:"isFace"` // 新增字段
+		IsFace        bool   `json:"isFace"`
 	}
 	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
 		http.Error(w, "无效的请求体", http.StatusBadRequest)
@@ -357,6 +343,7 @@ func downloadCardHandler(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := client.Get(body.URL)
 	if err != nil {
+		slog.Error("下载文件失败", "url", body.URL, "error", err)
 		http.Error(w, fmt.Sprintf("下载失败: %v", err), http.StatusInternalServerError)
 		return
 	}
@@ -369,21 +356,15 @@ func downloadCardHandler(w http.ResponseWriter, r *http.Request) {
 	characterFolderPath := filepath.Join(config.CharactersRootPath, body.Category, body.CharacterName)
 
 	if body.IsFace {
-		// --- 卡面下载逻辑 ---
 		targetFolderPath = filepath.Join(characterFolderPath, "卡面")
 		successMessage = "卡面已保存"
-
-		// 从URL中提取原始文件名
 		parsedURL, err := url.Parse(body.URL)
 		if err != nil {
 			http.Error(w, "无效的URL", http.StatusBadRequest)
 			return
 		}
-		originalFileName := filepath.Base(parsedURL.Path)
-		finalFileName = originalFileName
-
+		finalFileName = filepath.Base(parsedURL.Path)
 	} else {
-		// --- 角色卡下载逻辑 ---
 		targetFolderPath = characterFolderPath
 		successMessage = "角色卡下载成功"
 		finalFileName = body.FileName
@@ -393,13 +374,12 @@ func downloadCardHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := os.MkdirAll(targetFolderPath, os.ModePerm); err != nil {
+		slog.Error("创建目录失败", "path", targetFolderPath, "error", err)
 		http.Error(w, "创建目录失败", http.StatusInternalServerError)
 		return
 	}
 
 	filePath := filepath.Join(targetFolderPath, finalFileName)
-
-	// 处理文件名冲突
 	counter := 1
 	baseName := strings.TrimSuffix(finalFileName, filepath.Ext(finalFileName))
 	extension := filepath.Ext(finalFileName)
@@ -413,12 +393,14 @@ func downloadCardHandler(w http.ResponseWriter, r *http.Request) {
 
 	file, err := os.Create(filePath)
 	if err != nil {
+		slog.Error("创建文件失败", "path", filePath, "error", err)
 		http.Error(w, "创建文件失败", http.StatusInternalServerError)
 		return
 	}
 	defer file.Close()
 
 	if _, err := io.Copy(file, resp.Body); err != nil {
+		slog.Error("保存文件失败", "path", filePath, "error", err)
 		http.Error(w, "保存文件失败", http.StatusInternalServerError)
 		return
 	}
@@ -427,6 +409,7 @@ func downloadCardHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "message": fmt.Sprintf("%s: %s", successMessage, filepath.Base(filePath))})
 }
 
+// deleteVersionHandler handles deleting a card version.
 func deleteVersionHandler(w http.ResponseWriter, r *http.Request) {
 	var body struct {
 		FilePath string `json:"filePath"`
@@ -435,27 +418,25 @@ func deleteVersionHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "无效的请求体", http.StatusBadRequest)
 		return
 	}
-
 	if !strings.HasPrefix(body.FilePath, config.CharactersRootPath) {
 		http.Error(w, "路径非法", http.StatusForbidden)
 		return
 	}
-
 	if err := os.Remove(body.FilePath); err != nil {
+		slog.Error("删除文件失败", "path", body.FilePath, "error", err)
 		http.Error(w, "删除文件失败", http.StatusInternalServerError)
 		return
 	}
-
 	parentDir := filepath.Dir(body.FilePath)
 	files, err := os.ReadDir(parentDir)
 	if err == nil && len(files) == 0 {
 		os.Remove(parentDir)
 	}
-
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "message": "文件删除成功"})
 }
 
+// moveCharacterHandler handles moving a character to a different category.
 func moveCharacterHandler(w http.ResponseWriter, r *http.Request) {
 	var body struct {
 		OldFolderPath string `json:"oldFolderPath"`
@@ -465,24 +446,22 @@ func moveCharacterHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "无效的请求体", http.StatusBadRequest)
 		return
 	}
-
 	if !strings.HasPrefix(body.OldFolderPath, config.CharactersRootPath) {
 		http.Error(w, "路径非法", http.StatusForbidden)
 		return
 	}
-
 	characterName := filepath.Base(body.OldFolderPath)
 	newFolderPath := filepath.Join(config.CharactersRootPath, body.NewCategory, characterName)
-
 	if err := os.Rename(body.OldFolderPath, newFolderPath); err != nil {
+		slog.Error("移动角色失败", "from", body.OldFolderPath, "to", newFolderPath, "error", err)
 		http.Error(w, "移动失败", http.StatusInternalServerError)
 		return
 	}
-
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "message": "已移动到分类 " + body.NewCategory})
 }
 
+// organizeStrayHandler handles organizing a stray card.
 func organizeStrayHandler(w http.ResponseWriter, r *http.Request) {
 	var body struct {
 		StrayPath     string `json:"strayPath"`
@@ -493,28 +472,27 @@ func organizeStrayHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "无效的请求体", http.StatusBadRequest)
 		return
 	}
-
 	if !strings.HasPrefix(body.StrayPath, config.CharactersRootPath) {
 		http.Error(w, "路径非法", http.StatusForbidden)
 		return
 	}
-
 	newFolderPath := filepath.Join(config.CharactersRootPath, body.Category, body.CharacterName)
 	if err := os.MkdirAll(newFolderPath, os.ModePerm); err != nil {
+		slog.Error("创建目录失败", "path", newFolderPath, "error", err)
 		http.Error(w, "创建目录失败", http.StatusInternalServerError)
 		return
 	}
-
 	newFilePath := filepath.Join(newFolderPath, filepath.Base(body.StrayPath))
 	if err := os.Rename(body.StrayPath, newFilePath); err != nil {
+		slog.Error("整理文件失败", "from", body.StrayPath, "to", newFilePath, "error", err)
 		http.Error(w, "整理失败", http.StatusInternalServerError)
 		return
 	}
-
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "message": "文件已整理"})
 }
 
+// deleteStrayHandler handles deleting a stray card.
 func deleteStrayHandler(w http.ResponseWriter, r *http.Request) {
 	var body struct {
 		FilePath string `json:"filePath"`
@@ -523,27 +501,25 @@ func deleteStrayHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "无效的请求体", http.StatusBadRequest)
 		return
 	}
-
 	if !strings.HasPrefix(body.FilePath, config.CharactersRootPath) {
 		http.Error(w, "路径非法", http.StatusForbidden)
 		return
 	}
-
 	rel, err := filepath.Rel(config.CharactersRootPath, body.FilePath)
 	if err != nil || len(strings.Split(rel, string(filepath.Separator))) != 2 {
 		http.Error(w, "只能删除待整理目录中的文件", http.StatusForbidden)
 		return
 	}
-
 	if err := os.Remove(body.FilePath); err != nil {
+		slog.Error("删除文件失败", "path", body.FilePath, "error", err)
 		http.Error(w, "删除文件失败", http.StatusInternalServerError)
 		return
 	}
-
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "message": "文件删除成功"})
 }
 
+// getNoteHandler handles getting a note for a character.
 func getNoteHandler(w http.ResponseWriter, r *http.Request) {
 	folderPath := r.URL.Query().Get("folderPath")
 	if folderPath == "" {
@@ -554,7 +530,6 @@ func getNoteHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "路径非法", http.StatusForbidden)
 		return
 	}
-
 	notePath := filepath.Join(folderPath, "note.md")
 	content, err := os.ReadFile(notePath)
 	if err != nil {
@@ -563,6 +538,7 @@ func getNoteHandler(w http.ResponseWriter, r *http.Request) {
 			json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "content": ""})
 			return
 		}
+		slog.Warn("读取备注失败", "path", notePath, "error", err)
 		http.Error(w, "读取备注失败", http.StatusInternalServerError)
 		return
 	}
@@ -570,6 +546,7 @@ func getNoteHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "content": string(content)})
 }
 
+// saveNoteHandler handles saving a note for a character.
 func saveNoteHandler(w http.ResponseWriter, r *http.Request) {
 	var body struct {
 		FolderPath string `json:"folderPath"`
@@ -583,9 +560,9 @@ func saveNoteHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "路径非法", http.StatusForbidden)
 		return
 	}
-
 	notePath := filepath.Join(body.FolderPath, "note.md")
 	if err := os.WriteFile(notePath, []byte(body.Content), 0644); err != nil {
+		slog.Error("保存备注失败", "path", notePath, "error", err)
 		http.Error(w, "保存备注失败", http.StatusInternalServerError)
 		return
 	}
@@ -593,6 +570,7 @@ func saveNoteHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "message": "备注已保存"})
 }
 
+// getFacesHandler handles getting face images for a character.
 func getFacesHandler(w http.ResponseWriter, r *http.Request) {
 	characterFolderPath := r.URL.Query().Get("characterFolderPath")
 	if characterFolderPath == "" {
@@ -603,7 +581,6 @@ func getFacesHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "非法的文件夹路径", http.StatusForbidden)
 		return
 	}
-
 	faceDir := filepath.Join(characterFolderPath, "卡面")
 	files, err := os.ReadDir(faceDir)
 	if err != nil {
@@ -612,10 +589,10 @@ func getFacesHandler(w http.ResponseWriter, r *http.Request) {
 			json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "faces": []string{}})
 			return
 		}
+		slog.Warn("获取卡面失败", "path", faceDir, "error", err)
 		http.Error(w, "获取卡面失败", http.StatusInternalServerError)
 		return
 	}
-
 	imageFiles := make([]string, 0)
 	for _, file := range files {
 		if !file.IsDir() {
@@ -632,6 +609,7 @@ func getFacesHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "faces": imageFiles})
 }
 
+// submitUrlHandler handles submitting a URL to the queue.
 func submitUrlHandler(w http.ResponseWriter, r *http.Request) {
 	var body struct {
 		URL string `json:"url"`
@@ -640,7 +618,6 @@ func submitUrlHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "无效的请求体", http.StatusBadRequest)
 		return
 	}
-
 	if body.URL != "" {
 		queueMutex.Lock()
 		submittedUrlQueue = append(submittedUrlQueue, body.URL)
@@ -652,10 +629,10 @@ func submitUrlHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// getSubmittedUrlHandler gets a URL from the queue.
 func getSubmittedUrlHandler(w http.ResponseWriter, r *http.Request) {
 	queueMutex.Lock()
 	defer queueMutex.Unlock()
-
 	if len(submittedUrlQueue) > 0 {
 		url := submittedUrlQueue[0]
 		submittedUrlQueue = submittedUrlQueue[1:]
@@ -667,8 +644,10 @@ func getSubmittedUrlHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// clearCacheHandler handles clearing the cache.
 func clearCacheHandler(w http.ResponseWriter, r *http.Request) {
 	if err := clearCache(); err != nil {
+		slog.Error("清除缓存失败", "error", err)
 		http.Error(w, "清除缓存失败", http.StatusInternalServerError)
 		return
 	}
@@ -676,6 +655,7 @@ func clearCacheHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "message": "缓存已清除"})
 }
 
+// localizeCardHandler handles the request to localize a card.
 func localizeCardHandler(w http.ResponseWriter, r *http.Request) {
 	var body struct {
 		CardPath string `json:"cardPath"`
@@ -684,7 +664,6 @@ func localizeCardHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "无效的请求体", http.StatusBadRequest)
 		return
 	}
-
 	if !strings.HasPrefix(body.CardPath, config.CharactersRootPath) {
 		http.Error(w, "路径非法", http.StatusForbidden)
 		return
@@ -695,16 +674,17 @@ func localizeCardHandler(w http.ResponseWriter, r *http.Request) {
 	needsCheck := !found || metadata.LocalizationNeeded == nil
 
 	if needsCheck {
-		// 状态未知，先检查
+		slog.Info("本地化状态未知，开始检查", "card", cardPath)
 		needed, err := checkLocalizationNeeded(cardPath)
 		if err != nil {
+			slog.Error("本地化检查失败", "card", cardPath, "error", err)
 			http.Error(w, fmt.Sprintf("本地化检查失败: %v", err), http.StatusInternalServerError)
 			return
 		}
+		slog.Info("本地化检查完成", "card", cardPath, "needed", needed)
 
-		// 更新缓存
-		if !found { // 如果之前完全没有缓存
-			metadata, _ = getCardMetadata(cardPath) // 重新获取元数据
+		if !found {
+			metadata, _ = getCardMetadata(cardPath)
 		}
 		metadata.LocalizationNeeded = &needed
 		setCache(cardPath, metadata)
@@ -715,44 +695,34 @@ func localizeCardHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	} else if !*metadata.LocalizationNeeded {
-		// 缓存表明无需本地化
+		slog.Info("根据缓存，卡片无需本地化", "card", cardPath)
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "log": "根据缓存，此卡无需本地化。"})
 		return
 	}
 
-	// 执行本地化
+	slog.Info("开始执行本地化", "card", cardPath)
 	output, err := runLocalization(cardPath)
 	cleanOutput := strings.ToValidUTF8(output, "")
 
 	if err != nil {
-		http.Error(w, fmt.Sprintf("本地化失败: %v\nOutput: %s", err, cleanOutput), http.StatusInternalServerError)
+		slog.Error("本地化过程失败", "card", cardPath, "error", err, "output", cleanOutput)
+		http.Error(w, "本地化失败: "+cleanOutput, http.StatusInternalServerError)
 		return
 	}
 
-	// 本地化成功后，更新 isLocalized 状态
-	nameToCheck := metadata.InternalName
-	if nameToCheck == "" {
-		nameToCheck = strings.TrimSuffix(filepath.Base(cardPath), filepath.Ext(cardPath))
-	}
-	isLocalized, _ := isLocalized(nameToCheck)
-	if isLocalized {
-		// 注意：这里没有直接的方法来更新 Character 对象的状态，
-		// 因为它是在 fetchCardsData 中动态构建的。
-		// 但下次 fetchCardsData 时会获取到正确的 isLocalized 状态。
-	}
-
+	slog.Info("本地化过程成功", "card", cardPath)
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "log": cleanOutput})
 }
 
+// getStatsHandler handles getting statistics.
 func getStatsHandler(w http.ResponseWriter, r *http.Request) {
 	cardsData, err := fetchCardsData()
 	if err != nil {
 		http.Error(w, "无法获取卡片数据", http.StatusInternalServerError)
 		return
 	}
-
 	stats := StatsResponse{}
 	for _, category := range cardsData.Categories {
 		for _, character := range category {
@@ -770,7 +740,6 @@ func getStatsHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
-
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(stats)
 }

@@ -4,6 +4,7 @@ import (
 	"embed"
 	"fmt"
 	"io/fs"
+	"log/slog"
 	"net/http"
 	"os"
 	"strconv"
@@ -13,26 +14,37 @@ import (
 var publicFiles embed.FS
 
 func main() {
+	// 设置结构化日志
+	logger := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
+		Level: slog.LevelInfo,
+	}))
+	slog.SetDefault(logger)
+
 	// 加载配置
 	if err := loadConfig(); err != nil {
-		fmt.Printf("无法加载配置: %v\n", err)
+		slog.Error("无法加载配置", "error", err)
 		os.Exit(1)
 	}
+	slog.Info("配置加载成功")
 
 	// 加载缓存
 	if err := loadCache(); err != nil {
-		fmt.Printf("警告: 无法加载缓存文件: %v\n", err)
+		slog.Warn("无法加载缓存文件", "error", err)
+	} else {
+		slog.Info("缓存加载成功")
 	}
 
 	// 首次启动时扫描Tavern哈希，以确保初始加载时导入状态正确
 	if err := scanTavernHashes(); err != nil {
-		fmt.Printf("警告: 启动时扫描Tavern目录失败: %v\n", err)
+		slog.Warn("启动时扫描Tavern目录失败", "error", err)
+	} else {
+		slog.Info("Tavern目录扫描完成")
 	}
 
 	// 使用 embed.FS 提供静态文件服务
 	staticFS, err := fs.Sub(publicFiles, "public")
 	if err != nil {
-		fmt.Printf("无法创建静态文件子系统: %v\n", err)
+		slog.Error("无法创建静态文件子系统", "error", err)
 		os.Exit(1)
 	}
 	http.Handle("/", http.FileServer(http.FS(staticFS)))
@@ -69,10 +81,10 @@ func main() {
 	if port == "0" {
 		port = "3000" // 默认端口
 	}
-	fmt.Printf("Go server running at http://localhost:%s\n", port)
-	fmt.Printf("访问 http://localhost:%s/index.html 来使用管理器。\n", port)
+	slog.Info("服务器启动", "url", fmt.Sprintf("http://localhost:%s", port))
+	slog.Info("请访问 http://localhost:%s/index.html 来使用管理器。", port)
 	if err := http.ListenAndServe(":"+port, nil); err != nil {
-		fmt.Printf("启动服务器失败: %v\n", err)
+		slog.Error("启动服务器失败", "error", err)
 		os.Exit(1)
 	}
 }
