@@ -671,33 +671,30 @@ func localizeCardHandler(w http.ResponseWriter, r *http.Request) {
 
 	cardPath := body.CardPath
 	metadata, found := getCache(cardPath)
-	needsCheck := !found || metadata.LocalizationNeeded == nil
-
-	if needsCheck {
-		slog.Info("本地化状态未知，开始检查", "card", cardPath)
-		needed, err := checkLocalizationNeeded(cardPath)
-		if err != nil {
-			slog.Error("本地化检查失败", "card", cardPath, "error", err)
-			http.Error(w, fmt.Sprintf("本地化检查失败: %v", err), http.StatusInternalServerError)
-			return
-		}
-		slog.Info("本地化检查完成", "card", cardPath, "needed", needed)
-
-		if !found {
-			metadata, _ = getCardMetadata(cardPath)
-		}
-		metadata.LocalizationNeeded = &needed
+	// 强制重新检查：清除旧的本地化状态
+	if found && metadata.LocalizationNeeded != nil {
+		slog.Info("发现旧的本地化缓存，清除以强制重新检查", "card", cardPath)
+		metadata.LocalizationNeeded = nil
 		setCache(cardPath, metadata)
+	}
 
-		if !needed {
-			w.Header().Set("Content-Type", "application/json")
-			json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "log": "检查完成：此卡无需本地化。"})
-			return
-		}
-	} else if !*metadata.LocalizationNeeded {
-		slog.Info("根据缓存，卡片无需本地化", "card", cardPath)
+	slog.Info("开始本地化检查/执行流程", "card", cardPath)
+	needed, err := checkLocalizationNeeded(cardPath)
+	if err != nil {
+		slog.Error("本地化检查失败", "card", cardPath, "error", err)
+		http.Error(w, fmt.Sprintf("本地化检查失败: %v", err), http.StatusInternalServerError)
+		return
+	}
+	slog.Info("本地化检查完成", "card", cardPath, "needed", needed)
+
+	// 更新缓存
+	metadata, _ = getCardMetadata(cardPath) // 重新获取以包含mtime等最新信息
+	metadata.LocalizationNeeded = &needed
+	setCache(cardPath, metadata)
+
+	if !needed {
 		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "log": "根据缓存，此卡无需本地化。"})
+		json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "log": "检查完成：此卡无需本地化。"})
 		return
 	}
 

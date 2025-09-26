@@ -446,14 +446,21 @@ function showDetails(folderPath) {
 
     const localizeBtn = document.createElement('button');
     localizeBtn.id = 'details-localize-btn';
-    localizeBtn.textContent = '角色卡本地化';
-    if (card.localizationNeeded && !card.isLocalized) {
-        localizeBtn.className = 'styled-btn primary';
-        localizeBtn.onclick = () => handleLocalization(card.latestVersionPath);
-    } else {
-        localizeBtn.className = 'styled-btn primary';
-        localizeBtn.disabled = true;
+
+    if (card.localizationNeeded === false) {
+        localizeBtn.textContent = '无需本地化 (点击重新检查)';
+        localizeBtn.className = 'styled-btn'; // 灰色
+    } else if (card.isLocalized) {
+        localizeBtn.textContent = '重新本地化';
+        localizeBtn.className = 'styled-btn warn'; // 黄色警告色
+    } else { // needsLocalization is true or null, and not localized
+        localizeBtn.textContent = '开始本地化';
+        localizeBtn.className = 'styled-btn primary'; // 蓝色
     }
+
+    // 始终允许点击
+    localizeBtn.disabled = false;
+    localizeBtn.onclick = () => handleLocalization(card.latestVersionPath);
     actionsContainer.appendChild(localizeBtn);
 
     const downloadFaceBtn = document.createElement('button');

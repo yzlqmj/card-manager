@@ -98,6 +98,7 @@ func toggleClipboardHandler(w http.ResponseWriter, r *http.Request) {
 	enableStr := r.URL.Query().Get("enable")
 	enable, err := strconv.ParseBool(enableStr)
 	if err != nil {
+		slog.Warn("无效的 'enable' 参数", "value", enableStr, "error", err)
 		http.Error(w, "无效的 'enable' 参数", http.StatusBadRequest)
 		return
 	}
