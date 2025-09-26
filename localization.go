@@ -13,8 +13,7 @@ import (
 // checkLocalizationNeeded 调用 cli.exe --check 来判断角色卡是否需要本地化。
 // 它返回一个布尔值和任何可能发生的错误。
 func checkLocalizationNeeded(cardPath string) (bool, error) {
-	cmd := exec.Command("./cli.exe", cardPath, "--check")
-	cmd.Dir = "./cli" // 设置工作目录
+	cmd := exec.Command("./cli/cli.exe", cardPath, "--check")
 	var out bytes.Buffer
 	cmd.Stdout = &out
 	cmd.Stderr = &out // 将标准错误也重定向到 out，以便调试
@@ -75,8 +74,16 @@ func isLocalized(characterName string) (bool, error) {
 // runLocalization 调用 cli.exe 来执行本地化操作。
 // 它返回命令的实时输出。无论 cli.exe 的退出码是什么，我们都收集并返回其输出。
 func runLocalization(cardPath string) (string, error) {
-	cmd := exec.Command("./cli.exe", cardPath)
-	cmd.Dir = "./cli" // 设置工作目录
+	args := []string{
+		cardPath,
+		"--base-path",
+		config.TavernPublicPath,
+	}
+	if config.Proxy != "" {
+		args = append(args, "--proxy", config.Proxy)
+	}
+
+	cmd := exec.Command("./cli/cli.exe", args...)
 	var out bytes.Buffer
 	cmd.Stdout = &out
 	cmd.Stderr = &out
