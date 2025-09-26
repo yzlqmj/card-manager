@@ -11,10 +11,11 @@ import (
 
 // Options defines the parameters for the Run function.
 type Options struct {
-	CardPath    string
-	BasePath    string
-	Proxy       string
-	IsCheckMode bool
+	CardPath       string
+	BasePath       string
+	Proxy          string
+	IsCheckMode    bool
+	ForceProxyList []string
 }
 
 // Run executes the localization process based on the provided options.
@@ -42,6 +43,9 @@ func Run(opts Options) (bool, string, error) {
 	if opts.Proxy == "" {
 		opts.Proxy = cliConfig.Proxy
 	}
+	if len(opts.ForceProxyList) == 0 {
+		opts.ForceProxyList = cliConfig.ForceProxyList
+	}
 
 	// 1. 从 PNG 加载角色卡数据
 	base64Data, err := GetCharacterData(opts.CardPath)
@@ -60,7 +64,7 @@ func Run(opts Options) (bool, string, error) {
 	}
 
 	// 2. 创建一个临时本地化工具仅用于查找 URL
-	tempLocalizer, err := NewLocalizer(cardData, "./temp_output", opts.Proxy, func(message, level string) {})
+	tempLocalizer, err := NewLocalizer(cardData, "./temp_output", opts.Proxy, opts.ForceProxyList, func(message, level string) {})
 	if err != nil {
 		return false, logBuilder.String(), fmt.Errorf("创建临时本地化工具失败: %v", err)
 	}
@@ -109,7 +113,7 @@ func Run(opts Options) (bool, string, error) {
 	progressCallback := func(message string, level string) {
 		logWriter("[%s] %s", strings.ToUpper(level), message)
 	}
-	localizer, err := NewLocalizer(cardData, resourceOutputDir, opts.Proxy, progressCallback)
+	localizer, err := NewLocalizer(cardData, resourceOutputDir, opts.Proxy, opts.ForceProxyList, progressCallback)
 	if err != nil {
 		return false, logBuilder.String(), fmt.Errorf("创建本地化工具失败: %v", err)
 	}

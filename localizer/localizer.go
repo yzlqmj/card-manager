@@ -39,9 +39,10 @@ var resourceExtensions = map[string]bool{
 }
 
 type downloadTask struct {
-	URL       string
-	LocalPath string
-	Proxy     *url.URL
+	URL            string
+	LocalPath      string
+	Proxy          *url.URL
+	ForceProxyList []string
 }
 
 type downloadResult struct {
@@ -56,6 +57,7 @@ type Localizer struct {
 	outputDir        string
 	safeCharName     string
 	proxy            *url.URL
+	forceProxyList   []string
 	successfulURLMap sync.Map // map[string]string, 从原始 URL 到新的 web 路径
 	textContentQueue chan map[string]string
 	processedURLs    sync.Map // map[string]bool
@@ -66,7 +68,7 @@ type Localizer struct {
 }
 
 // NewLocalizer 创建一个新的 Localizer 实例
-func NewLocalizer(cardData map[string]interface{}, outputDir string, proxyStr string, progressCallback func(message string, level string)) (*Localizer, error) {
+func NewLocalizer(cardData map[string]interface{}, outputDir string, proxyStr string, forceProxyList []string, progressCallback func(message string, level string)) (*Localizer, error) {
 	var proxyURL *url.URL
 	var err error
 	if proxyStr != "" {
@@ -81,6 +83,7 @@ func NewLocalizer(cardData map[string]interface{}, outputDir string, proxyStr st
 		outputDir:        outputDir,
 		safeCharName:     filepath.Base(outputDir),
 		proxy:            proxyURL,
+		forceProxyList:   forceProxyList,
 		textContentQueue: make(chan map[string]string, 100),
 		stopChan:         make(chan struct{}),
 		progressCallback: progressCallback,
@@ -222,47 +225,55 @@ func (l *Localizer) findAndQueueURLs(textContent, context string) []downloadTask
 		}
 
 		tasks = append(tasks, downloadTask{
-			URL:       cleanedURL,
-			LocalPath: localPath,
-			Proxy:     l.proxy,
+			URL:            cleanedURL,
+			LocalPath:      localPath,
+			Proxy:          l.proxy,
+			ForceProxyList: l.forceProxyList,
 		})
 	}
 	return tasks
 }
 
 // downloadResource 下载单个资源
-func downloadResource(task downloadTask) ([]byte, error) {
+func (l *Localizer) downloadResource(task downloadTask) ([]byte, error) {
 	if _, err := os.Stat(task.LocalPath); err == nil {
-		// 文件已存在，读取它
 		content, err := os.ReadFile(task.LocalPath)
 		if err == nil {
-			return content, nil // 返回已存在的内容
+			return content, nil
 		}
-		// 如果读取失败，则继续下载
 	}
 
 	if err := os.MkdirAll(filepath.Dir(task.LocalPath), os.ModePerm); err != nil {
 		return nil, fmt.Errorf("创建目录失败: %w", err)
 	}
 
-	client := &http.Client{}
-	if task.Proxy != nil {
-		client.Transport = &http.Transport{Proxy: http.ProxyURL(task.Proxy)}
+	var content []byte
+	var err error
+
+	// 检查是否需要强制使用代理
+	forceProxy := false
+	for _, domain := range task.ForceProxyList {
+		if strings.Contains(task.URL, domain) {
+			forceProxy = true
+			break
+		}
 	}
 
-	resp, err := client.Get(task.URL)
+	if forceProxy {
+		// 强制使用代理下载
+		l.progressCallback(fmt.Sprintf("URL %s 在强制代理列表中，使用代理下载...", task.URL), "info")
+		content, err = attemptDownload(task.URL, task.Proxy)
+	} else {
+		// 正常流程：先直连，失败后用代理重试
+		content, err = attemptDownload(task.URL, nil) // 第一次不使用代理
+		if err != nil && task.Proxy != nil {
+			l.progressCallback(fmt.Sprintf("直连下载 %s 失败，尝试使用代理重试...", task.URL), "info")
+			content, err = attemptDownload(task.URL, task.Proxy)
+		}
+	}
+
 	if err != nil {
-		return nil, fmt.Errorf("下载失败: %w", err)
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("错误的响应状态: %s", resp.Status)
-	}
-
-	content, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, fmt.Errorf("读取响应体失败: %w", err)
+		return nil, err // 如果重试后仍然失败，返回错误
 	}
 
 	if err := os.WriteFile(task.LocalPath, content, 0644); err != nil {
@@ -270,6 +281,38 @@ func downloadResource(task downloadTask) ([]byte, error) {
 	}
 
 	return content, nil
+}
+
+// attemptDownload 尝试下载给定的URL，可以选择是否使用代理
+func attemptDownload(urlStr string, proxy *url.URL) ([]byte, error) {
+	client := &http.Client{}
+	if proxy != nil {
+		client.Transport = &http.Transport{Proxy: http.ProxyURL(proxy)}
+	}
+
+	resp, err := client.Get(urlStr)
+	if err != nil {
+		return nil, fmt.Errorf("下载失败 (%s): %w", getProxyStatus(proxy), err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("错误的响应状态: %s (%s)", resp.Status, getProxyStatus(proxy))
+	}
+
+	content, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("读取响应体失败 (%s): %w", getProxyStatus(proxy), err)
+	}
+
+	return content, nil
+}
+
+func getProxyStatus(proxy *url.URL) string {
+	if proxy != nil {
+		return "使用代理"
+	}
+	return "未使用代理"
 }
 
 // Localize 开始本地化进程
@@ -286,7 +329,7 @@ func (l *Localizer) Localize() (map[string]interface{}, error) {
 	for i := 0; i < maxWorkers; i++ {
 		go func() {
 			for task := range taskChan {
-				content, err := downloadResource(task)
+				content, err := l.downloadResource(task)
 				resultChan <- downloadResult{Task: task, Content: content, Err: err}
 			}
 		}()

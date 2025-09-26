@@ -8,8 +8,9 @@ import (
 
 // CliConfig defines the structure for the cli/config.json file.
 type CliConfig struct {
-	BasePath string `json:"base_path"`
-	Proxy    string `json:"proxy"`
+	BasePath       string   `json:"base_path"`
+	Proxy          string   `json:"proxy"`
+	ForceProxyList []string `json:"force_proxy_list"`
 }
 
 // LoadCliConfig loads configuration from ./config.json.
