@@ -89,10 +89,7 @@ showDownloaderBtn.addEventListener('click', () => {
     openModal('downloader-modal');
 });
 
-showFaceDownloaderBtn.addEventListener('click', () => {
-    updateFaceCharDatalist();
-    openModal('face-downloader-modal');
-});
+showFaceDownloaderBtn.addEventListener('click', () => openFaceDownloader());
 
 async function toggleClipboard(enable) {
     try {
@@ -456,6 +453,13 @@ function showDetails(folderPath) {
     }
     actionsContainer.appendChild(localizeBtn);
 
+    const downloadFaceBtn = document.createElement('button');
+    downloadFaceBtn.id = 'details-download-face-btn';
+    downloadFaceBtn.className = 'styled-btn';
+    downloadFaceBtn.textContent = '下载卡面';
+    downloadFaceBtn.onclick = () => handleDownloadFace(card);
+    actionsContainer.appendChild(downloadFaceBtn);
+
     const noteBtn = document.createElement('button');
     noteBtn.id = 'details-note-btn';
     noteBtn.className = 'styled-btn';
@@ -727,34 +731,43 @@ function updateCharacterDatalist(cards) {
 
 let submittedUrlPoller = null;
 
+let faceDownloadTarget = {
+    folderPath: null
+};
+
 function startUrlPolling() {
     if (submittedUrlPoller) return; // Prevent multiple pollers
     logToFaceDownloader('开始从队列获取URL...');
     submittedUrlPoller = setInterval(async () => {
-        // 检查是否选择了角色文件夹
+        // 优先使用从输入框选择的角色
         const selectedCharName = faceCharInput.value;
         const options = Array.from(faceCharDatalist.options);
         const selectedOption = options.find(opt => opt.value === selectedCharName);
         const selectedCharFolder = selectedOption ? selectedOption.dataset.folderPath : null;
 
-        if (!selectedCharFolder) {
-            // 如果没有选择角色，则不执行任何操作，也不记录日志，避免刷屏
+        // 如果输入框有有效选择，则更新目标
+        if (selectedCharFolder) {
+            faceDownloadTarget.folderPath = selectedCharFolder;
+        }
+        
+        // 如果没有目标文件夹，则不执行任何操作
+        if (!faceDownloadTarget.folderPath) {
             return;
         }
 
         try {
             const response = await fetch(`${SERVER_URL}/api/get-submitted-url`);
-            if (!response.ok) return; // 如果服务器返回错误，则静默失败
+            if (!response.ok) return;
 
             const result = await response.json();
             if (result.success && result.url) {
                 logToFaceDownloader(`从队列中获取链接: ${result.url}`);
-                await downloadFaceImage(result.url, selectedCharFolder);
+                await downloadFaceImage(result.url, faceDownloadTarget.folderPath);
             }
         } catch (error) {
-            // 忽略网络错误，轮询将继续
+            // 忽略网络错误
         }
-    }, 2500); // Poll every 2.5 seconds
+    }, 2500);
 }
 
 
@@ -767,21 +780,7 @@ function stopUrlPolling() {
 }
 
 // 当打开或关闭卡面下载模态框时，启动或停止轮询
-const faceDownloaderModal = document.getElementById('face-downloader-modal');
-const observer = new MutationObserver((mutations) => {
-    for (const mutation of mutations) {
-        if (mutation.attributeName === 'style') {
-            const displayStyle = faceDownloaderModal.style.display;
-            if (displayStyle === 'block') {
-                startUrlPolling();
-            } else {
-                stopUrlPolling();
-                toggleClipboard(false); // 关闭模态框时自动停止监听
-            }
-        }
-    }
-});
-observer.observe(faceDownloaderModal, { attributes: true });
+// 移除旧的 observer 逻辑
 
 
 async function downloadFaceImage(url, characterFolderPath) {
@@ -897,3 +896,42 @@ async function showFaceViewer(folderPath) {
         faceGrid.innerHTML = `<p style="color:red;">请求卡面图片失败: ${error.message}</p>`;
     }
 }
+
+function openFaceDownloader(card = null) {
+    // 重置状态
+    faceDownloadTarget.folderPath = null;
+    faceDownloadLog.textContent = '';
+    updateFaceCharDatalist();
+
+    if (card) {
+        // 从角色详情页打开
+        faceDownloadTarget.folderPath = card.folderPath;
+        faceCharInput.value = card.internalName;
+        faceCharInput.disabled = true;
+        logToFaceDownloader(`已锁定角色: ${card.internalName}`);
+    } else {
+        // 从顶部按钮打开
+        faceCharInput.value = '';
+        faceCharInput.disabled = false;
+        logToFaceDownloader('请在上方选择一个角色以开始下载。');
+    }
+
+    openModal('face-downloader-modal');
+    toggleClipboard(true);
+    startUrlPolling();
+}
+
+function handleDownloadFace(card) {
+    openFaceDownloader(card);
+}
+
+// 将清理逻辑移到 closeModal 中
+const originalCloseModal = closeModal;
+closeModal = function(modalId) {
+    if (modalId === 'face-downloader-modal') {
+        stopUrlPolling();
+        toggleClipboard(false);
+        faceDownloadTarget.folderPath = null;
+    }
+    originalCloseModal(modalId);
+};
