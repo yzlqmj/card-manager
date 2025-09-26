@@ -50,13 +50,13 @@ type downloadResult struct {
 	Err     error
 }
 
-// Localizer handles the resource finding, downloading, and replacement logic.
+// Localizer 处理资源查找、下载和替换的逻辑
 type Localizer struct {
 	cardData         map[string]interface{}
 	outputDir        string
 	safeCharName     string
 	proxy            *url.URL
-	successfulURLMap sync.Map // map[string]string, from original URL to new web path
+	successfulURLMap sync.Map // map[string]string, 从原始 URL 到新的 web 路径
 	textContentQueue chan map[string]string
 	processedURLs    sync.Map // map[string]bool
 	wg               sync.WaitGroup
@@ -65,14 +65,14 @@ type Localizer struct {
 	progressCallback func(message string, level string)
 }
 
-// NewLocalizer creates a new Localizer instance.
+// NewLocalizer 创建一个新的 Localizer 实例
 func NewLocalizer(cardData map[string]interface{}, outputDir string, proxyStr string, progressCallback func(message string, level string)) (*Localizer, error) {
 	var proxyURL *url.URL
 	var err error
 	if proxyStr != "" {
 		proxyURL, err = url.Parse(proxyStr)
 		if err != nil {
-			return nil, fmt.Errorf("invalid proxy URL: %w", err)
+			return nil, fmt.Errorf("无效的代理 URL: %w", err)
 		}
 	}
 
@@ -87,14 +87,14 @@ func NewLocalizer(cardData map[string]interface{}, outputDir string, proxyStr st
 	}, nil
 }
 
-// Stop gracefully stops the localization process.
+// Stop 优雅地停止本地化进程
 func (l *Localizer) Stop() {
 	l.stopOnce.Do(func() {
 		close(l.stopChan)
 	})
 }
 
-// getResourcePaths generates the physical storage path and web access path for a URL.
+// getResourcePaths 为 URL 生成物理存储路径和 Web 访问路径
 func (l *Localizer) getResourcePaths(rawURL, context string) (string, string) {
 	parsedURL, err := url.Parse(rawURL)
 	if err != nil {
@@ -104,7 +104,7 @@ func (l *Localizer) getResourcePaths(rawURL, context string) (string, string) {
 
 	var filename, subDirName string
 
-	// Logic from html/css context
+	// HTML/CSS 上下文逻辑
 	if context == "html" || context == "css" {
 		hash := sha1.Sum([]byte(rawURL))
 		urlHash := hex.EncodeToString(hash[:])[:12]
@@ -116,8 +116,8 @@ func (l *Localizer) getResourcePaths(rawURL, context string) (string, string) {
 			fileExt = ".css"
 		}
 		filename = urlHash + fileExt
-		subDirName = "" // HTML/CSS resources are placed directly in the character directory
-	} else { // Logic from js or other contexts
+		subDirName = "" // HTML/CSS 资源直接放在角色目录下
+	} else { // JS 或其他上下文逻辑
 		filename = filepath.Base(parsedPath)
 		if filename == "" || filename == "." {
 			hash := sha1.Sum([]byte(rawURL))
@@ -149,7 +149,7 @@ func (l *Localizer) getResourcePaths(rawURL, context string) (string, string) {
 	return localPath, webPath
 }
 
-// findAndQueueURLs finds URLs in text content and queues them for download.
+// findAndQueueURLs 在文本内容中查找 URL 并将其加入下载队列
 func (l *Localizer) findAndQueueURLs(textContent, context string) []downloadTask {
 	rawURLs := make(map[string]bool)
 
@@ -160,21 +160,21 @@ func (l *Localizer) findAndQueueURLs(textContent, context string) []downloadTask
 	case "js":
 		patterns = append(patterns, jsUrlPattern)
 	case "html":
-		// Extract style tags and queue them for processing
+		// 提取 style 标签内容并加入处理队列
 		for _, styleContent := range styleTagPattern.FindAllStringSubmatch(textContent, -1) {
 			if len(styleContent) > 1 {
 				l.textContentQueue <- map[string]string{"content": styleContent[1], "context": "css"}
 			}
 		}
 		patterns = append(patterns, urlPattern)
-	default: // json or other
+	default: // json 或其他
 		patterns = append(patterns, urlPattern)
 	}
 
 	for _, p := range patterns {
 		matches := p.FindAllString(textContent, -1)
 		for _, match := range matches {
-			// Clean up matches from specific patterns
+			// 清理特定模式的匹配结果
 			if p == cssUrlPattern {
 				match = strings.TrimPrefix(match, "url(")
 				match = strings.TrimSuffix(match, ")")
@@ -183,7 +183,7 @@ func (l *Localizer) findAndQueueURLs(textContent, context string) []downloadTask
 				match = strings.Trim(match, `'"\`+"`")
 			}
 
-			// Handle multiline URLs in JSON
+			// 处理 JSON 中的多行 URL
 			subUrls := regexp.MustCompile(`[\n\r]+|\\n`).Split(match, -1)
 			for _, subUrl := range subUrls {
 				if strings.TrimSpace(subUrl) != "" {
@@ -230,19 +230,19 @@ func (l *Localizer) findAndQueueURLs(textContent, context string) []downloadTask
 	return tasks
 }
 
-// downloadResource downloads a single resource.
+// downloadResource 下载单个资源
 func downloadResource(task downloadTask) ([]byte, error) {
 	if _, err := os.Stat(task.LocalPath); err == nil {
-		// File exists, read it
+		// 文件已存在，读取它
 		content, err := os.ReadFile(task.LocalPath)
 		if err == nil {
-			return content, nil // Return existing content
+			return content, nil // 返回已存在的内容
 		}
-		// If reading fails, proceed to download
+		// 如果读取失败，则继续下载
 	}
 
 	if err := os.MkdirAll(filepath.Dir(task.LocalPath), os.ModePerm); err != nil {
-		return nil, fmt.Errorf("failed to create directory: %w", err)
+		return nil, fmt.Errorf("创建目录失败: %w", err)
 	}
 
 	client := &http.Client{}
@@ -252,37 +252,37 @@ func downloadResource(task downloadTask) ([]byte, error) {
 
 	resp, err := client.Get(task.URL)
 	if err != nil {
-		return nil, fmt.Errorf("download failed: %w", err)
+		return nil, fmt.Errorf("下载失败: %w", err)
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("bad status: %s", resp.Status)
+		return nil, fmt.Errorf("错误的响应状态: %s", resp.Status)
 	}
 
 	content, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil, fmt.Errorf("failed to read response body: %w", err)
+		return nil, fmt.Errorf("读取响应体失败: %w", err)
 	}
 
 	if err := os.WriteFile(task.LocalPath, content, 0644); err != nil {
-		return nil, fmt.Errorf("failed to write file: %w", err)
+		return nil, fmt.Errorf("写入文件失败: %w", err)
 	}
 
 	return content, nil
 }
 
-// Localize starts the localization process.
+// Localize 开始本地化进程
 func (l *Localizer) Localize() (map[string]interface{}, error) {
-	// Initial queue
+	// 初始队列
 	cardDataBytes, _ := json.Marshal(l.cardData)
 	l.textContentQueue <- map[string]string{"content": string(cardDataBytes), "context": "json"}
-	l.wg.Add(1) // Add one for the initial content
+	l.wg.Add(1) // 为初始内容添加一个计数
 
 	taskChan := make(chan downloadTask, 100)
 	resultChan := make(chan downloadResult, 100)
 
-	// Start download workers
+	// 启动下载工作线程
 	for i := 0; i < maxWorkers; i++ {
 		go func() {
 			for task := range taskChan {
@@ -292,30 +292,33 @@ func (l *Localizer) Localize() (map[string]interface{}, error) {
 		}()
 	}
 
-	// Main processing loop
+	// 主处理循环
 	go func() {
-		for {
+		for item := range l.textContentQueue {
 			select {
-			case item := <-l.textContentQueue:
-				tasks := l.findAndQueueURLs(item["content"], item["context"])
+			case <-l.stopChan:
+				l.wg.Done() // 如果停止，确保计数器递减
+				continue
+			default:
+				context := item["context"]
+				tasks := l.findAndQueueURLs(item["content"], context)
 				if len(tasks) > 0 {
-					l.progressCallback(fmt.Sprintf("Found %d new URLs in %s context", len(tasks)), "info")
+					l.progressCallback(fmt.Sprintf("在 %s 上下文中发现 %d 个新URL", context, len(tasks)), "info")
 					l.wg.Add(len(tasks))
 					for _, task := range tasks {
 						taskChan <- task
 					}
 				}
 				l.wg.Done()
-			case <-l.stopChan:
-				return
 			}
 		}
 	}()
 
-	// Result handling loop
+	// 结果处理循环
 	go func() {
 		for result := range resultChan {
 			l.handleDownloadResult(result)
+			// 下载任务的 wg.Done() 现在在这里
 			l.wg.Done()
 		}
 	}()
@@ -327,33 +330,33 @@ func (l *Localizer) Localize() (map[string]interface{}, error) {
 
 	select {
 	case <-l.stopChan:
-		l.progressCallback("Localization stopped.", "warning")
-		return nil, fmt.Errorf("localization stopped by user")
+		l.progressCallback("本地化进程已停止。", "warning")
+		return nil, fmt.Errorf("本地化被用户停止")
 	default:
 	}
 
-	l.progressCallback("All resources downloaded, replacing paths...", "info")
+	l.progressCallback("所有资源下载完毕，正在替换路径...", "info")
 	finalData, ok := l.replaceURLsRecursive(l.cardData).(map[string]interface{})
 	if !ok {
-		return nil, fmt.Errorf("failed to cast final data to map[string]interface{}")
+		return nil, fmt.Errorf("无法将最终数据转换为 map[string]interface{}")
 	}
 	return finalData, nil
 }
 
 func (l *Localizer) handleDownloadResult(result downloadResult) {
 	if result.Err != nil {
-		l.progressCallback(fmt.Sprintf("[Failure] %s - %v", result.Task.URL, result.Err), "failure")
+		l.progressCallback(fmt.Sprintf("[失败] %s - %v", result.Task.URL, result.Err), "failure")
 		return
 	}
 
-	l.progressCallback(fmt.Sprintf("[Success] %s", result.Task.URL), "success")
+	l.progressCallback(fmt.Sprintf("[成功] %s", result.Task.URL), "success")
 
-	_, webPath := l.getResourcePaths(result.Task.URL, "") // Context doesn't matter for web path generation
+	_, webPath := l.getResourcePaths(result.Task.URL, "") // 上下文对于 web 路径生成不重要
 	if webPath != "" {
 		l.successfulURLMap.Store(result.Task.URL, webPath)
 	}
 
-	// If the downloaded file is text, add it to the queue for recursive processing
+	// 如果下载的文件是文本，则将其添加到队列中进行递归处理
 	ext := strings.ToLower(filepath.Ext(result.Task.LocalPath))
 	if ext == ".css" || ext == ".js" || ext == ".html" || ext == ".htm" {
 		l.wg.Add(1)
@@ -361,7 +364,7 @@ func (l *Localizer) handleDownloadResult(result downloadResult) {
 	}
 }
 
-// replaceURLsRecursive recursively replaces URLs in the data structure.
+// replaceURLsRecursive 递归地替换数据结构中的 URL
 func (l *Localizer) replaceURLsRecursive(data interface{}) interface{} {
 	switch v := data.(type) {
 	case map[string]interface{}:
@@ -377,9 +380,8 @@ func (l *Localizer) replaceURLsRecursive(data interface{}) interface{} {
 		}
 		return newSlice
 	case string:
-		// This is a simple replacement. For more complex scenarios where a single string
-		// might contain multiple URLs or text around them, a more sophisticated approach
-		// using regex replacement would be needed.
+		// 这是一个简单的替换。对于单个字符串可能包含多个 URL 或其周围有文本的更复杂场景，
+		// 需要使用更复杂的、基于正则表达式的替换方法。
 		l.successfulURLMap.Range(func(key, value interface{}) bool {
 			v = strings.ReplaceAll(v, key.(string), value.(string))
 			return true
