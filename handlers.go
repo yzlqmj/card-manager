@@ -219,7 +219,23 @@ func processCharacterDirectory(itemPath string) *Character {
 	if metadata.LocalizationNeeded != nil {
 		// 缓存命中
 		localizationNeeded = metadata.LocalizationNeeded
-	} // 如果缓存未命中，localizationNeeded 将保持为 nil
+	} else {
+		// 缓存未命中，同步检查本地化需求
+		needed, err := checkLocalizationNeeded(versions[0].Path)
+		if err == nil {
+			// 只有当确实需要本地化时，才将状态写入缓存
+			// 如果不需要，则不写，以便下次文件更新时能重新检查
+			if needed {
+				// 更新缓存
+				cachedData, _ := getCache(versions[0].Path) // 重新获取以防万一
+				cachedData.LocalizationNeeded = &needed
+				setCache(versions[0].Path, cachedData)
+			}
+			// 将本次检查结果用于当前响应
+			localizationNeeded = &needed
+		}
+		// 如果检查出错，localizationNeeded 将保持为 nil，前端会显示未知状态
+	}
 
 	nameToCheck := versions[0].InternalName
 	if nameToCheck == "" {

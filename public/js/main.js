@@ -331,17 +331,12 @@ function createCardElement(name, path, importInfo, detailsText, key, isClickable
     }
 
     const cardData = allCardsData[key];
-    if (cardData) {
-        if (cardData.localizationNeeded === true) {
-            detailsHTML += cardData.isLocalized
-                ? '<span class="tag localized-ok">✓ 已本地化</span>'
-                : '<span class="tag not-localized">⚠️ 未本地化</span>';
-        } else if (cardData.localizationNeeded === false) {
-            detailsHTML += '<span class="tag localized-ok">✓ 无需本地化</span>';
-        } else {
-            // localizationNeeded is null or undefined
-            detailsHTML += '<span class="tag imported-warn">? 本地化状态未知</span>';
-        }
+    if (cardData && cardData.localizationNeeded) {
+        detailsHTML += cardData.isLocalized
+            ? '<span class="tag localized-ok">✓ 已完成本地化</span>'
+            : '<span class="tag not-localized">⚠️ 未完成本地化</span>';
+    } else if (cardData) {
+        detailsHTML += '<span class="tag localized-ok">✓ 不需要本地化</span>';
     }
 
     cardElement.innerHTML = `<img src="${imageUrl}" alt="${name}" loading="lazy"><div class="card-info"><p class="card-name">${name}</p>${detailsHTML}</div>`;
@@ -452,23 +447,12 @@ function showDetails(folderPath) {
     const localizeBtn = document.createElement('button');
     localizeBtn.id = 'details-localize-btn';
     localizeBtn.textContent = '角色卡本地化';
-    if (card.localizationNeeded === false) {
-        localizeBtn.textContent = '无需本地化';
-        localizeBtn.className = 'styled-btn';
+    if (card.localizationNeeded && !card.isLocalized) {
+        localizeBtn.className = 'styled-btn primary';
+        localizeBtn.onclick = () => handleLocalization(card.latestVersionPath);
+    } else {
+        localizeBtn.className = 'styled-btn primary';
         localizeBtn.disabled = true;
-    } else if (card.localizationNeeded === true) {
-        if (card.isLocalized) {
-            localizeBtn.textContent = '重新本地化';
-            localizeBtn.className = 'styled-btn warn'; // 使用警告色
-        } else {
-            localizeBtn.textContent = '开始本地化';
-            localizeBtn.className = 'styled-btn primary';
-        }
-        localizeBtn.onclick = () => handleLocalization(card.latestVersionPath);
-    } else { // localizationNeeded is null
-        localizeBtn.textContent = '检查并本地化';
-        localizeBtn.className = 'styled-btn success'; // 使用成功色
-        localizeBtn.onclick = () => handleLocalization(card.latestVersionPath);
     }
     actionsContainer.appendChild(localizeBtn);
 
