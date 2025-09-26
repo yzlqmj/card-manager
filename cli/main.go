@@ -11,25 +11,37 @@ import (
 )
 
 func main() {
-	// Load config from file first
-	cliConfig, err := loadCliConfig()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error loading config.json: %v\n", err)
-		// Continue with empty config
-		cliConfig = &CliConfig{}
+	// 手动检查 --check 标志，绕过 flag 包的顺序限制
+	isCheckMode := false
+	cardPath := ""
+	otherArgs := []string{}
+	for _, arg := range os.Args[1:] {
+		if arg == "--check" {
+			isCheckMode = true
+		} else if !strings.HasPrefix(arg, "-") && cardPath == "" {
+			cardPath = arg
+		} else {
+			otherArgs = append(otherArgs, arg)
+		}
 	}
 
-	checkFlag := flag.Bool("check", false, "仅检查是否需要本地化并返回 True 或 False")
-	basePathFlag := flag.String("base-path", cliConfig.BasePath, "SillyTavern 的 public 文件夹路径")
-	proxyFlag := flag.String("proxy", cliConfig.Proxy, "代理地址, 例如: http://127.0.0.1:7890")
-	flag.Parse()
-
-	args := flag.Args()
-	if len(args) < 1 {
+	if cardPath == "" {
 		fmt.Fprintln(os.Stderr, "错误: 缺少角色卡路径参数")
 		os.Exit(1)
 	}
-	cardPath := args[0]
+
+	// 加载配置文件
+	cliConfig, err := loadCliConfig()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "加载 config.json 出错: %v\n", err)
+		cliConfig = &CliConfig{}
+	}
+
+	// 正常解析其他标志
+	fs := flag.NewFlagSet("cli", flag.ExitOnError)
+	basePathFlag := fs.String("base-path", cliConfig.BasePath, "SillyTavern 的 public 文件夹路径")
+	proxyFlag := fs.String("proxy", cliConfig.Proxy, "代理地址, 例如: http://127.0.0.1:7890")
+	fs.Parse(otherArgs)
 
 	// 1. 从 PNG 加载角色卡数据
 	base64Data, err := GetCharacterData(cardPath)
@@ -63,8 +75,12 @@ func main() {
 	needsLocalization := len(tasks) > 0
 
 	// 3. 执行请求的功能
-	if *checkFlag {
-		fmt.Println(strings.Title(fmt.Sprintf("%v", needsLocalization)))
+	if isCheckMode {
+		if needsLocalization {
+			fmt.Println("True")
+		} else {
+			fmt.Println("False")
+		}
 		os.Exit(0)
 	}
 
