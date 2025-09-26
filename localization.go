@@ -4,42 +4,46 @@ import (
 	"bytes"
 	"fmt"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"regexp"
 	"strings"
+
+	"card-manager/localizer"
 )
 
-// checkLocalizationNeeded 调用 cli.exe --check 来判断角色卡是否需要本地化。
-// 它返回一个布尔值和任何可能发生的错误。
+// checkLocalizationNeeded 调用 localizer.Run 来判断角色卡是否需要本地化。
 func checkLocalizationNeeded(cardPath string) (bool, error) {
-	cmd := exec.Command("./cli/cli.exe", cardPath, "--check")
 	var out bytes.Buffer
-	cmd.Stdout = &out
-	cmd.Stderr = &out // 将标准错误也重定向到 out，以便调试
+	// 模拟 cli.exe 的输出捕获
+	oldStdout := os.Stdout
+	r, w, _ := os.Pipe()
+	os.Stdout = w
 
-	err := cmd.Run()
+	opts := localizer.Options{
+		CardPath:    cardPath,
+		IsCheckMode: true,
+	}
+	err := localizer.Run(opts)
+
+	w.Close()
+	os.Stdout = oldStdout
+	out.ReadFrom(r)
+
 	if err != nil {
-		// 如果命令执行失败，返回错误信息，包括命令的输出
 		return false, fmt.Errorf("执行本地化检查失败: %v, output: %s", err, out.String())
 	}
 
-	// 去除输出中的空格和换行符
 	output := strings.TrimSpace(out.String())
-
-	// 根据输出判断结果，使用 Contains 增加弹性
 	if strings.Contains(output, "True") {
 		return true, nil
 	} else if strings.Contains(output, "False") {
 		return false, nil
 	}
 
-	// 如果输出不是预期的 "True" 或 "False"，则认为是一个错误
 	return false, fmt.Errorf("未知的本地化检查输出: %s", output)
 }
 
 // isLocalized 检查角色卡是否已经被本地化。
-// 通过检查在 SillyTavern 的 public/niko 目录下是否存在与角色名同名的文件夹来判断。
 func isLocalized(characterName string) (bool, error) {
 	if config.TavernPublicPath == "" {
 		return false, fmt.Errorf("SillyTavern public path not configured")
@@ -53,7 +57,6 @@ func isLocalized(characterName string) (bool, error) {
 	}
 
 	// 使用正则表达式移除所有非字母数字字符
-	// 只移除特定的标点符号
 	reg := regexp.MustCompile(`[.();【】《》？！，、——：:\[\]]`)
 	sanitizedName := reg.ReplaceAllString(characterName, "")
 	nikoPathSanitized := filepath.Join(config.TavernPublicPath, "niko", sanitizedName)
@@ -69,28 +72,29 @@ func isLocalized(characterName string) (bool, error) {
 	return false, err
 }
 
-// runLocalization 调用 cli.exe 来执行本地化操作。
-// 它返回命令的实时输出。
-// runLocalization 调用 cli.exe 来执行本地化操作。
-// 它返回命令的实时输出。无论 cli.exe 的退出码是什么，我们都收集并返回其输出。
+// runLocalization 调用 localizer.Run 来执行本地化操作。
 func runLocalization(cardPath string) (string, error) {
-	args := []string{
-		cardPath,
-		"--base-path",
-		config.TavernPublicPath,
-	}
-	if config.Proxy != "" {
-		args = append(args, "--proxy", config.Proxy)
-	}
-
-	cmd := exec.Command("./cli/cli.exe", args...)
 	var out bytes.Buffer
-	cmd.Stdout = &out
-	cmd.Stderr = &out
+	oldStdout := os.Stdout
+	r, w, _ := os.Pipe()
+	os.Stdout = w
 
-	// 我们忽略 cmd.Run() 的错误，因为 cli.exe 可能会使用非零退出码来表示不同的成功状态。
-	// 我们总是将 cli.exe 的输出返回给前端，由用户来判断最终结果。
-	_ = cmd.Run()
+	opts := localizer.Options{
+		CardPath: cardPath,
+		BasePath: config.TavernPublicPath,
+		Proxy:    config.Proxy,
+	}
+	err := localizer.Run(opts)
 
-	return out.String(), nil
+	w.Close()
+	os.Stdout = oldStdout
+	out.ReadFrom(r)
+
+	output := out.String()
+	if err != nil {
+		// 即使有错误，也返回输出，以便前端显示
+		return output, err
+	}
+
+	return output, nil
 }

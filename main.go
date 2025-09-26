@@ -39,7 +39,7 @@ func main() {
 
 	// API 路由
 	http.HandleFunc("/api/cards", getCardsHandler)
-	http.HandleFunc("/api/scan-changes", scanChangesHandler) // 恢复旧的扫描端点
+	http.HandleFunc("/api/scan-changes", scanChangesHandler)
 	http.HandleFunc("/api/image", getImageHandler)
 	http.HandleFunc("/api/open-folder", openFolderHandler)
 	http.HandleFunc("/api/download-card", downloadCardHandler)
