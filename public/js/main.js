@@ -448,15 +448,14 @@ function showDetails(folderPath) {
     localizeBtn.id = 'details-localize-btn';
 
     if (card.localizationNeeded === false) {
-        localizeBtn.textContent = '无需本地化 (点击重新检查)';
-        localizeBtn.className = 'styled-btn'; // 灰色
+        localizeBtn.textContent = '无需本地化';
     } else if (card.isLocalized) {
         localizeBtn.textContent = '重新本地化';
-        localizeBtn.className = 'styled-btn warn'; // 黄色警告色
     } else { // needsLocalization is true or null, and not localized
         localizeBtn.textContent = '开始本地化';
-        localizeBtn.className = 'styled-btn primary'; // 蓝色
     }
+    // 统一设置为蓝色
+    localizeBtn.className = 'styled-btn primary';
 
     // 始终允许点击
     localizeBtn.disabled = false;
