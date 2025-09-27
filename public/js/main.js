@@ -429,17 +429,17 @@ function showDetails(folderPath) {
     viewFacesBtn.id = 'details-view-faces-btn';
     viewFacesBtn.textContent = '浏览卡面';
     if (card.hasFaceFolder) {
-        viewFacesBtn.className = 'styled-btn'; // 蓝色可点击
+        viewFacesBtn.className = 'styled-btn primary';
         viewFacesBtn.onclick = () => showFaceViewer(card.folderPath);
     } else {
-        viewFacesBtn.className = 'styled-btn';
+        viewFacesBtn.className = 'styled-btn primary';
         viewFacesBtn.disabled = true;
     }
     actionsContainer.appendChild(viewFacesBtn);
 
     const openFolderBtn = document.createElement('button');
     openFolderBtn.id = 'details-open-folder-btn';
-    openFolderBtn.className = 'styled-btn success';
+    openFolderBtn.className = 'styled-btn primary';
     openFolderBtn.textContent = '打开角色文件夹';
     openFolderBtn.onclick = () => handleOpenFolder(card.folderPath);
     actionsContainer.appendChild(openFolderBtn);
@@ -464,21 +464,21 @@ function showDetails(folderPath) {
 
     const downloadFaceBtn = document.createElement('button');
     downloadFaceBtn.id = 'details-download-face-btn';
-    downloadFaceBtn.className = 'styled-btn';
+    downloadFaceBtn.className = 'styled-btn primary';
     downloadFaceBtn.textContent = '下载卡面';
     downloadFaceBtn.onclick = () => handleDownloadFace(card);
     actionsContainer.appendChild(downloadFaceBtn);
 
     const noteBtn = document.createElement('button');
     noteBtn.id = 'details-note-btn';
-    noteBtn.className = 'styled-btn';
+    noteBtn.className = 'styled-btn primary';
     noteBtn.textContent = '查看/编辑备注';
     noteBtn.onclick = () => showNoteModal(card.folderPath, card.internalName);
     actionsContainer.appendChild(noteBtn);
 
     const mergeBtn = document.createElement('button');
     mergeBtn.id = 'details-merge-btn';
-    mergeBtn.className = 'styled-btn';
+    mergeBtn.className = 'styled-btn primary';
     mergeBtn.textContent = '合并JSON到PNG';
     mergeBtn.onclick = () => showMergeModal(card.folderPath);
     actionsContainer.appendChild(mergeBtn);

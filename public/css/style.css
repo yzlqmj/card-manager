@@ -301,3 +301,8 @@ input:checked + .slider:before {
     opacity: 0.6;
     cursor: not-allowed;
 }
+
+.styled-btn.primary:disabled {
+    background-color: #2980b9; /* 一个略暗的蓝色 */
+    opacity: 0.5;
+}
