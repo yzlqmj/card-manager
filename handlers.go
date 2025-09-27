@@ -740,3 +740,89 @@ func getStatsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(stats)
 }
+
+func listFilesInFolderHandler(w http.ResponseWriter, r *http.Request) {
+	folderPath := r.URL.Query().Get("folderPath")
+	if folderPath == "" {
+		http.Error(w, "缺少文件夹路径", http.StatusBadRequest)
+		return
+	}
+	if !strings.HasPrefix(folderPath, config.CharactersRootPath) {
+		http.Error(w, "路径非法", http.StatusForbidden)
+		return
+	}
+
+	files, err := os.ReadDir(folderPath)
+	if err != nil {
+		slog.Error("无法读取文件夹内容", "path", folderPath, "error", err)
+		http.Error(w, "无法读取文件夹内容", http.StatusInternalServerError)
+		return
+	}
+
+	var jsonFiles []string
+	var pngFiles []string
+	for _, file := range files {
+		if file.IsDir() {
+			continue
+		}
+		fileName := file.Name()
+		if strings.HasSuffix(strings.ToLower(fileName), ".json") {
+			jsonFiles = append(jsonFiles, fileName)
+		} else if strings.HasSuffix(strings.ToLower(fileName), ".png") {
+			pngFiles = append(pngFiles, fileName)
+		}
+	}
+
+	response := map[string][]string{
+		"jsonFiles": jsonFiles,
+		"pngFiles":  pngFiles,
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
+}
+
+func mergeJsonToPngHandler(w http.ResponseWriter, r *http.Request) {
+	var body struct {
+		FolderPath   string `json:"folderPath"`
+		JsonFileName string `json:"jsonFileName"`
+		PngFileName  string `json:"pngFileName"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+		http.Error(w, "无效的请求体", http.StatusBadRequest)
+		return
+	}
+
+	jsonPath := filepath.Join(body.FolderPath, body.JsonFileName)
+	pngPath := filepath.Join(body.FolderPath, body.PngFileName)
+
+	// 简单的安全检查
+	if !strings.HasPrefix(jsonPath, config.CharactersRootPath) || !strings.HasPrefix(pngPath, config.CharactersRootPath) {
+		http.Error(w, "路径非法", http.StatusForbidden)
+		return
+	}
+
+	jsonData, err := os.ReadFile(jsonPath)
+	if err != nil {
+		slog.Error("读取 JSON 文件失败", "path", jsonPath, "error", err)
+		http.Error(w, "读取 JSON 文件失败", http.StatusInternalServerError)
+		return
+	}
+
+	// 将 JSON 数据编码为 Base64
+	charaData := base64.StdEncoding.EncodeToString(jsonData)
+
+	// 定义输出文件名
+	outputFileName := strings.TrimSuffix(body.PngFileName, filepath.Ext(body.PngFileName)) + "_merged.png"
+	outputPath := filepath.Join(body.FolderPath, outputFileName)
+
+	// 调用一个通用的写入函数 (我们将在 png_utils.go 中创建)
+	err = WriteCharaToPNG(pngPath, outputPath, charaData)
+	if err != nil {
+		slog.Error("合并 JSON 到 PNG 失败", "error", err)
+		http.Error(w, fmt.Sprintf("合并失败: %v", err), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "message": "合并成功！新文件已保存为: " + outputFileName})
+}

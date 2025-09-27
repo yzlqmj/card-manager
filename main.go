@@ -5,9 +5,12 @@ import (
 	"fmt"
 	"io/fs"
 	"log/slog"
+
 	"net/http"
 	"os"
 	"strconv"
+
+	"github.com/lmittmann/tint"
 )
 
 //go:embed all:public
@@ -15,8 +18,10 @@ var publicFiles embed.FS
 
 func main() {
 	// 设置结构化日志
-	logger := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
-		Level: slog.LevelInfo,
+	// 使用 tint 美化日志输出
+	logger := slog.New(tint.NewHandler(os.Stdout, &tint.Options{
+		Level:      slog.LevelInfo,
+		TimeFormat: "15:04:05", // 更简洁的时间格式
 	}))
 	slog.SetDefault(logger)
 
@@ -75,6 +80,8 @@ func main() {
 	http.HandleFunc("/api/toggle-clipboard", toggleClipboardHandler)
 	http.HandleFunc("/api/localize-card", localizeCardHandler)
 	http.HandleFunc("/api/stats", getStatsHandler)
+	http.HandleFunc("/api/list-files", listFilesInFolderHandler)
+	http.HandleFunc("/api/merge-json-to-png", mergeJsonToPngHandler)
 
 	// 启动服务器
 	port := strconv.Itoa(config.Port)
@@ -82,7 +89,7 @@ func main() {
 		port = "3000" // 默认端口
 	}
 	slog.Info("服务器启动", "url", fmt.Sprintf("http://localhost:%s", port))
-	slog.Info("请访问 http://localhost:%s/index.html 来使用管理器。", port)
+	slog.Info("请访问管理页面", "url", fmt.Sprintf("http://localhost:%s/index.html", port))
 	if err := http.ListenAndServe(":"+port, nil); err != nil {
 		slog.Error("启动服务器失败", "error", err)
 		os.Exit(1)

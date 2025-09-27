@@ -166,6 +166,26 @@
         </div>
     </div>
 
+    <div id="merge-modal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2>合并 JSON 到 PNG</h2>
+                <span class="close-btn" onclick="closeModal('merge-modal')">×</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-grid" style="grid-template-columns: 1fr;">
+                    <label for="merge-json-select">选择 JSON 文件:</label>
+                    <select id="merge-json-select"></select>
+                    <label for="merge-png-select">选择 PNG 背景图:</label>
+                    <select id="merge-png-select"></select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="merge-confirm-btn" class="styled-btn primary">确认合并</button>
+            </div>
+        </div>
+    </div>
+
 <script src="/js/showdown.min.js"></script>
 <script src="/js/main.js"></script>
 </body>

@@ -476,6 +476,13 @@ function showDetails(folderPath) {
     noteBtn.onclick = () => showNoteModal(card.folderPath, card.internalName);
     actionsContainer.appendChild(noteBtn);
 
+    const mergeBtn = document.createElement('button');
+    mergeBtn.id = 'details-merge-btn';
+    mergeBtn.className = 'styled-btn';
+    mergeBtn.textContent = '合并JSON到PNG';
+    mergeBtn.onclick = () => showMergeModal(card.folderPath);
+    actionsContainer.appendChild(mergeBtn);
+
     // --- Show Modal ---
     openModal('details-modal');
 }
@@ -944,3 +951,82 @@ closeModal = function(modalId) {
     }
     originalCloseModal(modalId);
 };
+
+async function showMergeModal(folderPath) {
+    const jsonSelect = document.getElementById('merge-json-select');
+    const pngSelect = document.getElementById('merge-png-select');
+    const confirmBtn = document.getElementById('merge-confirm-btn');
+
+    jsonSelect.innerHTML = '<option value="">加载中...</option>';
+    pngSelect.innerHTML = '<option value="">加载中...</option>';
+    confirmBtn.disabled = true;
+
+    try {
+        const response = await fetch(`${SERVER_URL}/api/list-files?folderPath=${encodeURIComponent(folderPath)}`);
+        if (!response.ok) {
+            throw new Error('无法获取文件列表');
+        }
+        const data = await response.json();
+
+        jsonSelect.innerHTML = '<option value="">--选择一个JSON文件--</option>';
+        data.jsonFiles.forEach(file => {
+            const option = document.createElement('option');
+            option.value = file;
+            option.textContent = file;
+            jsonSelect.appendChild(option);
+        });
+
+        pngSelect.innerHTML = '<option value="">--选择一个PNG文件--</option>';
+        data.pngFiles.forEach(file => {
+            const option = document.createElement('option');
+            option.value = file;
+            option.textContent = file;
+            pngSelect.appendChild(option);
+        });
+
+        confirmBtn.disabled = false;
+        confirmBtn.onclick = async () => {
+            const jsonFile = jsonSelect.value;
+            const pngFile = pngSelect.value;
+
+            if (!jsonFile || !pngFile) {
+                logMessage('请同时选择一个 JSON 和一个 PNG 文件！', 'error');
+                return;
+            }
+
+            confirmBtn.disabled = true;
+            confirmBtn.textContent = '合并中...';
+
+            try {
+                const mergeResponse = await fetch(`${SERVER_URL}/api/merge-json-to-png`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        folderPath: folderPath,
+                        jsonFileName: jsonFile,
+                        pngFileName: pngFile
+                    })
+                });
+                const result = await mergeResponse.json();
+                if (!mergeResponse.ok) {
+                    throw new Error(result.message || '合并失败');
+                }
+                logMessage(result.message, 'success');
+                closeModal('merge-modal');
+                fetchCards(); // 刷新列表以显示新文件
+            } catch (error) {
+                logMessage(`合并失败: ${error.message}`, 'error');
+            } finally {
+                confirmBtn.disabled = false;
+                confirmBtn.textContent = '确认合并';
+            }
+        };
+
+        openModal('merge-modal');
+
+    } catch (error) {
+        logMessage(`无法加载文件列表: ${error.message}`, 'error');
+        jsonSelect.innerHTML = '<option value="">加载失败</option>';
+        pngSelect.innerHTML = '<option value="">加载失败</option>';
+    }
+}
