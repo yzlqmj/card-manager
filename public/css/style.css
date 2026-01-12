@@ -306,3 +306,49 @@ input:checked + .slider:before {
     background-color: #2980b9; /* 一个略暗的蓝色 */
     opacity: 0.5;
 }
+/* 本地化日志模态框样式改进 */
+#localization-log-modal .modal-content {
+    max-width: 900px;
+    max-height: 80vh;
+}
+
+#localization-log-content {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.4;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 16px;
+    max-height: 60vh;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: var(--text-color);
+}
+
+/* 日志内容中的特殊样式 */
+#localization-log-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+#localization-log-content::-webkit-scrollbar-track {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+#localization-log-content::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+#localization-log-content::-webkit-scrollbar-thumb:hover {
+    background: #2980b9;
+}
+
+/* 深色主题下的日志样式 */
+.dark-theme #localization-log-content {
+    background-color: #1e2124;
+    border-color: #36393f;
+    color: #dcddde;
+}

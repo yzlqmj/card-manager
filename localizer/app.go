@@ -19,14 +19,27 @@ type Options struct {
 }
 
 // Run executes the localization process based on the provided options.
-// Run executes the localization process based on the provided options.
 // In check mode, it returns (needsLocalization, logOutput, nil).
 // In full mode, it returns (false, logOutput, error).
 func Run(opts Options) (bool, string, error) {
+	return runInternal(opts, nil)
+}
+
+// RunWithStreaming executes the localization process with streaming support.
+func RunWithStreaming(opts Options, sendMessage func(msgType, content string)) (bool, string, error) {
+	return runInternal(opts, sendMessage)
+}
+
+func runInternal(opts Options, sendMessage func(msgType, content string)) (bool, string, error) {
 	var logBuilder strings.Builder
 	logWriter := func(format string, a ...interface{}) {
-		logBuilder.WriteString(fmt.Sprintf(format, a...))
+		msg := fmt.Sprintf(format, a...)
+		logBuilder.WriteString(msg)
 		logBuilder.WriteString("\n")
+		// 如果有流式输出回调，则发送消息
+		if sendMessage != nil {
+			sendMessage("info", msg)
+		}
 	}
 
 	// 加载配置文件
@@ -96,6 +109,14 @@ func Run(opts Options) (bool, string, error) {
 		return false, logBuilder.String(), fmt.Errorf("错误: 请使用 --base-path 提供一个有效的 SillyTavern public 目录路径")
 	}
 
+	// 显示待处理的链接列表
+	if sendMessage != nil {
+		sendMessage("links", fmt.Sprintf("发现 %d 个需要本地化的链接:", len(tasks)))
+		for i, task := range tasks {
+			sendMessage("link", fmt.Sprintf("链接 %d: %s", i+1, task.URL))
+		}
+	}
+
 	logWriter("开始本地化处理...")
 
 	charName, _ := cardData["name"].(string)
@@ -110,8 +131,17 @@ func Run(opts Options) (bool, string, error) {
 		return false, logBuilder.String(), fmt.Errorf("创建资源输出目录失败: %v", err)
 	}
 
+	// 统计变量
+	var successCount, failureCount int
+
 	progressCallback := func(message string, level string) {
 		logWriter("[%s] %s", strings.ToUpper(level), message)
+		// 统计成功和失败
+		if level == "success" {
+			successCount++
+		} else if level == "failure" {
+			failureCount++
+		}
 	}
 	localizer, err := NewLocalizer(cardData, resourceOutputDir, opts.Proxy, opts.ForceProxyList, progressCallback)
 	if err != nil {
@@ -156,5 +186,11 @@ func Run(opts Options) (bool, string, error) {
 	}
 
 	logWriter("本地化成功！新卡保存至: %s", finalCardPath)
+	logWriter("处理统计: 成功 %d 个，失败 %d 个", successCount, failureCount)
+	
+	if sendMessage != nil {
+		sendMessage("stats", fmt.Sprintf("处理完成: 成功 %d 个，失败 %d 个", successCount, failureCount))
+	}
+
 	return false, logBuilder.String(), nil
 }

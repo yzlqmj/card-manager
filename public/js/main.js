@@ -845,7 +845,7 @@ async function handleLocalization(cardPath) {
     logMessage('开始本地化...');
     openModal('localization-log-modal');
     const logContent = document.getElementById('localization-log-content');
-    logContent.textContent = '正在调用本地化程序...';
+    logContent.textContent = '正在调用本地化程序...\n';
 
     try {
         const response = await fetch(`${SERVER_URL}/api/localize-card`, {
@@ -854,12 +854,81 @@ async function handleLocalization(cardPath) {
             body: JSON.stringify({ cardPath })
         });
 
-        const result = await response.json();
-
         if (!response.ok) {
-            logContent.textContent = `本地化失败: ${result.details || '未知错误'}`;
-            logMessage('本地化失败', 'error', result.details);
+            logContent.textContent = `本地化失败: HTTP ${response.status}`;
+            logMessage('本地化失败', 'error', `HTTP ${response.status}`);
+            return;
+        }
+
+        // 检查是否是流式响应
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('text/event-stream')) {
+            // 处理流式响应
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let buffer = '';
+            let linkCount = 0;
+            let successCount = 0;
+            let failureCount = 0;
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split('\n');
+                buffer = lines.pop(); // 保留不完整的行
+
+                for (const line of lines) {
+                    if (line.startsWith('data: ')) {
+                        try {
+                            const data = JSON.parse(line.slice(6));
+                            const timestamp = new Date().toLocaleTimeString();
+                            
+                            switch (data.type) {
+                                case 'info':
+                                    logContent.textContent += `[${timestamp}] ${data.content}\n`;
+                                    break;
+                                case 'links':
+                                    logContent.textContent += `\n=== ${data.content} ===\n`;
+                                    break;
+                                case 'link':
+                                    linkCount++;
+                                    logContent.textContent += `${data.content}\n`;
+                                    break;
+                                case 'success':
+                                    if (data.content.includes('[SUCCESS]')) {
+                                        successCount++;
+                                    }
+                                    logContent.textContent += `[${timestamp}] ✅ ${data.content}\n`;
+                                    break;
+                                case 'error':
+                                    if (data.content.includes('[FAILURE]')) {
+                                        failureCount++;
+                                    }
+                                    logContent.textContent += `[${timestamp}] ❌ ${data.content}\n`;
+                                    break;
+                                case 'stats':
+                                    logContent.textContent += `\n=== 处理结果统计 ===\n${data.content}\n`;
+                                    break;
+                                case 'complete':
+                                    logContent.textContent += `\n本地化流程已完成！\n`;
+                                    logMessage('本地化成功！', 'success');
+                                    fetchCards(); // 重新加载卡片以更新状态
+                                    return;
+                            }
+                            
+                            // 自动滚动到底部
+                            logContent.scrollTop = logContent.scrollHeight;
+                        } catch (e) {
+                            console.warn('解析SSE数据失败:', e, line);
+                        }
+                    }
+                }
+            }
         } else {
+            // 处理传统JSON响应（向后兼容）
+            const result = await response.json();
             logContent.textContent = result.log;
             logMessage('本地化成功！', 'success');
             fetchCards(); // 重新加载卡片以更新状态

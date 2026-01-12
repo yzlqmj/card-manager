@@ -655,7 +655,7 @@ func clearCacheHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "message": "缓存已清除"})
 }
 
-// localizeCardHandler handles the request to localize a card.
+// localizeCardHandler handles the request to localize a card with streaming support.
 func localizeCardHandler(w http.ResponseWriter, r *http.Request) {
 	var body struct {
 		CardPath string `json:"cardPath"`
@@ -678,11 +678,31 @@ func localizeCardHandler(w http.ResponseWriter, r *http.Request) {
 		setCache(cardPath, metadata)
 	}
 
+	// 设置SSE头部
+	w.Header().Set("Content-Type", "text/event-stream")
+	w.Header().Set("Cache-Control", "no-cache")
+	w.Header().Set("Connection", "keep-alive")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
+	flusher, ok := w.(http.Flusher)
+	if !ok {
+		http.Error(w, "流式传输不支持", http.StatusInternalServerError)
+		return
+	}
+
+	// 发送消息的辅助函数
+	sendMessage := func(msgType, content string) {
+		fmt.Fprintf(w, "data: {\"type\":\"%s\",\"content\":%q}\n\n", msgType, content)
+		flusher.Flush()
+	}
+
+	sendMessage("info", "开始本地化检查...")
 	slog.Info("开始本地化检查/执行流程", "card", cardPath)
+	
 	needed, err := checkLocalizationNeeded(cardPath)
 	if err != nil {
 		slog.Error("本地化检查失败", "card", cardPath, "error", err)
-		http.Error(w, fmt.Sprintf("本地化检查失败: %v", err), http.StatusInternalServerError)
+		sendMessage("error", fmt.Sprintf("本地化检查失败: %v", err))
 		return
 	}
 	slog.Info("本地化检查完成", "card", cardPath, "needed", needed)
@@ -693,24 +713,26 @@ func localizeCardHandler(w http.ResponseWriter, r *http.Request) {
 	setCache(cardPath, metadata)
 
 	if !needed {
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "log": "检查完成：此卡无需本地化。"})
+		sendMessage("success", "检查完成：此卡无需本地化。")
+		sendMessage("complete", "")
 		return
 	}
 
+	sendMessage("info", "发现需要本地化的内容，开始执行本地化...")
 	slog.Info("开始执行本地化", "card", cardPath)
-	output, err := runLocalization(cardPath)
+	
+	output, err := runLocalizationWithStreaming(cardPath, sendMessage)
 	cleanOutput := strings.ToValidUTF8(output, "")
 
 	if err != nil {
 		slog.Error("本地化过程失败", "card", cardPath, "error", err, "output", cleanOutput)
-		http.Error(w, "本地化失败: "+cleanOutput, http.StatusInternalServerError)
+		sendMessage("error", fmt.Sprintf("本地化失败: %v", err))
 		return
 	}
 
 	slog.Info("本地化过程成功", "card", cardPath)
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]interface{}{"success": true, "log": cleanOutput})
+	sendMessage("success", "本地化完成！")
+	sendMessage("complete", "")
 }
 
 // getStatsHandler handles getting statistics.

@@ -70,3 +70,21 @@ func runLocalization(cardPath string) (string, error) {
 
 	return logOutput, nil
 }
+
+// runLocalizationWithStreaming 调用 localizer.Run 来执行本地化操作，支持流式输出。
+func runLocalizationWithStreaming(cardPath string, sendMessage func(msgType, content string)) (string, error) {
+	opts := localizer.Options{
+		CardPath: cardPath,
+		BasePath: config.TavernPublicPath,
+		Proxy:    config.Proxy,
+	}
+	
+	// 调用带流式输出的 Run 函数
+	_, logOutput, err := localizer.RunWithStreaming(opts, sendMessage)
+	if err != nil {
+		// 即使有错误，也返回输出，以便前端显示
+		return logOutput, err
+	}
+
+	return logOutput, nil
+}
