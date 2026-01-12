@@ -886,35 +886,40 @@ async function handleLocalization(cardPath) {
                             const timestamp = new Date().toLocaleTimeString();
                             
                             switch (data.type) {
-                                case 'info':
-                                    logContent.textContent += `[${timestamp}] ${data.content}\n`;
-                                    break;
                                 case 'links':
-                                    logContent.textContent += `\n=== ${data.content} ===\n`;
+                                    logContent.textContent += `\n${data.content}\n`;
                                     break;
                                 case 'link':
                                     linkCount++;
                                     logContent.textContent += `${data.content}\n`;
                                     break;
+                                case 'separator':
+                                    logContent.textContent += `${'─'.repeat(40)}\n`;
+                                    break;
                                 case 'success':
-                                    if (data.content.includes('[SUCCESS]')) {
-                                        successCount++;
-                                    }
-                                    logContent.textContent += `[${timestamp}] ✅ ${data.content}\n`;
+                                    successCount++;
+                                    logContent.textContent += `✅ ${data.content}\n`;
                                     break;
-                                case 'error':
-                                    if (data.content.includes('[FAILURE]')) {
-                                        failureCount++;
-                                    }
-                                    logContent.textContent += `[${timestamp}] ❌ ${data.content}\n`;
+                                case 'failure':
+                                    failureCount++;
+                                    logContent.textContent += `❌ ${data.content}\n`;
                                     break;
-                                case 'stats':
-                                    logContent.textContent += `\n=== 处理结果统计 ===\n${data.content}\n`;
+                                case 'stats-ok':
+                                    logContent.textContent += `\n${data.content}\n`;
+                                    break;
+                                case 'stats-warn':
+                                    logContent.textContent += `\n${data.content}\n`;
+                                    break;
+                                case 'failed-title':
+                                    logContent.textContent += `${data.content}\n`;
+                                    break;
+                                case 'failed-link':
+                                    logContent.textContent += `${data.content}\n`;
                                     break;
                                 case 'complete':
-                                    logContent.textContent += `\n本地化流程已完成！\n`;
+                                    logContent.textContent += `\n🎉 完成！\n`;
                                     logMessage('本地化成功！', 'success');
-                                    fetchCards(); // 重新加载卡片以更新状态
+                                    fetchCards();
                                     return;
                             }
                             

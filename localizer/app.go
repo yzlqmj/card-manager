@@ -36,9 +36,12 @@ func runInternal(opts Options, sendMessage func(msgType, content string)) (bool,
 		msg := fmt.Sprintf(format, a...)
 		logBuilder.WriteString(msg)
 		logBuilder.WriteString("\n")
-		// 如果有流式输出回调，则发送消息
+	}
+
+	// 流式输出辅助函数 - 只在需要时发送
+	streamLog := func(msgType, content string) {
 		if sendMessage != nil {
-			sendMessage("info", msg)
+			sendMessage(msgType, content)
 		}
 	}
 
@@ -110,12 +113,11 @@ func runInternal(opts Options, sendMessage func(msgType, content string)) (bool,
 	}
 
 	// 显示待处理的链接列表
-	if sendMessage != nil {
-		sendMessage("links", fmt.Sprintf("发现 %d 个需要本地化的链接:", len(tasks)))
-		for i, task := range tasks {
-			sendMessage("link", fmt.Sprintf("链接 %d: %s", i+1, task.URL))
-		}
+	streamLog("links", fmt.Sprintf("📋 发现 %d 个需要本地化的链接", len(tasks)))
+	for i, task := range tasks {
+		streamLog("link", fmt.Sprintf("  %d. %s", i+1, task.URL))
 	}
+	streamLog("separator", "")
 
 	logWriter("开始本地化处理...")
 
@@ -133,15 +135,20 @@ func runInternal(opts Options, sendMessage func(msgType, content string)) (bool,
 
 	// 统计变量
 	var successCount, failureCount int
+	var failedURLs []string
 
 	progressCallback := func(message string, level string) {
 		logWriter("[%s] %s", strings.ToUpper(level), message)
-		// 统计成功和失败
+		// 统计成功和失败，只流式输出失败的
 		if level == "success" {
 			successCount++
+			streamLog("success", message)
 		} else if level == "failure" {
 			failureCount++
+			failedURLs = append(failedURLs, message)
+			streamLog("failure", message)
 		}
+		// info级别不再流式输出，减少噪音
 	}
 	localizer, err := NewLocalizer(cardData, resourceOutputDir, opts.Proxy, opts.ForceProxyList, progressCallback)
 	if err != nil {
@@ -186,10 +193,20 @@ func runInternal(opts Options, sendMessage func(msgType, content string)) (bool,
 	}
 
 	logWriter("本地化成功！新卡保存至: %s", finalCardPath)
-	logWriter("处理统计: 成功 %d 个，失败 %d 个", successCount, failureCount)
 	
-	if sendMessage != nil {
-		sendMessage("stats", fmt.Sprintf("处理完成: 成功 %d 个，失败 %d 个", successCount, failureCount))
+	// 显示最终统计
+	streamLog("separator", "")
+	if failureCount > 0 {
+		logWriter("处理完成，但有部分失败: 成功 %d 个，失败 %d 个", successCount, failureCount)
+		streamLog("stats-warn", fmt.Sprintf("⚠️ 成功 %d 个，失败 %d 个", successCount, failureCount))
+		streamLog("failed-title", "❌ 失败的链接:")
+		for i, url := range failedURLs {
+			logWriter("  %d. %s", i+1, url)
+			streamLog("failed-link", fmt.Sprintf("  %d. %s", i+1, url))
+		}
+	} else {
+		logWriter("处理完成: 成功 %d 个", successCount)
+		streamLog("stats-ok", fmt.Sprintf("✅ 全部成功，共 %d 个", successCount))
 	}
 
 	return false, logBuilder.String(), nil

@@ -388,11 +388,11 @@ func (l *Localizer) Localize() (map[string]interface{}, error) {
 
 func (l *Localizer) handleDownloadResult(result downloadResult) {
 	if result.Err != nil {
-		l.progressCallback(fmt.Sprintf("[失败] %s - %v", result.Task.URL, result.Err), "failure")
+		l.progressCallback(fmt.Sprintf("%s", result.Task.URL), "failure")
 		return
 	}
 
-	l.progressCallback(fmt.Sprintf("[成功] %s", result.Task.URL), "success")
+	l.progressCallback(fmt.Sprintf("%s", result.Task.URL), "success")
 
 	_, webPath := l.getResourcePaths(result.Task.URL, "") // 上下文对于 web 路径生成不重要
 	if webPath != "" {
