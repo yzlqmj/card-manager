@@ -97,6 +97,7 @@ func (a *App) validateRequestPath(r *http.Request) error {
 	}
 	
 	if path != "" {
+		slog.Info("🔍 路径验证", "原始路径", path, "根目录", a.Config.CharactersRootPath)
 		return a.ValidatePath(path)
 	}
 	
@@ -109,19 +110,25 @@ func (a *App) ValidatePath(path string) error {
 		return nil
 	}
 	
-	// 清理路径
+	// 清理路径并转换为标准格式
 	cleanPath := filepath.Clean(path)
 	
 	// 检查是否包含危险的路径遍历
 	if strings.Contains(cleanPath, "..") {
+		slog.Warn("❌ 路径验证失败", "原因", "包含非法字符", "路径", cleanPath)
 		return fmt.Errorf("路径包含非法字符")
 	}
 	
+	// 将配置中的根目录路径也转换为标准格式进行比较
+	rootPath := filepath.Clean(a.Config.CharactersRootPath)
+	
 	// 检查是否在允许的根目录下
-	if !strings.HasPrefix(cleanPath, a.Config.CharactersRootPath) {
-		return fmt.Errorf("路径不在允许的目录范围内")
+	if !strings.HasPrefix(cleanPath, rootPath) {
+		slog.Warn("❌ 路径验证失败", "原因", "不在允许目录", "请求路径", cleanPath, "根目录", rootPath)
+		return fmt.Errorf("路径不在允许的目录范围内: %s 不在 %s 下", cleanPath, rootPath)
 	}
 	
+	slog.Info("✅ 路径验证通过", "路径", cleanPath)
 	return nil
 }
 

@@ -1,8 +1,0 @@
-{
-  "charactersRootPath": "D:\\yw\\AI\\角色卡",
-  "tavernCharactersPath": "D:\\Software\\AI\\SillyTavern\\SillyTavern\\data\\default-user\\characters",
-  "proxy": "http://127.0.0.1:1233",
-  "tavernPublicPath": "D:\\Software\\AI\\SillyTavern\\SillyTavern\\public",
-  "nikoPath": "D:\\Software\\AI\\SillyTavern\\SillyTavern\\public\\niko",
-  "port": 3600
-}

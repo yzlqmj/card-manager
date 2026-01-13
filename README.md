@@ -36,13 +36,50 @@
 
 在首次运行程序之前，您需要配置程序以指向您的角色卡和 Tavern/SillyTavern 目录。
 
-1.  找到 `config` 目录下的 `config.json` 文件。
+1.  找到 `config` 目录下的 `config.yaml` 文件。
 2.  根据您的实际路径修改以下字段：
-    - `charactersRootPath`: 您存放角色卡的根目录。程序将在此目录下创建分类和角色文件夹。
-    - `tavernCharactersPath`: Tavern 或 SillyTavern 的 `characters` 目录路径。
-    - `tavernPublicPath`: Tavern 或 SillyTavern 的 `public` 目录路径 (用于本地化检查)。
-    - `proxy` (可选): 如果您需要通过代理下载角色卡，请设置代理服务器地址。
-    - `port` (可选): 设置程序运行的端口号，默认为 `3600`。
+    - `角色卡根目录`: 您存放角色卡的根目录。程序将在此目录下创建分类和角色文件夹。
+    - `酒馆角色卡目录`: Tavern 或 SillyTavern 的 `characters` 目录路径。
+    - `酒馆公共目录`: Tavern 或 SillyTavern 的 `public` 目录路径 (用于本地化检查)。
+    - `代理地址` (可选): 如果您需要通过代理下载角色卡，请设置代理服务器地址。
+    - `端口` (可选): 设置程序运行的端口号，默认为 `3600`。
+    - `本地化工具`: 配置本地化工具的相关参数，包括基础路径和强制代理列表。
+
+#### 配置文件示例
+
+```yaml
+# 卡片管理器统一配置文件
+# 本配置文件包含主应用和本地化工具的所有配置参数
+
+# 角色卡根目录 - 存放所有角色卡文件的主目录
+角色卡根目录: "D:\\yw\\AI\\角色卡"
+
+# 酒馆角色卡目录 - SillyTavern应用中角色卡的存储位置
+酒馆角色卡目录: "D:\\Software\\AI\\SillyTavern\\SillyTavern\\data\\default-user\\characters"
+
+# 酒馆公共目录 - SillyTavern的公共资源目录
+酒馆公共目录: "D:\\Software\\AI\\SillyTavern\\SillyTavern\\public"
+
+# 代理地址 - 网络请求使用的代理服务器地址
+代理地址: "http://127.0.0.1:1233"
+
+# 端口 - 应用程序监听的端口号
+端口: 3600
+
+# 本地化工具配置
+本地化工具:
+  # 基础路径 - 本地化资源的基础存储路径
+  基础路径: "D:\\Software\\AI\\SillyTavern\\SillyTavern\\public"
+  
+  # 强制代理列表 - 必须通过代理访问的域名列表
+  强制代理列表:
+    - "gitgud.io"
+    - "raw.githubusercontent.com"
+    - "cdn.jsdelivr.net"
+    - "github.com"
+    - "fonts.googleapis.com"
+    - "files.catbox.moe"
+```
 
 ### 运行
 

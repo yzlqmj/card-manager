@@ -32,7 +32,7 @@ func NewFilesHandler(config *config.Config, cacheManager *cache.Manager) *FilesH
 	}
 }
 
-// GetImage 提供图片文件服务
+// 提供图片文件服务
 func (h *FilesHandler) GetImage(w http.ResponseWriter, r *http.Request) {
 	imagePath := r.URL.Query().Get("path")
 	if imagePath == "" {
@@ -40,11 +40,18 @@ func (h *FilesHandler) GetImage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	
-	if !strings.HasPrefix(imagePath, h.config.CharactersRootPath) {
+	// 路径验证已经在中间件中完成，这里不需要重复检查
+	// 但为了安全起见，我们仍然进行标准化比较
+	cleanImagePath := filepath.Clean(imagePath)
+	cleanRootPath := filepath.Clean(h.config.CharactersRootPath)
+	
+	if !strings.HasPrefix(cleanImagePath, cleanRootPath) {
+		slog.Warn("图片路径验证失败", "请求路径", cleanImagePath, "根目录", cleanRootPath)
 		writeErrorResponse(w, http.StatusForbidden, "路径非法", nil)
 		return
 	}
 	
+	slog.Info("📷 提供图片服务", "路径", cleanImagePath)
 	http.ServeFile(w, r, imagePath)
 }
 

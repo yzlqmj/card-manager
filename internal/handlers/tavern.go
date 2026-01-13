@@ -20,9 +20,9 @@ type TavernHandler struct {
 	localizationService *localization.Service
 }
 
-// NewTavernHandler 创建新的Tavern处理器
+// 创建新的Tavern处理器
 func NewTavernHandler(config *config.Config, cacheManager *cache.Manager) *TavernHandler {
-	localizationService := localization.NewService(config.TavernPublicPath, config.NikoPath, config.Proxy)
+	localizationService := localization.NewService(config.TavernPublicPath, config.Proxy)
 	return &TavernHandler{
 		config:              config,
 		cacheManager:        cacheManager,

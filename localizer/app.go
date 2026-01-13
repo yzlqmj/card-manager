@@ -46,18 +46,26 @@ func runInternal(opts Options, sendMessage func(msgType, content string)) (bool,
 	}
 
 	// 加载配置文件
-	cliConfig, err := LoadCliConfig()
+	cliConfig, basePath, mainProxy, err := LoadFullConfig()
 	if err != nil {
-		logWriter("警告: 加载 config.json 出错: %v", err)
+		logWriter("警告: 加载配置文件出错: %v", err)
 		cliConfig = &CliConfig{}
+		basePath = ""
+		mainProxy = ""
 	}
 
 	// 如果命令行没有提供，则使用配置文件中的值
 	if opts.BasePath == "" {
-		opts.BasePath = cliConfig.BasePath
+		// 优先使用主配置中的酒馆公共目录作为基础路径
+		if basePath != "" {
+			opts.BasePath = basePath
+		}
 	}
 	if opts.Proxy == "" {
-		opts.Proxy = cliConfig.Proxy
+		// 使用主配置中的代理地址
+		if mainProxy != "" {
+			opts.Proxy = mainProxy
+		}
 	}
 	if len(opts.ForceProxyList) == 0 {
 		opts.ForceProxyList = cliConfig.ForceProxyList

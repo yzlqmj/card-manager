@@ -252,7 +252,7 @@ func (h *CardsHandler) processCharacterDirectory(itemPath string) *models.Charac
 	}
 	
 	// 检查是否已经本地化
-	localizationService := localization.NewService(h.config.TavernPublicPath, h.config.NikoPath, h.config.Proxy)
+	localizationService := localization.NewService(h.config.TavernPublicPath, h.config.Proxy)
 	isLocalized, err := localizationService.IsLocalized(nameToCheck)
 	if err != nil {
 		slog.Warn("检查本地化完成状态失败", "character", nameToCheck, "error", err)
@@ -341,6 +341,6 @@ func (h *CardsHandler) getInternalCharNameFromPNG(filePath string) (string, erro
 // checkLocalizationNeeded 检查是否需要本地化
 func (h *CardsHandler) checkLocalizationNeeded(cardPath string) (bool, error) {
 	// 创建一个临时的本地化服务来检查
-	localizationService := localization.NewService(h.config.TavernPublicPath, h.config.NikoPath, h.config.Proxy)
+	localizationService := localization.NewService(h.config.TavernPublicPath, h.config.Proxy)
 	return localizationService.CheckLocalizationNeeded(cardPath)
 }

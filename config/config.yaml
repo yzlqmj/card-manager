@@ -1,0 +1,29 @@
+# 卡片管理器统一配置文件
+# 本配置文件包含主应用和本地化工具的所有配置参数
+
+# 角色卡根目录 - 存放所有角色卡文件的主目录
+角色卡根目录: D:/yw/AI/角色卡
+
+# 酒馆角色卡目录 - SillyTavern应用中角色卡的存储位置
+酒馆角色卡目录: D:/Software/AI/SillyTavern/SillyTavern/data/default-user/characters
+
+# 酒馆公共目录 - SillyTavern的公共资源目录
+# 注意：本地化工具会自动使用此路径，niko等子目录也会基于此路径自动构建
+酒馆公共目录: D:/Software/AI/SillyTavern/SillyTavern/public
+
+# 代理地址 - 主程序和本地化工具共用的代理服务器地址
+代理地址: http://127.0.0.1:1233
+
+# 端口 - 应用程序监听的端口号
+端口: 3600
+
+# 本地化工具配置
+本地化工具:
+  # 强制代理列表 - 必须通过代理访问的域名列表
+  强制代理列表:
+    - gitgud.io
+    - raw.githubusercontent.com
+    - cdn.jsdelivr.net
+    - github.com
+    - fonts.googleapis.com
+    - files.catbox.moe
