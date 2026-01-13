@@ -51,7 +51,6 @@ func (h *FilesHandler) GetImage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	
-	slog.Info("📷 提供图片服务", "路径", cleanImagePath)
 	http.ServeFile(w, r, imagePath)
 }
 

@@ -43,8 +43,12 @@ func (h *TavernHandler) LocalizeCard(w http.ResponseWriter, r *http.Request) {
 	
 	slog.Info("本地化请求解析成功", "cardPath", req.CardPath)
 	
-	if !strings.HasPrefix(req.CardPath, h.config.CharactersRootPath) {
-		slog.Error("路径非法", "cardPath", req.CardPath, "rootPath", h.config.CharactersRootPath)
+	// 使用标准化路径比较，解决正斜杠/反斜杠格式不匹配问题
+	cleanCardPath := filepath.Clean(req.CardPath)
+	cleanRootPath := filepath.Clean(h.config.CharactersRootPath)
+	
+	if !strings.HasPrefix(cleanCardPath, cleanRootPath) {
+		slog.Error("路径非法", "cardPath", cleanCardPath, "rootPath", cleanRootPath)
 		writeErrorResponse(w, http.StatusForbidden, "路径非法", nil)
 		return
 	}
