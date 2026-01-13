@@ -5,7 +5,7 @@
 一个现代化的角色卡管理工具，专为 [Tavern AI](https://github.com/TavernAI/TavernAI) 和 [SillyTavern](https://github.com/SillyTavern/SillyTavern) 用户设计
 
 [![Go Version](https://img.shields.io/badge/Go-1.23+-00ADD8?style=flat&logo=go)](https://golang.org/)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-GPL-blue.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)](https://github.com)
 
 </div>
