@@ -36,6 +36,21 @@
     --shadow-hover: rgba(0, 0, 0, 0.35);
     --focus-ring: 0 0 0 3px rgba(91, 141, 239, 0.35);
 }
+
+/* 深色主题下的特殊按钮颜色 */
+.dark-theme #show-face-downloader-btn {
+    background-color: #20c997;
+}
+.dark-theme #show-face-downloader-btn:hover {
+    background-color: #1ba085;
+}
+
+.dark-theme #show-stats-btn {
+    background-color: #8b5cf6;
+}
+.dark-theme #show-stats-btn:hover {
+    background-color: #7c3aed;
+}
 *,
 *::before,
 *::after {
@@ -105,6 +120,7 @@ header h1 {
     box-shadow: var(--focus-ring);
 }
 
+/* 扫描变更 - 蓝色 (主要功能) */
 #scan-btn {
     background-color: var(--primary-color);
 }
@@ -112,6 +128,7 @@ header h1 {
     background-color: var(--primary-hover);
 }
 
+/* 下载新卡 - 绿色 (下载功能) */
 #show-downloader-btn {
     background-color: var(--success-color);
 }
@@ -119,13 +136,15 @@ header h1 {
     background-color: var(--success-hover);
 }
 
+/* 下载卡面 - 青色 (下载相关) */
 #show-face-downloader-btn {
-    background-color: var(--primary-color);
+    background-color: #17a2b8;
 }
 #show-face-downloader-btn:hover {
-    background-color: var(--primary-hover);
+    background-color: #138496;
 }
 
+/* 清除列表 - 灰色 (中性操作) */
 #clear-btn {
     background-color: var(--neutral-color);
 }
@@ -133,6 +152,7 @@ header h1 {
     background-color: var(--neutral-hover);
 }
 
+/* 主题切换按钮 */
 #theme-toggle-btn {
     background: none;
     border: none;
@@ -148,18 +168,20 @@ header h1 {
     background-color: var(--border-color);
 }
 
+/* 统计信息 - 紫色 (信息查看) */
+#show-stats-btn {
+    background-color: #6f42c1;
+}
+#show-stats-btn:hover {
+    background-color: #5a359a;
+}
+
+/* 显示日志 - 橙色 (日志查看) */
 #show-log-btn {
     background-color: var(--warn-color);
 }
 #show-log-btn:hover {
     background-color: var(--warn-hover);
-}
-
-#show-stats-btn {
-    background-color: var(--primary-color);
-}
-#show-stats-btn:hover {
-    background-color: var(--primary-hover);
 }
 .loader {
     border: 4px solid var(--border-color);
@@ -192,8 +214,8 @@ header h1 {
 
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 24px;
 }
 
 .card {
@@ -218,14 +240,14 @@ header h1 {
 
 .card img {
     width: 100%;
-    height: 200px;
+    height: 240px;
     object-fit: cover;
     display: block;
     background-color: var(--border-color);
 }
 
 .card-info {
-    padding: 14px 16px;
+    padding: 16px 18px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -497,15 +519,22 @@ select::-ms-expand {
 }
 .details-grid {
     display: grid;
-    grid-template-columns: 280px 1fr;
+    grid-template-columns: 320px 1fr;
     gap: 24px;
+}
+
+#details-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
 }
 
 #details-preview img {
     width: 100%;
     height: auto;
-    max-height: 380px;
-    object-fit: contain;
+    max-height: 500px;
+    object-fit: cover;
     border-radius: var(--radius);
     background-color: var(--border-color);
 }
@@ -963,6 +992,11 @@ input:focus-visible + .slider {
     
     .filter-buttons {
         justify-content: center;
+    }
+    
+    .card-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 16px;
     }
     
     .details-grid {
