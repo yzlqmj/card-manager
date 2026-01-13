@@ -29,16 +29,16 @@ func getClipboardContent() (string, error) {
 
 func startClipboardListener() {
 	if isListenerRunning.CompareAndSwap(false, true) {
-		slog.Info("正在启动剪贴板监听器...")
+		slog.Info("📋 启动剪贴板监听器")
 		stopListenerChannel = make(chan struct{})
 		go runClipboardListener()
-		slog.Info("剪贴板监听器已启动，正在监听 Discord 附件链接...")
+		slog.Info("👂 正在监听 Discord 附件链接")
 	}
 }
 
 func stopClipboardListener() {
 	if isListenerRunning.CompareAndSwap(true, false) {
-		slog.Info("正在停止剪贴板监听器...")
+		slog.Info("⏹️ 停止剪贴板监听器")
 		close(stopListenerChannel)
 	}
 }
@@ -67,7 +67,7 @@ func runClipboardListener() {
 				}
 			}
 		case <-stopListenerChannel:
-			slog.Info("剪贴板监听器已停止。")
+			slog.Info("⏹️ 剪贴板监听器已停止")
 			return
 		}
 	}

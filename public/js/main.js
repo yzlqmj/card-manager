@@ -569,20 +569,25 @@ function showNoteModal(folderPath, characterName) {
     openModal('note-modal');
 }
 
-function handleOpenFolder(folderPath) {
-    // 发送请求，但不等待其完成 (fire and forget)
-    fetch(`${SERVER_URL}/api/open-folder`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ folderPath })
-    }).catch(error => {
-        // 在后台静默处理错误，以防万一（例如服务器关闭），避免在控制台出现未捕获的异常。
-        // 用户不会看到这个错误。
-        console.error('Background open-folder request failed:', error);
-    });
-
-    // 立即显示成功消息，因为我们假设此操作总是成功的。
-    logMessage('打开文件夹指令已发送', 'success');
+async function handleOpenFolder(folderPath) {
+    try {
+        const response = await fetch(`${SERVER_URL}/api/open-folder`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ folderPath })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            logMessage(result.message || '文件夹已打开', 'success');
+        } else {
+            logMessage(result.error || '打开文件夹失败', 'error');
+        }
+    } catch (error) {
+        logMessage('打开文件夹请求失败', 'error', error.message);
+        console.error('Open folder request failed:', error);
+    }
 }
 
 async function handleDeleteVersion(filePath) {
@@ -590,14 +595,14 @@ async function handleDeleteVersion(filePath) {
     if (!confirm(`确定要删除文件: ${fileName} 吗？\n此操作不可恢复！`)) return;
     try {
         const response = await fetch(`${SERVER_URL}/api/delete-version`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ filePath }) });
-        if (!response.ok) {
-            const result = await response.json();
-            logMessage(result.message || '删除失败', 'error');
-        } else {
-            const result = await response.json();
+        const result = await response.json();
+        
+        if (result.success) {
             logMessage(result.message || '删除成功', 'success');
             closeModal('details-modal');
             fetchCards();
+        } else {
+            logMessage(result.error || '删除失败', 'error');
         }
     } catch (error) { logMessage('删除版本请求失败', 'error', error.message); }
 }
@@ -609,14 +614,14 @@ async function handleMove(oldFolderPath) {
     if (!confirm(`确定要将角色 '${characterName}' 移动到分类 '${newCategory}' 吗？`)) return;
     try {
         const response = await fetch(`${SERVER_URL}/api/move-character`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ oldFolderPath, newCategory }) });
-        if (!response.ok) {
-            const result = await response.json();
-            logMessage(result.message || '移动失败', 'error');
-        } else {
-            const result = await response.json();
+        const result = await response.json();
+        
+        if (result.success) {
             logMessage(result.message || '移动成功', 'success');
             closeModal('details-modal');
             fetchCards();
+        } else {
+            logMessage(result.error || '移动失败', 'error');
         }
     } catch (error) { logMessage('移动角色请求失败', 'error', error.message); }
 }
@@ -679,14 +684,14 @@ function handleOrganize(strayPath) {
         logMessage('正在整理文件...');
         try {
             const response = await fetch(`${SERVER_URL}/api/organize-stray`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ strayPath, category, characterName }) });
-            if (!response.ok) {
-                const result = await response.json();
-                logMessage(result.message || '整理失败', 'error');
-            } else {
-                const result = await response.json();
+            const result = await response.json();
+            
+            if (result.success) {
                 logMessage(result.message || '整理成功', 'success');
                 closeModal('organize-modal');
                 fetchCards();
+            } else {
+                logMessage(result.error || '整理失败', 'error');
             }
         } catch (error) {
             logMessage('整理请求失败', 'error', error.message);
@@ -698,14 +703,14 @@ function handleOrganize(strayPath) {
         if (!confirm(`确定要永久删除待整理文件: ${fileName} 吗？\n此操作不可恢复！`)) return;
          try {
             const response = await fetch(`${SERVER_URL}/api/delete-stray`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ filePath: strayPath }) });
-            if (!response.ok) {
-                const result = await response.json();
-                logMessage(result.message || '删除失败', 'error');
-            } else {
-                const result = await response.json();
+            const result = await response.json();
+            
+            if (result.success) {
                 logMessage(result.message || '删除成功', 'success');
                 closeModal('organize-modal');
                 fetchCards();
+            } else {
+                logMessage(result.error || '删除失败', 'error');
             }
         } catch (error) {
             logMessage('删除请求失败', 'error', error.message);

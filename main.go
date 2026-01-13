@@ -17,33 +17,33 @@ import (
 var publicFiles embed.FS
 
 func main() {
-	// 设置结构化日志
-	// 使用 tint 美化日志输出
+	// 设置简洁的中文日志系统
 	logger := slog.New(tint.NewHandler(os.Stdout, &tint.Options{
 		Level:      slog.LevelInfo,
-		TimeFormat: "15:04:05", // 更简洁的时间格式
+		TimeFormat: "15:04:05",
+		NoColor:    false,
 	}))
 	slog.SetDefault(logger)
 
 	// 加载配置
 	if err := loadConfig(); err != nil {
-		slog.Error("无法加载配置", "error", err)
+		slog.Error("配置加载失败", "error", err)
 		os.Exit(1)
 	}
-	slog.Info("配置加载成功")
+	slog.Info("✓ 配置加载完成")
 
 	// 加载缓存
 	if err := loadCache(); err != nil {
-		slog.Warn("无法加载缓存文件", "error", err)
+		slog.Warn("缓存文件加载失败，将使用空缓存", "error", err)
 	} else {
-		slog.Info("缓存加载成功")
+		slog.Info("✓ 缓存加载完成")
 	}
 
 	// 首次启动时扫描Tavern哈希，以确保初始加载时导入状态正确
 	if err := scanTavernHashes(); err != nil {
-		slog.Warn("启动时扫描Tavern目录失败", "error", err)
+		slog.Warn("Tavern目录扫描失败", "error", err)
 	} else {
-		slog.Info("Tavern目录扫描完成")
+		slog.Info("✓ Tavern目录扫描完成")
 	}
 
 	// 使用 embed.FS 提供静态文件服务
@@ -88,8 +88,8 @@ func main() {
 	if port == "0" {
 		port = "3000" // 默认端口
 	}
-	slog.Info("服务器启动", "url", fmt.Sprintf("http://localhost:%s", port))
-	slog.Info("请访问管理页面", "url", fmt.Sprintf("http://localhost:%s/index.html", port))
+	slog.Info("🚀 服务器启动", "地址", fmt.Sprintf("http://localhost:%s", port))
+	slog.Info("📋 管理页面", "地址", fmt.Sprintf("http://localhost:%s/index.html", port))
 	if err := http.ListenAndServe(":"+port, nil); err != nil {
 		slog.Error("启动服务器失败", "error", err)
 		os.Exit(1)
