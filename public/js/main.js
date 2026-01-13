@@ -505,7 +505,7 @@ function showNoteModal(folderPath, characterName) {
         noteEdit.style.display = 'none';
         editNoteBtn.style.display = 'inline-block';
         saveNoteBtn.style.display = 'none';
-        noteDisplay.innerHTML = '<p><i>正在加载备注...</i></p>';
+        noteDisplay.innerHTML = '<p class="note-placeholder"><i>正在加载备注...</i></p>';
         noteEdit.value = '';
     };
 
@@ -513,9 +513,10 @@ function showNoteModal(folderPath, characterName) {
         try {
             const response = await fetch(`${SERVER_URL}/api/note?folderPath=${encodeURIComponent(folderPath)}`);
             const result = await response.json();
-            if (result.success) {
-                noteEdit.value = result.data.content;
-                noteDisplay.innerHTML = result.content ? markdownConverter.makeHtml(result.content.replace(/\n/g, '<br>')) : '<p><i>没有备注信息。点击“编辑”来添加。</i></p>';
+            if (result.success && result.data) {
+                const content = result.data.content || "";
+                noteEdit.value = content;
+                noteDisplay.innerHTML = content ? markdownConverter.makeHtml(content) : '<p><i>没有备注信息。点击“编辑”来添加。</i></p>';
             } else {
                 // 如果获取失败（比如文件不存在），也允许用户编辑
                 noteEdit.value = '';
@@ -547,7 +548,7 @@ function showNoteModal(folderPath, characterName) {
             });
             const result = await response.json();
             if (result.success) {
-                noteDisplay.innerHTML = content ? markdownConverter.makeHtml(content.replace(/\n/g, '<br>')) : '<p><i>没有备注信息。点击“编辑”来添加。</i></p>';
+                noteDisplay.innerHTML = content ? markdownConverter.makeHtml(content) : '<p><i>没有备注信息。点击“编辑”来添加。</i></p>';
                 logMessage('备注已保存！', 'success');
                 // 更新卡片数据中的 hasNote 状态
                 if (allCardsData[folderPath]) {
