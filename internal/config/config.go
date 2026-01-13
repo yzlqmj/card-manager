@@ -1,4 +1,4 @@
-package main
+package config
 
 import (
 	"encoding/json"
@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 )
 
-// Config 结构对应于 config.json 文件的内容
+// Config 应用配置
 type Config struct {
 	CharactersRootPath   string `json:"charactersRootPath"`
 	TavernCharactersPath string `json:"tavernCharactersPath"`
@@ -15,14 +15,18 @@ type Config struct {
 	Proxy                string `json:"proxy"`
 }
 
-var config Config
-
-// loadConfig 从 ./config/config.json 加载配置
-func loadConfig() error {
+// Load 从 ./config/config.json 加载配置
+func Load() (*Config, error) {
 	configPath := filepath.Join("config", "config.json")
 	file, err := os.ReadFile(configPath)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return json.Unmarshal(file, &config)
+	
+	var config Config
+	if err := json.Unmarshal(file, &config); err != nil {
+		return nil, err
+	}
+	
+	return &config, nil
 }

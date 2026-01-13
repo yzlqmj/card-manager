@@ -1,16 +1,29 @@
-package main
+package localization
 
 import (
+	"card-manager/localizer"
 	"fmt"
 	"os"
 	"path/filepath"
 	"regexp"
-
-	"card-manager/localizer"
 )
 
-// checkLocalizationNeeded 调用 localizer.Run 来判断角色卡是否需要本地化。
-func checkLocalizationNeeded(cardPath string) (bool, error) {
+// Service 本地化服务
+type Service struct {
+	tavernPublicPath string
+	proxy            string
+}
+
+// NewService 创建新的本地化服务
+func NewService(tavernPublicPath, proxy string) *Service {
+	return &Service{
+		tavernPublicPath: tavernPublicPath,
+		proxy:            proxy,
+	}
+}
+
+// CheckLocalizationNeeded 调用 localizer.Run 来判断角色卡是否需要本地化
+func (s *Service) CheckLocalizationNeeded(cardPath string) (bool, error) {
 	opts := localizer.Options{
 		CardPath:    cardPath,
 		IsCheckMode: true,
@@ -25,14 +38,14 @@ func checkLocalizationNeeded(cardPath string) (bool, error) {
 	return needed, nil
 }
 
-// isLocalized 检查角色卡是否已经被本地化。
-func isLocalized(characterName string) (bool, error) {
-	if config.TavernPublicPath == "" {
+// IsLocalized 检查角色卡是否已经被本地化
+func (s *Service) IsLocalized(characterName string) (bool, error) {
+	if s.tavernPublicPath == "" {
 		return false, fmt.Errorf("SillyTavern public path not configured")
 	}
 
 	// 检查原始名称
-	nikoPath := filepath.Join(config.TavernPublicPath, "niko", characterName)
+	nikoPath := filepath.Join(s.tavernPublicPath, "niko", characterName)
 	info, err := os.Stat(nikoPath)
 	if err == nil && info.IsDir() {
 		return true, nil
@@ -41,7 +54,7 @@ func isLocalized(characterName string) (bool, error) {
 	// 使用正则表达式移除所有非字母数字字符
 	reg := regexp.MustCompile(`[.();【】《》？！，、——：:\[\]]`)
 	sanitizedName := reg.ReplaceAllString(characterName, "")
-	nikoPathSanitized := filepath.Join(config.TavernPublicPath, "niko", sanitizedName)
+	nikoPathSanitized := filepath.Join(s.tavernPublicPath, "niko", sanitizedName)
 	info, err = os.Stat(nikoPathSanitized)
 	if err == nil && info.IsDir() {
 		return true, nil
@@ -54,12 +67,12 @@ func isLocalized(characterName string) (bool, error) {
 	return false, err
 }
 
-// runLocalization 调用 localizer.Run 来执行本地化操作。
-func runLocalization(cardPath string) (string, error) {
+// RunLocalization 调用 localizer.Run 来执行本地化操作
+func (s *Service) RunLocalization(cardPath string) (string, error) {
 	opts := localizer.Options{
 		CardPath: cardPath,
-		BasePath: config.TavernPublicPath,
-		Proxy:    config.Proxy,
+		BasePath: s.tavernPublicPath,
+		Proxy:    s.proxy,
 	}
 	// 直接调用新的 Run 函数
 	_, logOutput, err := localizer.Run(opts)
@@ -71,12 +84,12 @@ func runLocalization(cardPath string) (string, error) {
 	return logOutput, nil
 }
 
-// runLocalizationWithStreaming 调用 localizer.Run 来执行本地化操作，支持流式输出。
-func runLocalizationWithStreaming(cardPath string, sendMessage func(msgType, content string)) (string, error) {
+// RunLocalizationWithStreaming 调用 localizer.Run 来执行本地化操作，支持流式输出
+func (s *Service) RunLocalizationWithStreaming(cardPath string, sendMessage func(msgType, content string)) (string, error) {
 	opts := localizer.Options{
 		CardPath: cardPath,
-		BasePath: config.TavernPublicPath,
-		Proxy:    config.Proxy,
+		BasePath: s.tavernPublicPath,
+		Proxy:    s.proxy,
 	}
 	
 	// 调用带流式输出的 Run 函数

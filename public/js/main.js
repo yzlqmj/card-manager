@@ -122,8 +122,12 @@ showLogBtn.addEventListener('click', () => {
 showStatsBtn.addEventListener('click', async () => {
     try {
         const response = await fetch(`${SERVER_URL}/api/stats`);
-        const stats = await response.json();
+        const result = await response.json();
         if (!response.ok) {
+            throw new Error(result.message || '获取统计信息失败');
+        }
+        const stats = result.data;
+        if (!stats) {
             throw new Error('无法获取统计信息');
         }
 
@@ -192,10 +196,10 @@ async function fetchCards() {
     logMessage('正在加载卡片...');
     try {
         const response = await fetch(`${SERVER_URL}/api/cards`);
-        const data = await response.json();
-        if (!response.ok) throw new Error(data.details || '服务器错误');
-        fullDataset = data; // 存储完整数据
-        renderAll(data, currentFilters);
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.message || '服务器错误');
+        fullDataset = result.data; // 使用响应中的data字段
+        renderAll(result.data, currentFilters);
         logMessage('卡片加载完成！', 'success');
     } catch (error) {
         container.innerHTML = '';
@@ -208,10 +212,10 @@ async function scanChanges() {
     logMessage('正在扫描变更...');
     try {
         const response = await fetch(`${SERVER_URL}/api/scan-changes`);
-        const data = await response.json();
-        if (!response.ok) throw new Error(data.details || '服务器错误');
-        fullDataset = data; // 存储完整数据
-        renderAll(data, currentFilters);
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.message || '服务器错误');
+        fullDataset = result.data; // 使用响应中的data字段
+        renderAll(result.data, currentFilters);
         logMessage('扫描完成！', 'success');
     } catch (error) {
         container.innerHTML = '';
@@ -510,7 +514,7 @@ function showNoteModal(folderPath, characterName) {
             const response = await fetch(`${SERVER_URL}/api/note?folderPath=${encodeURIComponent(folderPath)}`);
             const result = await response.json();
             if (result.success) {
-                noteEdit.value = result.content;
+                noteEdit.value = result.data.content;
                 noteDisplay.innerHTML = result.content ? markdownConverter.makeHtml(result.content.replace(/\n/g, '<br>')) : '<p><i>没有备注信息。点击“编辑”来添加。</i></p>';
             } else {
                 // 如果获取失败（比如文件不存在），也允许用户编辑
@@ -781,9 +785,9 @@ function startUrlPolling() {
             if (!response.ok) return;
 
             const result = await response.json();
-            if (result.success && result.url) {
-                logToFaceDownloader(`从队列中获取链接: ${result.url}`);
-                await downloadFaceImage(result.url, faceDownloadTarget.folderPath);
+            if (result.success && result.data.url) {
+                logToFaceDownloader(`从队列中获取链接: ${result.data.url}`);
+                await downloadFaceImage(result.data.url, faceDownloadTarget.folderPath);
             }
         } catch (error) {
             // 忽略网络错误
@@ -973,8 +977,8 @@ async function showFaceViewer(folderPath) {
         
         faceGrid.innerHTML = ''; // 清空加载动画
 
-        if (result.success && result.faces.length > 0) {
-            result.faces.forEach(imagePath => {
+        if (result.success && result.data.faces.length > 0) {
+            result.data.faces.forEach(imagePath => {
                 const img = document.createElement('img');
                 img.src = `${SERVER_URL}/api/image?path=${encodeURIComponent(imagePath)}`;
                 img.alt = 'Card Face';

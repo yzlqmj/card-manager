@@ -1,4 +1,4 @@
-package main
+package png
 
 import (
 	"bytes"
@@ -10,8 +10,16 @@ import (
 	"os"
 )
 
-// getInternalCharNameFromPNG 从 PNG 文件中提取 'chara' 文本块
-func getInternalCharNameFromPNG(filePath string) (string, error) {
+// chunk 代表一个 PNG 块
+type chunk struct {
+	Length uint32
+	Type   string
+	Data   []byte
+	CRC    uint32
+}
+
+// GetInternalCharNameFromPNG 从 PNG 文件中提取 'chara' 文本块
+func GetInternalCharNameFromPNG(filePath string) (string, error) {
 	file, err := os.Open(filePath)
 	if err != nil {
 		return "", err
@@ -208,12 +216,4 @@ func writeChunk(writer io.Writer, ch *chunk) error {
 	}
 
 	return nil
-}
-
-// chunk 代表一个 PNG 块
-type chunk struct {
-	Length uint32
-	Type   string
-	Data   []byte
-	CRC    uint32
 }
