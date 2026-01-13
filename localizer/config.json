@@ -1,5 +1,5 @@
 {
-    "base_path": "",
+    "base_path": "D:\\Software\\AI\\SillyTavern\\SillyTavern\\public",
     "proxy": "http://127.0.0.1:7890",
     "force_proxy_list": [
         "gitgud.io",

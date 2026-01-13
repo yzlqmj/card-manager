@@ -11,6 +11,7 @@ type Config struct {
 	CharactersRootPath   string `json:"charactersRootPath"`
 	TavernCharactersPath string `json:"tavernCharactersPath"`
 	TavernPublicPath     string `json:"tavernPublicPath"`
+	NikoPath             string `json:"nikoPath"`
 	Port                 int    `json:"port"`
 	Proxy                string `json:"proxy"`
 }

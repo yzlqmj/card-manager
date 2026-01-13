@@ -13,7 +13,9 @@ import (
 func (a *App) withMiddleware(handler http.HandlerFunc) http.HandlerFunc {
 	return a.loggingMiddleware(
 		a.corsMiddleware(
-			a.pathValidationMiddleware(handler),
+			a.panicRecoveryMiddleware(
+				a.pathValidationMiddleware(handler),
+			),
 		),
 	)
 }
@@ -35,6 +37,20 @@ func (a *App) loggingMiddleware(next http.HandlerFunc) http.HandlerFunc {
 			"status", wrapped.statusCode,
 			"duration", duration.String(),
 		)
+	}
+}
+
+// panicRecoveryMiddleware panic恢复中间件
+func (a *App) panicRecoveryMiddleware(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		defer func() {
+			if err := recover(); err != nil {
+				slog.Error("HTTP处理器发生panic", "error", err, "path", r.URL.Path, "method", r.Method)
+				http.Error(w, "内部服务器错误", http.StatusInternalServerError)
+			}
+		}()
+		
+		next.ServeHTTP(w, r)
 	}
 }
 
@@ -142,4 +158,11 @@ type responseWriter struct {
 func (rw *responseWriter) WriteHeader(code int) {
 	rw.statusCode = code
 	rw.ResponseWriter.WriteHeader(code)
+}
+
+// 实现 Flusher 接口
+func (rw *responseWriter) Flush() {
+	if flusher, ok := rw.ResponseWriter.(http.Flusher); ok {
+		flusher.Flush()
+	}
 }

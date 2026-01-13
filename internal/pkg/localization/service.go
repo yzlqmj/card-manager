@@ -11,13 +11,15 @@ import (
 // Service 本地化服务
 type Service struct {
 	tavernPublicPath string
+	nikoPath         string
 	proxy            string
 }
 
 // NewService 创建新的本地化服务
-func NewService(tavernPublicPath, proxy string) *Service {
+func NewService(tavernPublicPath, nikoPath, proxy string) *Service {
 	return &Service{
 		tavernPublicPath: tavernPublicPath,
+		nikoPath:         nikoPath,
 		proxy:            proxy,
 	}
 }
@@ -40,12 +42,12 @@ func (s *Service) CheckLocalizationNeeded(cardPath string) (bool, error) {
 
 // IsLocalized 检查角色卡是否已经被本地化
 func (s *Service) IsLocalized(characterName string) (bool, error) {
-	if s.tavernPublicPath == "" {
-		return false, fmt.Errorf("SillyTavern public path not configured")
+	if s.nikoPath == "" {
+		return false, fmt.Errorf("Niko path not configured")
 	}
 
 	// 检查原始名称
-	nikoPath := filepath.Join(s.tavernPublicPath, "niko", characterName)
+	nikoPath := filepath.Join(s.nikoPath, characterName)
 	info, err := os.Stat(nikoPath)
 	if err == nil && info.IsDir() {
 		return true, nil
@@ -54,7 +56,7 @@ func (s *Service) IsLocalized(characterName string) (bool, error) {
 	// 使用正则表达式移除所有非字母数字字符
 	reg := regexp.MustCompile(`[.();【】《》？！，、——：:\[\]]`)
 	sanitizedName := reg.ReplaceAllString(characterName, "")
-	nikoPathSanitized := filepath.Join(s.tavernPublicPath, "niko", sanitizedName)
+	nikoPathSanitized := filepath.Join(s.nikoPath, sanitizedName)
 	info, err = os.Stat(nikoPathSanitized)
 	if err == nil && info.IsDir() {
 		return true, nil

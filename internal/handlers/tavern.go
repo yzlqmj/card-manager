@@ -22,7 +22,7 @@ type TavernHandler struct {
 
 // NewTavernHandler 创建新的Tavern处理器
 func NewTavernHandler(config *config.Config, cacheManager *cache.Manager) *TavernHandler {
-	localizationService := localization.NewService(config.TavernPublicPath, config.Proxy)
+	localizationService := localization.NewService(config.TavernPublicPath, config.NikoPath, config.Proxy)
 	return &TavernHandler{
 		config:              config,
 		cacheManager:        cacheManager,
@@ -32,13 +32,19 @@ func NewTavernHandler(config *config.Config, cacheManager *cache.Manager) *Taver
 
 // LocalizeCard 本地化卡片
 func (h *TavernHandler) LocalizeCard(w http.ResponseWriter, r *http.Request) {
+	slog.Info("收到本地化请求", "method", r.Method, "url", r.URL.String())
+	
 	var req models.LocalizeCardRequest
 	if err := decodeJSONRequest(r, &req); err != nil {
+		slog.Error("解析本地化请求失败", "error", err)
 		handleAppError(w, err.(*models.AppError))
 		return
 	}
 	
+	slog.Info("本地化请求解析成功", "cardPath", req.CardPath)
+	
 	if !strings.HasPrefix(req.CardPath, h.config.CharactersRootPath) {
+		slog.Error("路径非法", "cardPath", req.CardPath, "rootPath", h.config.CharactersRootPath)
 		writeErrorResponse(w, http.StatusForbidden, "路径非法", nil)
 		return
 	}
@@ -52,17 +58,19 @@ func (h *TavernHandler) LocalizeCard(w http.ResponseWriter, r *http.Request) {
 		h.cacheManager.Set(cardPath, metadata)
 	}
 
+	// 先检查是否支持流式传输
+	flusher, ok := w.(http.Flusher)
+	if !ok {
+		slog.Error("流式传输不支持", "cardPath", cardPath)
+		writeErrorResponse(w, http.StatusInternalServerError, "流式传输不支持", nil)
+		return
+	}
+
 	// 设置SSE头部
 	w.Header().Set("Content-Type", "text/event-stream")
 	w.Header().Set("Cache-Control", "no-cache")
 	w.Header().Set("Connection", "keep-alive")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-
-	flusher, ok := w.(http.Flusher)
-	if !ok {
-		writeErrorResponse(w, http.StatusInternalServerError, "流式传输不支持", nil)
-		return
-	}
 
 	// 发送消息的辅助函数
 	sendMessage := func(msgType, content string) {
@@ -73,6 +81,8 @@ func (h *TavernHandler) LocalizeCard(w http.ResponseWriter, r *http.Request) {
 	sendMessage("info", "开始本地化检查...")
 	slog.Info("开始本地化检查/执行流程", "card", cardPath)
 	
+	// 添加调试信息
+	slog.Info("调用checkLocalizationNeeded", "cardPath", cardPath)
 	needed, err := h.checkLocalizationNeeded(cardPath)
 	if err != nil {
 		slog.Error("本地化检查失败", "card", cardPath, "error", err)
@@ -103,6 +113,22 @@ func (h *TavernHandler) LocalizeCard(w http.ResponseWriter, r *http.Request) {
 
 	slog.Info("本地化过程成功", "card", cardPath)
 	sendMessage("success", "本地化完成！")
+	
+	// 本地化完成后，重新检查状态并更新缓存
+	slog.Info("重新检查本地化状态", "card", cardPath)
+	newNeeded, err := h.checkLocalizationNeeded(cardPath)
+	if err != nil {
+		slog.Warn("重新检查本地化状态失败", "card", cardPath, "error", err)
+	} else {
+		// 更新缓存中的本地化状态
+		metadata, found := h.cacheManager.Get(cardPath)
+		if found {
+			metadata.LocalizationNeeded = &newNeeded
+			h.cacheManager.Set(cardPath, metadata)
+			slog.Info("已更新缓存中的本地化状态", "card", cardPath, "needed", newNeeded)
+		}
+	}
+	
 	sendMessage("complete", "")
 }
 

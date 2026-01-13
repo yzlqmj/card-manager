@@ -13,9 +13,9 @@ type CliConfig struct {
 	ForceProxyList []string `json:"force_proxy_list"`
 }
 
-// LoadCliConfig loads configuration from ./config.json.
+// LoadCliConfig loads configuration from ./localizer/config.json.
 func LoadCliConfig() (*CliConfig, error) {
-	configPath := filepath.Join("config.json")
+	configPath := filepath.Join("localizer", "config.json")
 	file, err := os.ReadFile(configPath)
 	if err != nil {
 		// If the file doesn't exist, return a default empty config.

@@ -4,6 +4,7 @@ import (
 	"card-manager/internal/config"
 	"card-manager/internal/models"
 	"card-manager/internal/pkg/cache"
+	"card-manager/internal/pkg/localization"
 	"card-manager/internal/pkg/png"
 	"card-manager/internal/pkg/tavern"
 	"crypto/sha256"
@@ -231,14 +232,32 @@ func (h *CardsHandler) processCharacterDirectory(itemPath string) *models.Charac
 	var localizationNeeded *bool
 	if metadata.LocalizationNeeded != nil {
 		localizationNeeded = metadata.LocalizationNeeded
+	} else {
+		// 如果缓存中没有本地化状态，进行检查
+		needed, err := h.checkLocalizationNeeded(versions[0].Path)
+		if err != nil {
+			slog.Warn("检查本地化状态失败", "path", versions[0].Path, "error", err)
+			// 如果检查失败，设置为不需要本地化
+			needed = false
+		}
+		localizationNeeded = &needed
+		// 更新缓存
+		metadata.LocalizationNeeded = localizationNeeded
+		h.cacheManager.Set(versions[0].Path, metadata)
 	}
 
 	nameToCheck := versions[0].InternalName
 	if nameToCheck == "" {
 		nameToCheck = characterName
 	}
-	// TODO: 实现isLocalized检查
-	isLocalized := false
+	
+	// 检查是否已经本地化
+	localizationService := localization.NewService(h.config.TavernPublicPath, h.config.NikoPath, h.config.Proxy)
+	isLocalized, err := localizationService.IsLocalized(nameToCheck)
+	if err != nil {
+		slog.Warn("检查本地化完成状态失败", "character", nameToCheck, "error", err)
+		isLocalized = false
+	}
 
 	return &models.Character{
 		Name:               characterName,
@@ -317,4 +336,11 @@ func (h *CardsHandler) getFileHash(filePath string) (string, error) {
 // getInternalCharNameFromPNG 从PNG文件中提取角色数据
 func (h *CardsHandler) getInternalCharNameFromPNG(filePath string) (string, error) {
 	return png.GetInternalCharNameFromPNG(filePath)
+}
+
+// checkLocalizationNeeded 检查是否需要本地化
+func (h *CardsHandler) checkLocalizationNeeded(cardPath string) (bool, error) {
+	// 创建一个临时的本地化服务来检查
+	localizationService := localization.NewService(h.config.TavernPublicPath, h.config.NikoPath, h.config.Proxy)
+	return localizationService.CheckLocalizationNeeded(cardPath)
 }
