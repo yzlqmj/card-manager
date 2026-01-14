@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,32 +8,77 @@
     <link rel="icon" href="ico.ico">
     <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
-    <header>
-        <h1>酒馆角色卡管理器 v6.0</h1>
-        <div class="controls">
-            <button id="theme-toggle-btn">🌙</button>
-            <button id="scan-btn">扫描变更</button>
-            <button id="show-downloader-btn">下载新卡</button>
-            <button id="show-face-downloader-btn">下载卡面</button>
-            <button id="clear-btn">清除列表</button>
-            <button id="show-stats-btn">统计信息</button>
-            <button id="show-log-btn">显示日志</button>
+    <div class="toolbar">
+        <div class="toolbar-left">
+            <!-- Search Group -->
+            <div class="tool-wrapper">
+                <button id="search-toggle-btn" class="icon-btn search-btn" title="搜索">📚</button>
+                <div id="search-popover" class="popover-menu search-popover left-aligned">
+                    <input type="text" id="search-input" class="popover-input" placeholder="输入搜索内容...">
+                </div>
+            </div>
+
+
+
+            <div class="app-title">角色卡管理器</div>
+
+            <!-- Category Select -->
+            <div class="select-wrapper">
+                <select id="category-select-filter" class="toolbar-select stealth-select">
+                    <option value="">全部分类</option>
+                </select>
+            </div>
         </div>
-    </header>
-    <div id="category-filter-container" class="category-filters">
-        <div class="filter-buttons"></div>
-        <div class="filter-toggle">
-            <label for="show-unimported-only" class="toggle-switch-label">未导入</label>
-            <label class="switch">
-                <input type="checkbox" id="show-unimported-only">
-                <span class="slider round"></span>
-            </label>
-            <label for="show-not-localized-only" class="toggle-switch-label" style="margin-left: 20px;">本地化</label>
-            <label class="switch">
-                <input type="checkbox" id="show-not-localized-only">
-                <span class="slider round"></span>
-            </label>
+
+        <div class="toolbar-right">
+            <!-- Unified Action Group (Uniform Spacing) -->
+            <div class="action-group">
+                <button id="scan-btn" class="icon-btn" title="扫描变更">
+                    🔄 <span class="btn-text">扫描</span>
+                </button>
+                <button id="show-downloader-btn" class="icon-btn" title="下载新卡">
+                    ⬇️ <span class="btn-text">下载</span>
+                </button>
+                <button id="show-face-downloader-btn" class="icon-btn" title="下载卡面">
+                    🖼️ <span class="btn-text">卡面</span>
+                </button>
+                <button id="clear-btn" class="icon-btn danger" title="清除列表">
+                    🗑️ <span class="btn-text">清除</span>
+                </button>
+                <button id="show-stats-btn" class="icon-btn" title="统计信息">
+                    📊 <span class="btn-text">统计</span>
+                </button>
+                <button id="show-log-btn" class="icon-btn" title="显示日志">
+                    📝 <span class="btn-text">日志</span>
+                </button>
+
+                <!-- Filter (Inside Action Group for spacing) -->
+                <div class="tool-wrapper">
+                    <button id="filter-toggle-btn" class="icon-btn" title="筛选设置">
+                        ⚙️ <span class="btn-text">筛选</span>
+                    </button>
+                    <div id="filter-popover" class="popover-menu filter-menu">
+                        <label class="menu-item">
+                            <input type="checkbox" id="show-unimported-only">
+                            <span>📥 未导入</span>
+                        </label>
+                        <label class="menu-item">
+                            <input type="checkbox" id="show-update-needed-only">
+                            <span>⚠️ 需更新</span>
+                        </label>
+                        <label class="menu-item">
+                            <input type="checkbox" id="show-not-localized-only">
+                            <span>🌐 本地化</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button id="theme-toggle-btn" class="icon-btn" title="切换主题">
+                    🌙 <span class="btn-text">主题</span>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -41,24 +87,45 @@
 
     <div id="downloader-modal" class="modal">
         <div class="modal-content">
-            <div class="modal-header"><h2>角色卡下载器</h2><span class="close-btn" onclick="closeModal('downloader-modal')">×</span></div>
-            <div class="modal-body"><div id="downloader-form" class="form-grid"><input type="text" id="download-url" placeholder="粘贴图片链接..." class="full-width"><input type="text" id="character-name" list="character-list" placeholder="角色/文件夹名 (必填)"><datalist id="character-list"></datalist><input type="text" id="file-name" placeholder="文件名 (可选)"><select id="category-select"></select><input type="text" id="new-category" placeholder="或, 输入新分类名"></div></div>
-            <div class="modal-footer"><button id="download-btn" style="background-color: var(--success-color);">下载</button></div>
+            <div class="modal-header">
+                <h2>角色卡下载器</h2><span class="close-btn" onclick="closeModal('downloader-modal')">×</span>
+            </div>
+            <div class="modal-body">
+                <div id="downloader-form" class="form-grid"><input type="text" id="download-url" placeholder="粘贴图片链接..."
+                        class="full-width"><input type="text" id="character-name" list="character-list"
+                        placeholder="角色/文件夹名 (必填)"><datalist id="character-list"></datalist><input type="text"
+                        id="file-name" placeholder="文件名 (可选)"><select id="category-select"></select><input type="text"
+                        id="new-category" placeholder="或, 输入新分类名"></div>
+            </div>
+            <div class="modal-footer"><button id="download-btn"
+                    style="background-color: var(--success-color);">下载</button></div>
         </div>
     </div>
 
     <div id="details-modal" class="modal">
         <div class="modal-content">
-            <div class="modal-header"><h2 id="details-title"></h2><span class="close-btn" onclick="closeModal('details-modal')">×</span></div>
+            <div class="modal-header">
+                <h2 id="details-title"></h2><span class="close-btn" onclick="closeModal('details-modal')">×</span>
+            </div>
             <div class="modal-body details-grid">
                 <div id="details-preview"><img id="details-preview-img" src="" alt="预览图"></div>
                 <div id="details-info">
-                    <h4>版本列表</h4><ul id="details-version-list" class="version-list"></ul>
-                    <div style="margin-top: 24px;"><h4>移动到其他分类</h4><div class="form-grid" style="grid-template-columns: 2fr 1fr; align-items: center;"><select id="details-category-select"></select><button id="details-move-btn" class="styled-btn primary">确认移动</button></div></div>
-                    <div style="margin-top: 16px;"><h4>操作</h4><div id="details-actions" class="actions-grid"></div></div>
+                    <h4>版本列表</h4>
+                    <ul id="details-version-list" class="version-list"></ul>
+                    <div style="margin-top: 24px;">
+                        <h4>移动到其他分类</h4>
+                        <div class="form-grid" style="grid-template-columns: 2fr 1fr; align-items: center;"><select
+                                id="details-category-select"></select><button id="details-move-btn"
+                                class="styled-btn primary">确认移动</button></div>
+                    </div>
+                    <div style="margin-top: 16px;">
+                        <h4>操作</h4>
+                        <div id="details-actions" class="actions-grid"></div>
+                    </div>
                 </div>
             </div>
-            <div id="face-grid-container" class="modal-body" style="display: none; border-top: 1px solid var(--border-color); padding-top: 24px;">
+            <div id="face-grid-container" class="modal-body"
+                style="display: none; border-top: 1px solid var(--border-color); padding-top: 24px;">
                 <h3 style="margin-top: 0; margin-bottom: 16px;">卡面一览</h3>
                 <div id="face-grid" class="face-grid-view"></div>
             </div>
@@ -72,7 +139,8 @@
                 <span class="close-btn" onclick="closeModal('organize-modal')">×</span>
             </div>
             <div class="modal-body">
-                <img id="organize-preview-img" src="" alt="预览图" style="width: 100%; max-height: 300px; object-fit: contain; border-radius: var(--radius); margin-bottom: 16px;">
+                <img id="organize-preview-img" src="" alt="预览图"
+                    style="width: 100%; max-height: 300px; object-fit: contain; border-radius: var(--radius); margin-bottom: 16px;">
                 <div class="form-grid" style="grid-template-columns: 1fr;">
                     <input type="text" id="organize-char-name" placeholder="角色/文件夹名 (必填)">
                     <select id="organize-category-select"></select>
@@ -82,7 +150,8 @@
             <div class="modal-footer" style="display: flex; justify-content: space-between;">
                 <button id="organize-delete-btn" style="background-color: var(--danger-color);">删除此卡</button>
                 <div>
-                    <button id="organize-move-btn" style="background-color: var(--primary-color); margin-right: 10px;">归档</button>
+                    <button id="organize-move-btn"
+                        style="background-color: var(--primary-color); margin-right: 10px;">归档</button>
                 </div>
             </div>
         </div>
@@ -186,7 +255,23 @@
         </div>
     </div>
 
-<script src="/js/showdown.min.js"></script>
-<script src="/js/main.js"></script>
+    <div id="custom-confirm-modal" class="modal" style="z-index: 2000;">
+        <div class="modal-content" style="max-width: 400px; margin-top: 15%;">
+            <div class="modal-header">
+                <h2 id="confirm-title">确认</h2>
+            </div>
+            <div class="modal-body">
+                <p id="confirm-message">确定要执行此操作吗？</p>
+            </div>
+            <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 10px;">
+                <button id="confirm-cancel-btn" class="styled-btn">取消</button>
+                <button id="confirm-ok-btn" class="styled-btn danger">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/showdown.min.js"></script>
+    <script src="/js/main.js"></script>
 </body>
+
 </html>

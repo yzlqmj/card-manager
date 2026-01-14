@@ -8,9 +8,13 @@ const themeToggleBtn = document.getElementById('theme-toggle-btn'); // 主题切
 const showFaceDownloaderBtn = document.getElementById('show-face-downloader-btn');
 const container = document.getElementById('card-container'); // 卡片容器
 const strayContainer = document.getElementById('stray-cards-container'); // 待整理卡片容器
-const categorySelect = document.getElementById('category-select'); // 分类选择下拉框
-const faceCharInput = document.getElementById('face-char-input');
-const faceCharDatalist = document.getElementById('face-char-datalist');
+const categorySelectFilter = document.getElementById('category-select-filter'); // Filter Select
+const searchToggleBtn = document.getElementById('search-toggle-btn');
+const searchPopover = document.getElementById('search-popover');
+const searchInput = document.getElementById('search-input');
+const filterToggleBtn = document.getElementById('filter-toggle-btn');
+const filterPopover = document.getElementById('filter-popover');
+const showUpdateNeededOnlyCheckbox = document.getElementById('show-update-needed-only');
 const startListenClipboardBtn = document.getElementById('start-listen-clipboard-btn');
 const stopListenClipboardBtn = document.getElementById('stop-listen-clipboard-btn');
 const faceDownloadLog = document.getElementById('face-download-log');
@@ -47,37 +51,66 @@ function showToast(message, type = 'info') {
     }, 5000); // 5 秒后自动隐藏
 }
 
+function showCustomConfirm(title, message, onConfirm) {
+    const modal = document.getElementById('custom-confirm-modal');
+    const titleEl = document.getElementById('confirm-title');
+    const messageEl = document.getElementById('confirm-message');
+    const okBtn = document.getElementById('confirm-ok-btn');
+    const cancelBtn = document.getElementById('confirm-cancel-btn');
+
+    titleEl.textContent = title;
+    messageEl.textContent = message;
+
+    // Removing old event listeners (cloning is a simple way to do this)
+    const newOkBtn = okBtn.cloneNode(true);
+    const newCancelBtn = cancelBtn.cloneNode(true);
+    okBtn.parentNode.replaceChild(newOkBtn, okBtn);
+    cancelBtn.parentNode.replaceChild(newCancelBtn, cancelBtn);
+
+    newOkBtn.onclick = () => {
+        onConfirm();
+        closeModal('custom-confirm-modal');
+    };
+
+    newCancelBtn.onclick = () => {
+        closeModal('custom-confirm-modal');
+    };
+
+    openModal('custom-confirm-modal');
+}
+
 function applyTheme(theme) {
-    if (theme === 'dark') { 
+    if (theme === 'dark') {
         document.body.classList.add('dark-theme'); // 应用深色主题
         themeToggleBtn.textContent = '☀️'; // 设置按钮图标
-    } else { 
+    } else {
         document.body.classList.remove('dark-theme'); // 应用浅色主题
         themeToggleBtn.textContent = '🌙'; // 设置按钮图标
     }
 }
-themeToggleBtn.addEventListener('click', () => { 
+themeToggleBtn.addEventListener('click', () => {
     const newTheme = document.body.classList.contains('dark-theme') ? 'light' : 'dark'; // 切换主题
     localStorage.setItem('theme', newTheme); // 保存主题到本地存储
     applyTheme(newTheme); // 应用新主题
 });
- 
+
 scanBtn.addEventListener('click', scanChanges); // 修改: 绑定到新的扫描函数
 clearBtn.addEventListener('click', async () => {
-    if (!confirm('确定要清除所有本地缓存吗？这将导致下次扫描变慢。')) return; // 确认清除缓存
-    try {
-        const response = await fetch(`${SERVER_URL}/api/clear-cache`, { method: 'POST' }); // 发送清除缓存请求
-        const result = await response.json();
-        if (result.success) {
-            container.innerHTML = ''; // 清空卡片容器
-            strayContainer.innerHTML = ''; // 清空待整理容器
-            logMessage('缓存已成功清除！', 'success'); // 记录成功日志
-        } else {
-            logMessage('清除缓存失败', 'error', result.message); // 记录失败日志
+    showCustomConfirm('清除缓存', '确定要清除所有本地缓存吗？这将导致下次扫描变慢。', async () => {
+        try {
+            const response = await fetch(`${SERVER_URL}/api/clear-cache`, { method: 'POST' }); // 发送清除缓存请求
+            const result = await response.json();
+            if (result.success) {
+                container.innerHTML = ''; // 清空卡片容器
+                strayContainer.innerHTML = ''; // 清空待整理容器
+                logMessage('缓存已成功清除！', 'success'); // 记录成功日志
+            } else {
+                logMessage('清除缓存失败', 'error', result.message); // 记录失败日志
+            }
+        } catch (error) {
+            logMessage('清除缓存请求失败', 'error', error.message); // 记录请求失败日志
         }
-    } catch (error) {
-        logMessage('清除缓存请求失败', 'error', error.message); // 记录请求失败日志
-    }
+    });
 });
 showDownloaderBtn.addEventListener('click', () => {
     // 填充上次使用的值
@@ -160,18 +193,21 @@ versionListElement.addEventListener('click', (event) => {
 
 document.addEventListener('DOMContentLoaded', () => {
     applyTheme(localStorage.getItem('theme') || 'light');
-    
+
     const showUnimportedOnlyCheckbox = document.getElementById('show-unimported-only');
     const showNotLocalizedOnlyCheckbox = document.getElementById('show-not-localized-only');
 
     const savedUnimportedFilter = localStorage.getItem('showUnimportedOnly') === 'true';
     const savedNotLocalizedFilter = localStorage.getItem('showNotLocalizedOnly') === 'true';
+    const savedUpdateNeededFilter = localStorage.getItem('showUpdateNeededOnly') === 'true';
 
     showUnimportedOnlyCheckbox.checked = savedUnimportedFilter;
     showNotLocalizedOnlyCheckbox.checked = savedNotLocalizedFilter;
-    
+    showUpdateNeededOnlyCheckbox.checked = savedUpdateNeededFilter;
+
     currentFilters.showUnimportedOnly = savedUnimportedFilter;
     currentFilters.showNotLocalizedOnly = savedNotLocalizedFilter;
+    currentFilters.showUpdateNeededOnly = savedUpdateNeededFilter;
 
     fetchCards();
 
@@ -185,6 +221,53 @@ document.addEventListener('DOMContentLoaded', () => {
         const isChecked = e.target.checked;
         localStorage.setItem('showNotLocalizedOnly', isChecked);
         applyFilters({ showNotLocalizedOnly: isChecked });
+    });
+
+    showUpdateNeededOnlyCheckbox.addEventListener('change', (e) => {
+        const isChecked = e.target.checked;
+        localStorage.setItem('showUpdateNeededOnly', isChecked);
+        applyFilters({ showUpdateNeededOnly: isChecked });
+    });
+
+    // Popover Management
+    function togglePopover(popover, inputToFocus = null) {
+        const isShown = popover.classList.contains('show');
+        // Close all first
+        document.querySelectorAll('.popover-menu').forEach(p => p.classList.remove('show'));
+        if (!isShown) {
+            popover.classList.add('show');
+            if (inputToFocus) setTimeout(() => inputToFocus.focus(), 50);
+        }
+    }
+
+    searchToggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        togglePopover(searchPopover, searchInput);
+    });
+
+    filterToggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        togglePopover(filterPopover);
+    });
+
+    // Prevent closing when clicking inside popover
+    searchPopover.addEventListener('click', (e) => e.stopPropagation());
+    filterPopover.addEventListener('click', (e) => e.stopPropagation());
+
+    // Close on outside click
+    document.addEventListener('click', () => {
+        document.querySelectorAll('.popover-menu').forEach(p => p.classList.remove('show'));
+    });
+
+    // Search Input Logic
+    searchInput.addEventListener('input', (e) => {
+        applyFilters({ search: e.target.value.toLowerCase() });
+    });
+
+    // Category Select Logic
+    categorySelectFilter.addEventListener('change', (e) => {
+        const value = e.target.value;
+        applyFilters({ category: value || null });
     });
 });
 function openModal(modalId) { document.getElementById(modalId).style.display = 'block'; }
@@ -226,7 +309,7 @@ async function scanChanges() {
 function renderAll(data, filters = {}) {
     allCardsData = {};
     if (data.categories) { Object.values(data.categories).flat().forEach(card => { allCardsData[card.folderPath] = card; }); }
-    
+
     renderCategoryFilters(Object.keys(data.categories || {}), filters.category);
     renderStrayCards(data.strayCards || []);
     renderCategorizedCards(data.categories || {}, filters);
@@ -237,7 +320,9 @@ function renderAll(data, filters = {}) {
 let currentFilters = {
     category: null,
     showUnimportedOnly: false,
-    showNotLocalizedOnly: false
+    showNotLocalizedOnly: false,
+    showUpdateNeededOnly: false,
+    search: ''
 };
 
 function applyFilters(newFilter) {
@@ -249,25 +334,24 @@ function applyFilters(newFilter) {
     if (newFilter && newFilter.showNotLocalizedOnly !== undefined) {
         currentFilters.showNotLocalizedOnly = newFilter.showNotLocalizedOnly;
     }
+    if (newFilter && newFilter.showUpdateNeededOnly !== undefined) {
+        currentFilters.showUpdateNeededOnly = newFilter.showUpdateNeededOnly;
+    }
+    if (newFilter && newFilter.search !== undefined) {
+        currentFilters.search = newFilter.search;
+    }
     renderAll(fullDataset, currentFilters);
 }
 
 function renderCategoryFilters(categoryNames, activeCategory) {
-    const filterContainer = document.querySelector('#category-filter-container .filter-buttons');
-    filterContainer.innerHTML = ''; // Clear only buttons
-
-    const allButton = document.createElement('button');
-    allButton.textContent = '全部';
-    allButton.className = 'filter-btn' + (!activeCategory ? ' active' : '');
-    allButton.onclick = () => applyFilters({ category: null });
-    filterContainer.appendChild(allButton);
+    categorySelectFilter.innerHTML = '<option value="">全部分类</option>';
 
     categoryNames.sort((a, b) => a.localeCompare(b, 'zh-Hans-CN')).forEach(name => {
-        const btn = document.createElement('button');
-        btn.textContent = name;
-        btn.className = 'filter-btn' + (name === activeCategory ? ' active' : '');
-        btn.onclick = () => applyFilters({ category: name });
-        filterContainer.appendChild(btn);
+        const option = document.createElement('option');
+        option.value = name;
+        option.textContent = name;
+        if (name === activeCategory) option.selected = true;
+        categorySelectFilter.appendChild(option);
     });
 }
 
@@ -310,6 +394,18 @@ function renderCategorizedCards(categories, filters = {}) {
         if (filters.showNotLocalizedOnly) {
             filteredCards = filteredCards.filter(card => card.localizationNeeded && !card.isLocalized);
         }
+        if (filters.showUpdateNeededOnly) {
+            filteredCards = filteredCards.filter(card => card.importInfo && card.importInfo.isImported && !card.importInfo.isLatestImported);
+        }
+
+        if (filters.search) {
+            const lowerSearch = filters.search.toLowerCase();
+            filteredCards = filteredCards.filter(card =>
+                card.name.toLowerCase().includes(lowerSearch) ||
+                card.internalName.toLowerCase().includes(lowerSearch) ||
+                card.folderPath.toLowerCase().includes(lowerSearch)
+            );
+        }
 
         if (filteredCards.length === 0) {
             continue;
@@ -340,7 +436,7 @@ function createCardElement(name, path, importInfo, detailsText, key, isClickable
             ? '<span class="tag localized-ok">✓ 已完成本地化</span>'
             : '<span class="tag not-localized">⚠️ 未完成本地化</span>';
     } else if (cardData) {
-        detailsHTML += '<span class="tag localized-ok">✓ 不需要本地化</span>';
+        detailsHTML += '<span class="tag localized-ok" style="background-color: transparent; border: 1px solid var(--border-color); color: var(--text-muted);">✓ 不需要本地化</span>';
     }
 
     cardElement.innerHTML = `<img src="${imageUrl}" alt="${name}" loading="lazy"><div class="card-info"><p class="card-name">${name}</p>${detailsHTML}</div>`;
@@ -350,15 +446,18 @@ function createCardElement(name, path, importInfo, detailsText, key, isClickable
 function updateCategoryDropdown(categoryNames) {
     const sortedCategories = categoryNames.sort((a, b) => a.localeCompare(b, 'zh-Hans-CN'));
     currentCategories = sortedCategories;
-    
+
     // 更新主下载器
-    categorySelect.innerHTML = '<option value="">选择一个现有分类</option>';
-    sortedCategories.forEach(cat => {
-        const option = document.createElement('option');
-        option.value = cat;
-        option.textContent = cat;
-        categorySelect.appendChild(option);
-    });
+    const downloadCategorySelect = document.getElementById('category-select');
+    if (downloadCategorySelect) {
+        downloadCategorySelect.innerHTML = '<option value="">选择一个现有分类</option>';
+        sortedCategories.forEach(cat => {
+            const option = document.createElement('option');
+            option.value = cat;
+            option.textContent = cat;
+            downloadCategorySelect.appendChild(option);
+        });
+    }
 
     // 更新整理弹窗
     const organizeCategorySelect = document.getElementById('organize-category-select');
@@ -581,9 +680,9 @@ async function handleOpenFolder(folderPath) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ folderPath })
         });
-        
+
         const result = await response.json();
-        
+
         if (result.success) {
             logMessage(result.message || '文件夹已打开', 'success');
         } else {
@@ -597,38 +696,40 @@ async function handleOpenFolder(folderPath) {
 
 async function handleDeleteVersion(filePath) {
     const fileName = filePath.substring(filePath.lastIndexOf(/[\\\/]/) + 1);
-    if (!confirm(`确定要删除文件: ${fileName} 吗？\n此操作不可恢复！`)) return;
-    try {
-        const response = await fetch(`${SERVER_URL}/api/delete-version`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ filePath }) });
-        const result = await response.json();
-        
-        if (result.success) {
-            logMessage(result.message || '删除成功', 'success');
-            closeModal('details-modal');
-            fetchCards();
-        } else {
-            logMessage(result.error || '删除失败', 'error');
-        }
-    } catch (error) { logMessage('删除版本请求失败', 'error', error.message); }
+    showCustomConfirm('删除文件', `确定要删除文件: ${fileName} 吗？\n此操作不可恢复！`, async () => {
+        try {
+            const response = await fetch(`${SERVER_URL}/api/delete-version`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ filePath }) });
+            const result = await response.json();
+
+            if (result.success) {
+                logMessage(result.message || '删除成功', 'success');
+                closeModal('details-modal');
+                fetchCards();
+            } else {
+                logMessage(result.error || '删除失败', 'error');
+            }
+        } catch (error) { logMessage('删除版本请求失败', 'error', error.message); }
+    });
 }
 
 async function handleMove(oldFolderPath) {
     const newCategory = document.getElementById('details-category-select').value;
-    if (!newCategory) { alert('请选择一个目标分类！'); return; }
+    if (!newCategory) { showToast('请选择一个目标分类！', 'error'); return; }
     const characterName = oldFolderPath.substring(oldFolderPath.lastIndexOf(/[\\\/]/) + 1);
-    if (!confirm(`确定要将角色 '${characterName}' 移动到分类 '${newCategory}' 吗？`)) return;
-    try {
-        const response = await fetch(`${SERVER_URL}/api/move-character`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ oldFolderPath, newCategory }) });
-        const result = await response.json();
-        
-        if (result.success) {
-            logMessage(result.message || '移动成功', 'success');
-            closeModal('details-modal');
-            fetchCards();
-        } else {
-            logMessage(result.error || '移动失败', 'error');
-        }
-    } catch (error) { logMessage('移动角色请求失败', 'error', error.message); }
+    showCustomConfirm('移动分类', `确定要将角色 '${characterName}' 移动到分类 '${newCategory}' 吗？`, async () => {
+        try {
+            const response = await fetch(`${SERVER_URL}/api/move-character`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ oldFolderPath, newCategory }) });
+            const result = await response.json();
+
+            if (result.success) {
+                logMessage(result.message || '移动成功', 'success');
+                closeModal('details-modal');
+                fetchCards();
+            } else {
+                logMessage(result.error || '移动失败', 'error');
+            }
+        } catch (error) { logMessage('移动角色请求失败', 'error', error.message); }
+    });
 }
 
 async function handleDownload() {
@@ -690,7 +791,7 @@ function handleOrganize(strayPath) {
         try {
             const response = await fetch(`${SERVER_URL}/api/organize-stray`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ strayPath, category, characterName }) });
             const result = await response.json();
-            
+
             if (result.success) {
                 logMessage(result.message || '整理成功', 'success');
                 closeModal('organize-modal');
@@ -703,23 +804,24 @@ function handleOrganize(strayPath) {
         }
     };
 
-    deleteBtn.onclick = async () => {
+    deleteBtn.onclick = () => {
         const fileName = strayPath.substring(strayPath.lastIndexOf(/[\\\/]/) + 1);
-        if (!confirm(`确定要永久删除待整理文件: ${fileName} 吗？\n此操作不可恢复！`)) return;
-         try {
-            const response = await fetch(`${SERVER_URL}/api/delete-stray`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ filePath: strayPath }) });
-            const result = await response.json();
-            
-            if (result.success) {
-                logMessage(result.message || '删除成功', 'success');
-                closeModal('organize-modal');
-                fetchCards();
-            } else {
-                logMessage(result.error || '删除失败', 'error');
+        showCustomConfirm('删除文件', `确定要永久删除待整理文件: ${fileName} 吗？\n此操作不可恢复！`, async () => {
+            try {
+                const response = await fetch(`${SERVER_URL}/api/delete-stray`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ filePath: strayPath }) });
+                const result = await response.json();
+
+                if (result.success) {
+                    logMessage(result.message || '删除成功', 'success');
+                    closeModal('organize-modal');
+                    fetchCards();
+                } else {
+                    logMessage(result.error || '删除失败', 'error');
+                }
+            } catch (error) {
+                logMessage('删除请求失败', 'error', error.message);
             }
-        } catch (error) {
-            logMessage('删除请求失败', 'error', error.message);
-        }
+        });
     };
 
     openModal('organize-modal');
@@ -775,7 +877,7 @@ function startUrlPolling() {
         if (selectedCharFolder) {
             faceDownloadTarget.folderPath = selectedCharFolder;
         }
-        
+
         // 如果没有目标文件夹，则不执行任何操作
         if (!faceDownloadTarget.folderPath) {
             return;
@@ -811,7 +913,7 @@ function stopUrlPolling() {
 
 async function downloadFaceImage(url, characterFolderPath) {
     logToFaceDownloader(`正在下载卡面: ${url}`);
-    
+
     // 从 characterFolderPath 中提取 category 和 characterName
     // 格式通常是 "Tavern/characters/分类/角色名"
     const pathParts = characterFolderPath.replace(/\\/g, '/').split('/');
@@ -836,7 +938,7 @@ async function downloadFaceImage(url, characterFolderPath) {
                 isFace: true // 添加一个标志，告诉后端这是卡面下载
             })
         });
-        
+
         const result = await response.json();
         if (response.ok) {
             logToFaceDownloader(`下载成功: ${result.message}`);
@@ -894,7 +996,7 @@ async function handleLocalization(cardPath) {
                         try {
                             const data = JSON.parse(line.slice(6));
                             const timestamp = new Date().toLocaleTimeString();
-                            
+
                             switch (data.type) {
                                 case 'links':
                                     logContent.textContent += `\n${data.content}\n`;
@@ -932,7 +1034,7 @@ async function handleLocalization(cardPath) {
                                     fetchCards();
                                     return;
                             }
-                            
+
                             // 自动滚动到底部
                             logContent.scrollTop = logContent.scrollHeight;
                         } catch (e) {
@@ -975,7 +1077,7 @@ async function showFaceViewer(folderPath) {
     try {
         const response = await fetch(`${SERVER_URL}/api/faces?characterFolderPath=${encodeURIComponent(folderPath)}`);
         const result = await response.json();
-        
+
         faceGrid.innerHTML = ''; // 清空加载动画
 
         if (result.success && result.data.faces.length > 0) {
@@ -1027,7 +1129,7 @@ function handleDownloadFace(card) {
 
 // 将清理逻辑移到 closeModal 中
 const originalCloseModal = closeModal;
-closeModal = function(modalId) {
+closeModal = function (modalId) {
     if (modalId === 'face-downloader-modal') {
         stopUrlPolling();
         toggleClipboard(false);
